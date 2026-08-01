@@ -74,6 +74,16 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning className={fontVariables}>
       <head>
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Inline data-URL favicon to avoid missing /favicon.ico 404s on first deploy */}
+        <link
+          rel="icon"
+          href={
+            "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'>" +
+            "%3Crect width='16' height='16' fill='%23100d0a'/%3E" +
+            "%3Ctext x='2' y='12' font-size='10' fill='%23faf8f5'%3EOE%3C/text%3E" +
+            "%3C/svg%3E"
+          }
+        />
       </head>
       <body>
         <a href="#main-content" className="sr-only-focusable">

@@ -10,13 +10,17 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest): NextResponse {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
 
+  // Use a nonce for inline scripts, but allow known external script hosts
+  // (Vercel analytics / speed insights) via host-based allowlisting. We
+  // avoid `strict-dynamic` because several vendor SDKs inject non-nonce'd
+  // <script src=...> tags which would be blocked by strict-dynamic.
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
-    "style-src 'self' 'unsafe-inline'", // Tailwind's runtime + inline theme script require this
+    `script-src 'self' 'nonce-${nonce}' https://*.vercel-insights.com https://*.vercel.app https://*.vercel.co https://*.vercel.com https://*.cloudinary.com`,
+    "style-src 'self' 'unsafe-inline'",
     "img-src 'self' res.cloudinary.com data:",
     "font-src 'self' data:",
-    "connect-src 'self' vitals.vercel-insights.com",
+    "connect-src 'self' vitals.vercel-insights.com https://vitals.vercel-insights.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "object-src 'none'",
