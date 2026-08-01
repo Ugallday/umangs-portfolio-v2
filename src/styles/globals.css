@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@layer base {
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--surface-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Focus is never suppressed. Only the visual affordance is scoped to
+     keyboard use via :focus-visible, per docs/architecture/accessibility-strategy.md */
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* Enforced line-length constraint for long-form content (Journal, Research,
+     Case Studies). This is the CSS half of the Prose primitive documented in
+     Phase 2 — the component wraps this class, it never redefines measure. */
+  .prose-measure {
+    max-width: 65ch;
+  }
+}
+
+@layer utilities {
+  /* Crease: the hairline seam used at fold edges throughout the system. */
+  .crease {
+    box-shadow: var(--crease-shadow);
+  }
+
+  .sr-only-focusable:not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
