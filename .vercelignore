@@ -1,0 +1,15 @@
+node_modules
+.git
+.vscode
+tests
+tests/**
+playwright-report
+coverage
+.env.local
+/.env
+.DS_Store
+.idea
+/dist
+
+# Keep content (MDX) included for builds
+!content/**
