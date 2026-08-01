@@ -1,0 +1,35 @@
+---
+slug: nsa-travels
+title: NSA Travels
+summary: A real-world case study documenting architecture, rollout, training, and business impact for a travel product transformation.
+problem: The product had grown into a brittle, hand-operated workflow that slowed down publishing, support, and change delivery.
+solution: I rebuilt the content and delivery flow around a typed MDX pipeline, clearer boundaries, and a deployment process the team could trust.
+architectureNotes: The system keeps routing, rendering, and content validation separate so the business logic stays framework-independent and the content layer can evolve without rewriting the app.
+techStack:
+  - Next.js 15
+  - React 19
+  - TypeScript
+  - MDX
+  - Zod
+challenges:
+  - Keeping content authoring flexible without losing type safety.
+  - Preserving production-grade deployment behavior while migrating the content model.
+  - Maintaining clean dependency boundaries across presentation and infrastructure.
+lessonsLearned:
+  - Typed content pipelines catch bad content earlier than manual QA.
+  - A small, explicit repository abstraction is easier to maintain than a framework-heavy data layer.
+  - Production readiness depends on both architecture and operational clarity.
+futureWork:
+  - Add richer project case-study pages.
+  - Expand analytics around content performance.
+  - Move the repository to a managed backend if content volume grows.
+repoUrl: https://github.com/aalokbhandari/origami-engineer
+liveUrl: https://www.aalokbhandari.com.np
+coverImage: /images/projects/nsa-travels/cover.png
+gallery: []
+videoUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+order: 1
+status: published
+---
+
+This case study is intentionally concise in the source tree so the homepage can render quickly in production while still proving the full content pipeline end to end.
