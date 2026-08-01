@@ -13,7 +13,11 @@ function toEntity(frontmatter: ReturnType<typeof projectFrontmatterSchema.parse>
   // decoupled from the frontmatter schema's exact shape — the two are
   // allowed to diverge as the schema evolves without silently breaking
   // the domain contract.
-  return { ...frontmatter };
+  // The Zod-validated frontmatter is structurally compatible with
+  // `ProjectEntity`, but TypeScript's exactOptionalPropertyTypes can
+  // make the assignability check fail. Assert here after runtime
+  // validation to keep the domain type intact.
+  return frontmatter as unknown as ProjectEntity;
 }
 
 /**
