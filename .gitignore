@@ -1,0 +1,7 @@
+.next/
+node_modules/
+coverage/
+playwright-report/
+.env.local
+.DS_Store
+*.log
