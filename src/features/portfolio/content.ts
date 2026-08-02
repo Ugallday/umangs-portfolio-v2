@@ -1,7 +1,11 @@
+import type { InstitutionLogoId } from "@/features/portfolio/institution-logos";
+
 export interface TimelineItem {
   readonly year: string;
   readonly title: string;
   readonly body: string;
+  /** Set where an entry belongs to an institution with an official mark. */
+  readonly logo?: InstitutionLogoId;
 }
 
 export interface SemesterCourse {
@@ -51,11 +55,10 @@ export interface ToolkitGroup {
   readonly tools: readonly string[];
 }
 
-export const heroHeadline =
-  "I didn't wait for an internship. I found a business that needed fixing.";
+export const heroHeadline = "Building Software That Solves Real-World Problems";
 
 export const heroSubheadline =
-  "I'm a Nepali BSc CSIT student, and I used my family's business as a live testbed for software that replaces manual work with something steadier, searchable, and easier to trust.";
+  "I am Aalok Bhandari, an undergraduate Software Engineering student pursuing a BSc CSIT at Tribhuvan University, passionate about software engineering, system design, digital transformation, and intelligent systems. Since 2022, I have combined academic learning with hands-on experience by developing software that modernizes business operations, automates manual workflows, and transforms real-world challenges into practical solutions. My goal is to build technology that is reliable, meaningful, and capable of creating lasting impact for people, organizations, and society.";
 
 export const aboutOpeningParagraph =
   "Most of my classmates spent university chasing an internship offer. I spent mine turning my family's travel agency from paper ledgers and Excel sheets into something that actually runs on software — because I wanted to know if I could fix a real, messy, working business, not just study how one works.";
@@ -93,11 +96,13 @@ export const timeline: readonly TimelineItem[] = [
     year: "2020",
     title: "SEE at Siddhartha Banasthali School",
     body: "I completed SEE (SLC) with a GPA of 3.95.",
+    logo: "siddharthaVanasthali",
   },
   {
     year: "2020-2022",
     title: "+2 in Computer Science and Physics at Uniglobe College",
     body: "Class XI GPA 3.70, Class XII GPA 3.55. I served as IT Club Secretary, which gave me my first taste of leadership, coordination, and public speaking.",
+    logo: "uniglobe",
   },
   {
     year: "Mar-Sep 2022",
@@ -108,6 +113,7 @@ export const timeline: readonly TimelineItem[] = [
     year: "2022-present",
     title: "Joined Nepal South Asia International Travels & Tours",
     body: `I started building the company's digital backbone while beginning ${education.bachelor.degree} at ${education.bachelor.college}. At this point the company was just my father and me.`,
+    logo: "nsaTravels",
   },
   {
     year: "2022-present",
@@ -148,6 +154,7 @@ export const timeline: readonly TimelineItem[] = [
     year: "2023-2026",
     title: "University workshops and final-year work",
     body: "UI/UX, WordPress, and Quality Assurance workshops; Advanced Java, Data Warehousing and Data Mining, Software Project Management, Advanced Database, and final-year project work.",
+    logo: "mbmc",
   },
 ] as const;
 

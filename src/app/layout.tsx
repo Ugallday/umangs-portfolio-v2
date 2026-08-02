@@ -40,6 +40,20 @@ export const metadata: Metadata = {
     description: pageMetadata.description,
   },
   robots: { index: true, follow: true },
+  // AB monogram, generated from the site tokens (warm near-black wash, cream
+  // letterforms, amber accent). Listed smallest-first: browsers take the last
+  // format they support, so the SVG wins wherever it is understood.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-48x48.png", type: "image/png", sizes: "48x48" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -74,16 +88,6 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning className={fontVariables}>
       <head>
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        {/* Inline data-URL favicon to avoid missing /favicon.ico 404s on first deploy */}
-        <link
-          rel="icon"
-          href={
-            "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'>" +
-            "%3Crect width='16' height='16' fill='%23100d0a'/%3E" +
-            "%3Ctext x='2' y='12' font-size='10' fill='%23faf8f5'%3EOE%3C/text%3E" +
-            "%3C/svg%3E"
-          }
-        />
       </head>
       <body>
         <a href="#main-content" className="sr-only-focusable">

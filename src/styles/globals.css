@@ -109,11 +109,68 @@
     will-change: transform;
   }
 
+  /* Hero headline typewriter. Every character is already in the DOM at its
+     final position — only opacity animates — so the heading never reflows and
+     the text stays readable to crawlers. See components/motion/typing-headline. */
+  @keyframes type-char-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes type-caret-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    99% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* `forwards` with the default single iteration is what makes this type once
+     and stay typed, rather than loop. */
+  .type-char {
+    opacity: 0;
+    /* 90ms mirrors CHAR_FADE_MS in typing-headline.tsx, which the caret delay
+       is derived from — keep the two in step. */
+    animation: type-char-in 90ms var(--ease-fold) forwards;
+  }
+
+  /* No fill-mode here on purpose: through its delay the caret keeps its own
+     opacity: 0, so it appears exactly as the last character lands. */
+  .type-caret {
+    display: inline-block;
+    width: 0.05em;
+    height: 0.72em;
+    margin-left: 0.08em;
+    vertical-align: baseline;
+    border-radius: 999px;
+    background: var(--accent-default);
+    opacity: 0;
+    animation: type-caret-blink 1.05s steps(1, end) infinite;
+  }
+
   /* --duration-page already collapses to 0ms under reduced motion, but the
      infinite ambient loop needs switching off outright. */
   @media (prefers-reduced-motion: reduce) {
     .page-enter,
     .ambient-drift {
+      animation: none;
+    }
+
+    /* Headline lands complete and the caret stops blinking — no motion, no
+       information lost. */
+    .type-char,
+    .type-caret {
+      opacity: 1;
       animation: none;
     }
   }

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
+import { TypingHeadline } from "@/components/motion/typing-headline";
 import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import {
@@ -31,6 +32,8 @@ import {
 } from "@/features/portfolio/content";
 import portraitImage from "@/assets/portrait.png";
 import { actionClass } from "@/components/ui/action";
+import { InstitutionLogo } from "@/components/ui/institution-logo";
+import { institutionLogos } from "@/features/portfolio/institution-logos";
 import { Pill } from "@/components/ui/pill";
 
 /**
@@ -197,6 +200,12 @@ function TimelineCard({
               {item.title}
             </Heading>
           </div>
+          {item.logo ? (
+            <InstitutionLogo
+              src={institutionLogos[item.logo].src}
+              alt={institutionLogos[item.logo].alt}
+            />
+          ) : null}
           <span className="text-text-muted text-xs tracking-[0.24em] uppercase transition group-open:rotate-180">
             Fold
           </span>
@@ -319,9 +328,10 @@ export function HeroSection(): React.JSX.Element {
               </p>
             </FoldReveal>
             <FoldReveal delayMs={40}>
-              <h1 className="text-text-primary max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.75rem] xl:leading-[0.95]">
-                {heroHeadline}
-              </h1>
+              <TypingHeadline
+                text={heroHeadline}
+                className="text-text-primary max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.75rem] xl:leading-[0.95]"
+              />
             </FoldReveal>
             <FoldReveal delayMs={80}>
               <p className="text-text-secondary max-w-2xl text-lg leading-8 sm:text-xl">
