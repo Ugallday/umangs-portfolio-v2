@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Aalok Bhandari",
   shortName: "Aalok Bhandari",
   description:
-    "Computer science student and systems fixer building practical software for real workflows in Nepal.",
+    "Aalok Bhandari is a BSc CSIT student at Tribhuvan University specializing in software engineering, digital transformation, AI-assisted development, and practical software systems. Explore projects, engineering philosophy, and real-world software built to solve operational challenges.",
   url: "https://www.aalokbhandari.com.np",
   location: "Nepal",
   author: {
@@ -15,6 +15,7 @@ export const siteConfig = {
     { label: "Projects", href: "/projects" },
     { label: "Education", href: "/education" },
     { label: "Skills", href: "/skills" },
+    { label: "Workflow", href: "/workflow" },
     { label: "Philosophy", href: "/philosophy" },
     { label: "Contact", href: "/contact" },
   ],

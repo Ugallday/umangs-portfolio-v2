@@ -10,7 +10,7 @@ import { buildPageMetadata } from "@/core/domain/seo/build-page-metadata";
 import "@/styles/globals.css";
 
 const pageMetadata = buildPageMetadata({
-  title: `${siteConfig.name} — Software Engineering Portfolio`,
+  title: `${siteConfig.name} | Software Engineering Portfolio`,
   description: siteConfig.description,
   path: "/",
   siteUrl: siteConfig.url,
@@ -36,6 +36,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     creator: siteConfig.author.twitter,
+    title: pageMetadata.title,
+    description: pageMetadata.description,
   },
   robots: { index: true, follow: true },
 };

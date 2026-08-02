@@ -8,11 +8,15 @@ import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import {
   aboutOpeningParagraph,
   academicPerformanceSummary,
+  aiAcceleratesSummary,
+  aiWorkflowLead,
+  aiWorkflowStory,
   contactLinks,
   coreStory,
   currentFocus,
   currentStatusSummary,
   curriculum,
+  engineeringJudgmentSummary,
   footerClosingStatement,
   heroHeadline,
   heroSubheadline,
@@ -20,7 +24,10 @@ import {
   philosophy,
   skillGroups,
   timeline,
+  toolkitGroups,
+  toolkitLead,
   trainings,
+  workflowPractices,
 } from "@/features/portfolio/content";
 import portraitImage from "@/assets/portrait.png";
 import { actionClass } from "@/components/ui/action";
@@ -260,6 +267,32 @@ function SemesterCard({
         </div>
       </div>
     </details>
+  );
+}
+
+/**
+ * Same shape as FoldCard, plus the tool pills. Kept separate rather than adding
+ * a `children` escape hatch to FoldCard, which is deliberately a text-only card.
+ */
+function ToolkitCard({
+  group,
+  as: Heading = "h3",
+}: {
+  readonly group: (typeof toolkitGroups)[number];
+  readonly as?: CardHeadingLevel;
+}): React.JSX.Element {
+  return (
+    <article className="fold-panel fold-hover flex h-full flex-col rounded-3xl p-5 sm:p-6">
+      <Heading className="text-text-primary text-lg font-semibold tracking-tight">
+        {group.title}
+      </Heading>
+      <p className="text-text-secondary mt-3 leading-7">{group.note}</p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {group.tools.map((tool) => (
+          <Pill key={tool}>{tool}</Pill>
+        ))}
+      </div>
+    </article>
   );
 }
 
@@ -680,6 +713,81 @@ export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): 
         {skillGroups.map((group) => (
           // `meta` was also group.title, so every group name rendered twice.
           <FoldCard as={sub} key={group.title} title={group.title} body={group.items.join(" • ")} />
+        ))}
+      </div>
+    </SectionShell>
+  );
+}
+
+export function AiWorkflowSection({
+  headingLevel,
+  standalone,
+}: SectionProps = {}): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
+  return (
+    <SectionShell
+      id="workflow"
+      eyebrow="Workflow"
+      title="AI-Augmented Engineering Workflow"
+      description={aiWorkflowLead}
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
+    >
+      <div className="grid gap-5">
+        {aiWorkflowStory.map((paragraph) => (
+          <FoldReveal key={paragraph}>
+            <p className="text-text-secondary max-w-3xl text-base leading-8 sm:text-lg">
+              {paragraph}
+            </p>
+          </FoldReveal>
+        ))}
+      </div>
+      <FoldReveal delayMs={90}>
+        <div className="mt-8">
+          <p className="text-text-muted mb-4 text-xs tracking-[0.24em] uppercase">
+            Where I apply it
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {workflowPractices.map((practice) => (
+              <FoldCard as={sub} key={practice.title} title={practice.title} body={practice.body} />
+            ))}
+          </div>
+        </div>
+      </FoldReveal>
+      <FoldReveal delayMs={100}>
+        <div className="border-border-subtle bg-surface-overlay mt-6 grid gap-4 rounded-3xl border p-5 sm:grid-cols-2 sm:p-6">
+          <div>
+            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+              What AI accelerates
+            </p>
+            <p className="text-text-secondary mt-2 text-sm leading-7">{aiAcceleratesSummary}</p>
+          </div>
+          <div>
+            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">What stays mine</p>
+            <p className="text-text-secondary mt-2 text-sm leading-7">
+              {engineeringJudgmentSummary}
+            </p>
+          </div>
+        </div>
+      </FoldReveal>
+    </SectionShell>
+  );
+}
+
+export function ToolkitSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
+  return (
+    <SectionShell
+      id="toolkit"
+      eyebrow="Toolkit"
+      title="Modern Engineering Toolkit"
+      description={toolkitLead}
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
+    >
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        {toolkitGroups.map((group) => (
+          <ToolkitCard key={group.title} group={group} as={sub} />
         ))}
       </div>
     </SectionShell>
