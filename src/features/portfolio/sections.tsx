@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
@@ -17,6 +18,7 @@ import {
   timeline,
   trainings,
 } from "@/features/portfolio/content";
+import portraitImage from "../../../my photo.png";
 
 function SectionShell({
   eyebrow,
@@ -293,19 +295,15 @@ export function HeroSection(): React.JSX.Element {
                   Placeholder asset
                 </span>
               </div>
-              <div className="border-border-subtle aspect-[4/5] overflow-hidden rounded-[1.75rem] border bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_50%_30%,rgba(217,162,92,0.18),transparent_30%),linear-gradient(180deg,#1b1c20,#0b0b0c)] shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
-                <div className="flex h-full flex-col justify-between p-6">
-                  <div className="border-border-default h-24 w-24 rounded-full border bg-[linear-gradient(180deg,rgba(255,255,255,0.1),transparent)]" />
-                  <div className="space-y-3">
-                    <p className="text-text-muted text-xs tracking-[0.3em] uppercase">
-                      Headshot goes here
-                    </p>
-                    <p className="text-text-secondary max-w-xs text-sm leading-6">
-                      Dark studio portrait with glasses, a dark sweater, and warm rim lighting on
-                      the right side.
-                    </p>
-                  </div>
-                </div>
+              <div className="border-border-subtle relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_50%_30%,rgba(217,162,92,0.18),transparent_30%),linear-gradient(180deg,#1b1c20,#0b0b0c)] shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+                <Image
+                  src={portraitImage}
+                  alt="Aalok Bhandari portrait"
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 34vw, 90vw"
+                  className="object-cover object-center"
+                />
               </div>
               <div className="text-text-secondary grid gap-3 text-sm sm:grid-cols-2">
                 <div className="border-border-subtle bg-surface-overlay rounded-2xl border p-4">
