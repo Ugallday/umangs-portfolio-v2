@@ -13,14 +13,14 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 const STORAGE_KEY = "origami-engineer-theme";
 
 function resolveInitialTheme(): Theme {
-  if (typeof window === "undefined") return "light";
+  if (typeof window === "undefined") return "dark";
   const stored = window.localStorage.getItem(STORAGE_KEY);
   if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return "dark";
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }): React.JSX.Element {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
 
   // Reconciled after mount to avoid a hydration mismatch; the inline script
   // in layout.tsx sets the initial attribute synchronously to prevent flash.

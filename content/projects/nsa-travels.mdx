@@ -1,35 +1,92 @@
 ---
 slug: nsa-travels
 title: NSA Travels
-summary: A real-world case study documenting architecture, rollout, training, and business impact for a travel product transformation.
-problem: The product had grown into a brittle, hand-operated workflow that slowed down publishing, support, and change delivery.
-solution: I rebuilt the content and delivery flow around a typed MDX pipeline, clearer boundaries, and a deployment process the team could trust.
-architectureNotes: The system keeps routing, rendering, and content validation separate so the business logic stays framework-independent and the content layer can evolve without rewriting the app.
+summary: The flagship case study for how a two-person travel agency moved from paper ledgers and scattered spreadsheets to structured digital records, cloud backup, and a calmer workflow.
+phase: case-study
+period: 2022-present
+role: Technology lead and operations support
+organization: Nepal South Asia International Travels & Tours Pvt. Ltd.
 techStack:
-  - Next.js 15
-  - React 19
+  - Next.js
   - TypeScript
   - MDX
   - Zod
-challenges:
-  - Keeping content authoring flexible without losing type safety.
-  - Preserving production-grade deployment behavior while migrating the content model.
-  - Maintaining clean dependency boundaries across presentation and infrastructure.
-lessonsLearned:
-  - Typed content pipelines catch bad content earlier than manual QA.
-  - A small, explicit repository abstraction is easier to maintain than a framework-heavy data layer.
-  - Production readiness depends on both architecture and operational clarity.
-futureWork:
-  - Add richer project case-study pages.
-  - Expand analytics around content performance.
-  - Move the repository to a managed backend if content volume grows.
-repoUrl: https://github.com/aalokbhandari/origami-engineer
-liveUrl: https://www.aalokbhandari.com.np
-coverImage: /images/projects/nsa-travels/cover.png
-gallery: []
-videoUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  - Cloud storage and backup
+links:
+  - label: Company website
+    href: https://nepalsouthasiatravels.com.np
+visual:
+  eyebrow: Flagship case study
+  label: From paper to searchable records
+  description: The internal systems, website, and workflow changes that made the small travel office easier to run.
+sections:
+  - id: hook
+    heading: A two-person travel agency running on paper. Here is what changed.
+    body: >-
+      The portfolio starts here because this is where the real work started. Aalok spent university years inside his family's travel agency, where the records lived in Excel files, paper ledgers, and manual ticket tracking.
+    bullets:
+      - The problem was visible in day-to-day operations, not in a hypothetical spec.
+      - The business needed a system that the small team could actually keep using.
+  - id: background
+    heading: Why this came before internships
+    body: >-
+      Most classmates chased internships. Aalok chose the business closest to him because it gave direct access to a real workflow and the chance to learn by fixing something the family depended on.
+    bullets:
+      - The company started with just Aalok and his father.
+      - The work happened alongside a full CSIT course load.
+  - id: problem
+    heading: The manual state, observed firsthand
+    body: >-
+      Bookkeeping lived in spreadsheets and paper ledgers. Customer and B2B records were scattered. Ticket tracking was manual. There was no centralized backup, so the business had one fragile path for its records.
+    bullets:
+      - No single searchable source of truth.
+      - No cloud backup for documents and records.
+      - Manual coordination slowed the whole office down.
+  - id: what-was-built
+    heading: What Aalok built, in order
+    body: >-
+      The work happened in layers: first the accounting app, then cloud storage and backup, then customer and B2B records, then the company website, and finally process changes that made the whole system easier to trust.
+    bullets:
+      - Custom accounting application replacing Excel and paper.
+      - Cloud storage and backup for company documents and records.
+      - Customer and B2B client database for repeat travelers and corporate accounts.
+      - Company website as the business's digital front door.
+      - Technical support during the move toward IATA accreditation.
+  - id: artifacts
+    heading: Screens and artifacts
+    body: >-
+      This section is intentionally a placeholder for the real screenshots and scans that will make the story concrete once Aalok drops them in.
+    bullets:
+      - Accounting app UI screenshot.
+      - Company website screenshot.
+      - Database schema sketch or workflow diagram.
+      - Office photo or certificate scan.
+  - id: outcome
+    heading: What changed structurally
+    body: >-
+      The team grew from two people to a small structured group with accounts, a manager, operations staff, and Aalok on the technology side. The business now has a functioning digital record-keeping and backup system where previously there was none.
+    bullets:
+      - Paper and scattered files became structured records.
+      - Data moved from a single fragile path to cloud backup.
+      - Corporate accounts and repeat travelers became easier to track.
+  - id: reflection
+    heading: What I learned
+    body: >-
+      The biggest lesson was that internal software has to be boring in the best possible way: searchable, reliable, and easy to keep using without constant explanation.
+    bullets:
+      - Understand the business before writing the code.
+      - Documentation is part of the engineering.
+      - The best internal tool disappears into the workflow.
+  - id: whats-next
+    heading: What comes next
+    body: >-
+      The next step outward from the same instinct is transport records and hospitality booking: other paper-heavy systems in Nepal that can be made more useful without turning them into something unrecognizable.
+    bullets:
+      - Transport management digitization concept.
+      - Nepal hotel booking platform concept.
+      - More careful AI-assisted workflow support where it actually helps.
 order: 1
 status: published
 ---
 
-This case study is intentionally concise in the source tree so the homepage can render quickly in production while still proving the full content pipeline end to end.
+This MDX file is the source of truth for the NSA Travels case study frontmatter.

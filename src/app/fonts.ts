@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Source_Serif_4 } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 /**
  * Font choices map directly onto the tokens declared in
@@ -7,24 +7,20 @@ import { Fraunces, Inter, Source_Serif_4 } from "next/font/google";
  * zero layout shift (size-adjust is computed automatically), which is
  * why this replaces a manual @font-face setup.
  *
- * Fraunces stands in for the "Söhne-like" display face referenced in
- * Phase 2 — a high-contrast, slightly editorial serif with the precision-
- * cut quality the origami brand calls for, and it's freely licensed.
  */
-export const fontSans = Inter({
+export const fontSans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-export const fontDisplay = Fraunces({
+export const fontDisplay = Geist({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  axes: ["opsz", "SOFT", "WONK"],
 });
 
-export const fontSerif = Source_Serif_4({
+export const fontSerif = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",

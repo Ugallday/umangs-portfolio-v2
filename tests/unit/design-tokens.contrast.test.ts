@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  contrastRatio,
-  WCAG_AA_BODY_TEXT_MINIMUM,
-} from "@/core/utils/color-contrast";
+import { contrastRatio, WCAG_AA_BODY_TEXT_MINIMUM } from "@/core/utils/color-contrast";
 
 /**
  * These hex values mirror src/styles/tokens.css primitives. They are
@@ -19,9 +16,9 @@ const lightTheme = {
 };
 
 const darkTheme = {
-  surfaceBase: "#100d0a",
-  textPrimary: "#faf8f5",
-  textSecondary: "#d3c4ae",
+  surfaceBase: "#0a0a0b",
+  textPrimary: "#f2f2f0",
+  textSecondary: "#cac6be",
 };
 
 describe("design token color contrast (WCAG AA)", () => {

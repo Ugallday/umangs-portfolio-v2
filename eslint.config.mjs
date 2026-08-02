@@ -36,6 +36,7 @@ const boundaryElements = [
 ];
 
 const baseConfig = {
+  files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
   ignores: [".next/**", "node_modules/**", "coverage/**", "playwright-report/**"],
   ...js.configs.recommended,
   languageOptions: {
@@ -45,7 +46,12 @@ const baseConfig = {
       tsconfigRootDir: import.meta.dirname,
     },
   },
-  plugins: { "@typescript-eslint": tsPlugin, "@next/next": nextPlugin, "jsx-a11y": jsxA11y, boundaries },
+  plugins: {
+    "@typescript-eslint": tsPlugin,
+    "@next/next": nextPlugin,
+    "jsx-a11y": jsxA11y,
+    boundaries,
+  },
   settings: {
     "boundaries/elements": boundaryElements,
     "boundaries/ignore": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts"],
@@ -61,26 +67,28 @@ const baseConfig = {
       {
         default: "disallow",
         rules: [
-          { from: "app", allow: ["features", "components", "core-application", "core-domain", "config"] },
-          { from: "features", allow: ["components", "core-application", "core-domain", "core-contracts", "core-infrastructure", "core-utils", "config"] },
+          {
+            from: "app",
+            allow: ["features", "components", "core-application", "core-domain", "config"],
+          },
+          {
+            from: "features",
+            allow: [
+              "components",
+              "core-application",
+              "core-domain",
+              "core-contracts",
+              "core-infrastructure",
+              "core-utils",
+              "config",
+            ],
+          },
           { from: "components", allow: ["components", "core-utils", "config"] },
           { from: "core-application", allow: ["core-domain", "core-contracts"] },
           { from: "core-infrastructure", allow: ["core-domain", "core-contracts", "core-utils"] },
           { from: "core-domain", allow: [] },
           { from: "core-contracts", allow: ["core-domain"] },
           { from: "core-utils", allow: [] },
-        ],
-      },
-    ],
-
-    // core/* must never depend on React or Next — this is what keeps it
-    // genuinely extractable into a future package.
-    "no-restricted-imports": [
-      "error",
-      {
-        paths: [
-          { name: "react", message: "core/ must remain framework-independent. React belongs in components/ or features/." },
-          { name: "next", message: "core/ must remain framework-independent." },
         ],
       },
     ],
@@ -94,11 +102,16 @@ const baseConfig = {
 const coreOnlyConfig = {
   files: ["src/core/**/*.ts"],
   rules: {
+    // core/* must never depend on React or Next — this is what keeps it
+    // genuinely extractable into a future package.
     "no-restricted-imports": [
       "error",
       {
         patterns: [
-          { group: ["react", "react-dom", "next", "next/*"], message: "core/ must stay framework-independent." },
+          {
+            group: ["react", "react-dom", "next", "next/*"],
+            message: "core/ must stay framework-independent.",
+          },
         ],
       },
     ],

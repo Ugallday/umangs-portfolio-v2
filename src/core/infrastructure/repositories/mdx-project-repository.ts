@@ -9,14 +9,6 @@ import { projectFrontmatterSchema } from "@/core/infrastructure/mdx/schemas/proj
 const CONTENT_DIR = path.join(process.cwd(), "content", "projects");
 
 function toEntity(frontmatter: ReturnType<typeof projectFrontmatterSchema.parse>): ProjectEntity {
-  // Explicit mapping (rather than a type cast) keeps the domain entity
-  // decoupled from the frontmatter schema's exact shape — the two are
-  // allowed to diverge as the schema evolves without silently breaking
-  // the domain contract.
-  // The Zod-validated frontmatter is structurally compatible with
-  // `ProjectEntity`, but TypeScript's exactOptionalPropertyTypes can
-  // make the assignability check fail. Assert here after runtime
-  // validation to keep the domain type intact.
   return frontmatter as unknown as ProjectEntity;
 }
 

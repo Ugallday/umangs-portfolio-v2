@@ -7,11 +7,15 @@
   }
 
   html {
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   html[data-theme="dark"] {
     color-scheme: dark;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
   }
 
   body {
@@ -19,6 +23,10 @@
     color: var(--text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at top left, rgba(217, 162, 92, 0.08), transparent 24%),
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.04), transparent 18%);
+    background-attachment: fixed;
   }
 
   /* Focus is never suppressed. Only the visual affordance is scoped to
@@ -40,6 +48,30 @@
   /* Crease: the hairline seam used at fold edges throughout the system. */
   .crease {
     box-shadow: var(--crease-shadow);
+  }
+
+  .fold-panel {
+    border: 1px solid var(--border-subtle);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--surface-raised) 96%, white 4%),
+      var(--surface-raised)
+    );
+    box-shadow: var(--elevation-1-shadow);
+  }
+
+  .fold-hover {
+    transition:
+      transform var(--duration-fold) var(--ease-fold),
+      border-color var(--duration-fold) var(--ease-fold),
+      box-shadow var(--duration-fold) var(--ease-fold);
+    transform-origin: top center;
+  }
+
+  .fold-hover:hover {
+    transform: translateY(-2px) rotateX(2deg);
+    border-color: var(--border-default);
+    box-shadow: var(--elevation-2-shadow);
   }
 
   .sr-only-focusable:not(:focus) {

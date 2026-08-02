@@ -13,7 +13,6 @@ import type {
  */
 export class ConsoleErrorTrackerService implements ErrorTrackerContract {
   captureException(error: Error, context?: ErrorContext): void {
-    // eslint-disable-next-line no-console -- this IS the reporting boundary
     console.error("[error-tracker]", error.message, { stack: error.stack, ...context });
   }
 }

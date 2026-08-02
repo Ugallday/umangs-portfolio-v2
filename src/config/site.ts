@@ -1,25 +1,26 @@
 export const siteConfig = {
-  name: "The Origami Engineer",
-  shortName: "Origami Engineer",
+  name: "Aalok Bhandari",
+  shortName: "Aalok Bhandari",
   description:
-    "An engineering portfolio platform documenting software architecture, case studies, and research — not a brochure.",
+    "Computer science student and systems fixer building practical software for real workflows in Nepal.",
   url: "https://theorigamiengineer.dev",
   author: {
-    name: "Aalok",
-    twitter: "@your_handle",
+    name: "Aalok Bhandari",
+    twitter: "@alokbndry10",
   },
   nav: [
-    { label: "Case Studies", href: "/case-studies" },
-    { label: "Projects", href: "/projects" },
-    { label: "Research", href: "/research" },
-    { label: "Journal", href: "/journal" },
-    { label: "Engineering", href: "/engineering" },
-    { label: "About", href: "/about" },
+    { label: "About", href: "/#about" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Projects", href: "/#projects" },
+    { label: "Education", href: "/#education" },
+    { label: "Skills", href: "/#skills" },
+    { label: "Philosophy", href: "/#philosophy" },
+    { label: "Contact", href: "/#contact" },
   ],
   socials: {
-    github: "https://github.com/your-handle",
-    linkedin: "https://linkedin.com/in/your-handle",
-    email: "hello@theorigamiengineer.dev",
+    github: "https://github.com/aalokbhandari",
+    linkedin: "https://www.linkedin.com/in/alokbndry10/",
+    email: "aalokbhandari@example.com",
   },
 } as const;
 

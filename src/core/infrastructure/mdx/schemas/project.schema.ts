@@ -1,21 +1,35 @@
 import { z } from "zod";
 
+const projectLinkSchema = z.object({
+  label: z.string().min(1),
+  href: z.string().min(1),
+});
+
+const projectSectionSchema = z.object({
+  id: z.string().min(1),
+  heading: z.string().min(1),
+  body: z.string().min(1),
+  bullets: z.array(z.string()).default([]),
+});
+
+const projectVisualSchema = z.object({
+  eyebrow: z.string().min(1),
+  label: z.string().min(1),
+  description: z.string().min(1),
+});
+
 export const projectFrontmatterSchema = z.object({
   slug: z.string().min(1),
   title: z.string().min(1),
   summary: z.string().min(1).max(280),
-  problem: z.string().min(1),
-  solution: z.string().min(1),
-  architectureNotes: z.string().min(1),
+  phase: z.enum(["case-study", "in-progress", "concept", "academic"]),
+  period: z.string().min(1),
+  role: z.string().min(1),
+  organization: z.string().min(1),
   techStack: z.array(z.string()).min(1),
-  challenges: z.array(z.string()).default([]),
-  lessonsLearned: z.array(z.string()).default([]),
-  futureWork: z.array(z.string()).default([]),
-  repoUrl: z.string().url().optional(),
-  liveUrl: z.string().url().optional(),
-  coverImage: z.string().min(1),
-  gallery: z.array(z.string()).default([]),
-  videoUrl: z.string().url().optional(),
+  links: z.array(projectLinkSchema).default([]),
+  visual: projectVisualSchema,
+  sections: z.array(projectSectionSchema).min(1),
   order: z.number().int().nonnegative(),
   status: z.enum(["draft", "published"]),
 });

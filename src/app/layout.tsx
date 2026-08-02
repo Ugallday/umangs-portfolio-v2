@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#faf8f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#100d0a" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
   ],
 };
 
@@ -55,9 +55,7 @@ const themeInitScript = `
 (function() {
   try {
     var stored = localStorage.getItem("origami-engineer-theme");
-    var theme = stored === "light" || stored === "dark"
-      ? stored
-      : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var theme = stored === "light" || stored === "dark" ? stored : "dark";
     document.documentElement.dataset.theme = theme;
   } catch (e) {}
 })();
