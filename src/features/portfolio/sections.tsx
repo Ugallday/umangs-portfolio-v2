@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Github, Linkedin } from "lucide-react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
@@ -35,6 +36,7 @@ import { actionClass } from "@/components/ui/action";
 import { InstitutionLogo } from "@/components/ui/institution-logo";
 import { institutionLogos } from "@/features/portfolio/institution-logos";
 import { Pill } from "@/components/ui/pill";
+import { SocialLink } from "@/components/ui/social-link";
 
 /**
  * Sections render both as part of a page and as the sole content of their own
@@ -305,6 +307,32 @@ function ToolkitCard({
   );
 }
 
+/**
+ * Adds an accent bloom to the shared SocialLink treatment. Applied only in the
+ * hero card, where the icons sit against the card's own gradient and need a
+ * little more lift than the footer row does — the footer keeps the plain
+ * scale-and-border hover it already had.
+ */
+const socialGlowClass =
+  "hover:shadow-[0_0_18px_-4px_color-mix(in_srgb,var(--accent-default)_55%,transparent)] " +
+  "focus-visible:shadow-[0_0_18px_-4px_color-mix(in_srgb,var(--accent-default)_55%,transparent)]";
+
+/** Matches the footer's icon sizing so the two placements read as one system. */
+const HERO_SOCIAL_ICON = "h-[18px] w-[18px]";
+
+const heroSocials = [
+  {
+    label: "GitHub",
+    href: siteConfig.socials.github,
+    icon: <Github className={HERO_SOCIAL_ICON} aria-hidden="true" />,
+  },
+  {
+    label: "LinkedIn",
+    href: siteConfig.socials.linkedin,
+    icon: <Linkedin className={HERO_SOCIAL_ICON} aria-hidden="true" />,
+  },
+] as const;
+
 export function HeroSection(): React.JSX.Element {
   return (
     <section className="border-border-subtle relative overflow-hidden border-b">
@@ -313,7 +341,10 @@ export function HeroSection(): React.JSX.Element {
         aria-hidden="true"
         className="ambient-drift absolute -inset-[6%] -z-10 bg-[radial-gradient(circle_at_top_left,rgba(217,162,92,0.16),transparent_26%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_24%)]"
       />
-      <div className="mx-auto grid min-h-[100svh] w-full max-w-7xl gap-12 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-end">
+      {/* items-center, not items-end: bottom-aligning two columns of different
+          heights left the shorter one hanging off the baseline. Centring them
+          balances the pair without touching either column's own spacing. */}
+      <div className="mx-auto grid min-h-[100svh] w-full max-w-7xl gap-12 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-center">
         <div className="flex flex-col justify-between gap-10 pt-6 pb-8 xl:pt-12 xl:pb-14">
           {/* A meta row, not a banner — a second <header> here muddies the
               landmark structure alongside the real site header. */}
@@ -390,24 +421,17 @@ export function HeroSection(): React.JSX.Element {
                 />
               </div>
               <div className="text-text-secondary grid gap-3 text-sm sm:grid-cols-2">
-                <div className="border-border-subtle bg-surface-overlay rounded-2xl border p-4">
-                  <p className="text-text-muted text-xs tracking-[0.24em] uppercase">GitHub</p>
-                  <a
-                    href={siteConfig.socials.github}
-                    className="text-text-primary decoration-border-strong mt-2 block break-all underline decoration-1 underline-offset-4"
+                {heroSocials.map(({ label, href, icon }) => (
+                  <div
+                    key={label}
+                    className="border-border-subtle bg-surface-overlay flex items-center justify-between gap-3 rounded-2xl border p-4"
                   >
-                    {siteConfig.socials.github}
-                  </a>
-                </div>
-                <div className="border-border-subtle bg-surface-overlay rounded-2xl border p-4">
-                  <p className="text-text-muted text-xs tracking-[0.24em] uppercase">LinkedIn</p>
-                  <a
-                    href={siteConfig.socials.linkedin}
-                    className="text-text-primary decoration-border-strong mt-2 block break-all underline decoration-1 underline-offset-4"
-                  >
-                    {siteConfig.socials.linkedin}
-                  </a>
-                </div>
+                    <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{label}</p>
+                    <SocialLink href={href} label={label} className={socialGlowClass}>
+                      {icon}
+                    </SocialLink>
+                  </div>
+                ))}
               </div>
             </div>
           </aside>

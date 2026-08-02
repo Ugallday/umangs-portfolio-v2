@@ -109,18 +109,12 @@
     will-change: transform;
   }
 
-  /* Hero headline typewriter. Every character is already in the DOM at its
-     final position — only opacity animates — so the heading never reflows and
-     the text stays readable to crawlers. See components/motion/typing-headline. */
-  @keyframes type-char-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  /* Hero headline caret. The reveal itself is driven from JS (see
+     components/motion/typing-headline) — this is only the caret.
 
+     The bar is painted by ::after on a zero-width inline element, so moving the
+     caret from character to character as the text types adds no width anywhere
+     and can never nudge a word onto the next line mid-animation. */
   @keyframes type-caret-blink {
     0%,
     49% {
@@ -135,27 +129,37 @@
     }
   }
 
-  /* `forwards` with the default single iteration is what makes this type once
-     and stay typed, rather than loop. */
-  .type-char {
-    opacity: 0;
-    /* 90ms mirrors CHAR_FADE_MS in typing-headline.tsx, which the caret delay
-       is derived from — keep the two in step. */
-    animation: type-char-in 90ms var(--ease-fold) forwards;
+  @keyframes type-caret-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
 
-  /* No fill-mode here on purpose: through its delay the caret keeps its own
-     opacity: 0, so it appears exactly as the last character lands. */
   .type-caret {
+    position: relative;
     display: inline-block;
+    width: 0;
+  }
+
+  .type-caret::after {
+    content: "";
+    position: absolute;
+    bottom: 0.08em;
+    left: 0.06em;
     width: 0.05em;
     height: 0.72em;
-    margin-left: 0.08em;
-    vertical-align: baseline;
     border-radius: 999px;
     background: var(--accent-default);
-    opacity: 0;
-    animation: type-caret-blink 1.05s steps(1, end) infinite;
+    animation: type-caret-blink 1s steps(1, end) infinite;
+  }
+
+  /* Typing finished: the blink is replaced by a single fade-out, so the caret
+     stops rather than sitting on the heading forever. */
+  .type-caret[data-done="true"]::after {
+    animation: type-caret-out 360ms ease forwards;
   }
 
   /* --duration-page already collapses to 0ms under reduced motion, but the
@@ -166,12 +170,11 @@
       animation: none;
     }
 
-    /* Headline lands complete and the caret stops blinking — no motion, no
-       information lost. */
-    .type-char,
-    .type-caret {
-      opacity: 1;
+    /* The headline lands complete (the component skips the run outright) and
+       the caret is never painted — no motion, no information lost. */
+    .type-caret::after {
       animation: none;
+      opacity: 0;
     }
   }
 

@@ -1,3 +1,5 @@
+import { cn } from "@/core/utils/cn";
+
 /**
  * Icon-only external link with an accessible name and a tooltip that appears on
  * hover *and* keyboard focus — a `title` attribute would only cover hover, so
@@ -5,15 +7,21 @@
  *
  * Focus styling is deliberately not defined here: globals.css applies a
  * :focus-visible outline to everything, so this inherits the site-wide ring.
+ *
+ * `className` exists so a call site can add to the shared treatment (the hero
+ * card adds an accent glow) without forking the component and letting the two
+ * placements drift apart.
  */
 export function SocialLink({
   href,
   label,
   children,
+  className,
 }: {
   readonly href: string;
   readonly label: string;
   readonly children: React.ReactNode;
+  readonly className?: string;
 }): React.JSX.Element {
   const isExternal = href.startsWith("http");
 
@@ -23,7 +31,10 @@ export function SocialLink({
       aria-label={label}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="group border-border-subtle bg-surface-overlay text-text-secondary hover:border-border-strong hover:text-text-primary relative inline-flex h-11 w-11 items-center justify-center rounded-full border transition duration-200 hover:scale-105 focus-visible:scale-105"
+      className={cn(
+        "group border-border-subtle bg-surface-overlay text-text-secondary hover:border-border-strong hover:text-text-primary relative inline-flex h-11 w-11 items-center justify-center rounded-full border transition duration-200 hover:scale-105 focus-visible:scale-105",
+        className,
+      )}
     >
       {children}
       <span
