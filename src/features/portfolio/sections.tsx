@@ -16,7 +16,6 @@ import {
   heroHeadline,
   heroSubheadline,
   hubEntries,
-  missingAssets,
   philosophy,
   skillGroups,
   timeline,
@@ -183,7 +182,6 @@ function TimelineCard({
       </summary>
       <div className="border-border-subtle mt-4 border-l pl-7">
         <p className="text-text-secondary max-w-2xl leading-7">{item.body}</p>
-        <p className="text-text-muted mt-3 text-sm leading-6">{item.assetNote}</p>
       </div>
     </details>
   );
@@ -725,17 +723,15 @@ export function ContactSection({ headingLevel, standalone }: SectionProps = {}):
             <p className="text-text-secondary mt-3 text-lg leading-8">{footerClosingStatement}</p>
           </div>
           <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
-              Still needed before launch
-            </p>
+            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">What I'm building</p>
             <ul className="text-text-secondary mt-4 grid gap-2 text-sm leading-7">
-              {missingAssets.map((asset) => (
-                <li key={asset} className="flex items-start gap-3">
+              {currentFocus.map((item) => (
+                <li key={item} className="flex items-start gap-3">
                   <span
                     className="bg-accent-default mt-2 h-1.5 w-1.5 rounded-full"
                     aria-hidden="true"
                   />
-                  <span>{asset}</span>
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>

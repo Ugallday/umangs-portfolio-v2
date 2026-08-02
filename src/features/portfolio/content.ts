@@ -2,7 +2,6 @@ export interface TimelineItem {
   readonly year: string;
   readonly title: string;
   readonly body: string;
-  readonly assetNote: string;
 }
 
 export interface SemesterCourse {
@@ -83,73 +82,61 @@ export const timeline: readonly TimelineItem[] = [
     year: "2020",
     title: "SEE at Siddhartha Banasthali School",
     body: "I completed SEE (SLC) with a GPA of 3.95.",
-    assetNote: "Drop in the SEE certificate or transcript scan.",
   },
   {
     year: "2020-2022",
     title: "+2 in Computer Science and Physics at Uniglobe College",
     body: "Class XI GPA 3.70, Class XII GPA 3.55. I served as IT Club Secretary, which gave me my first taste of leadership, coordination, and public speaking.",
-    assetNote: "Add a club photo or certificate if available.",
   },
   {
     year: "Mar-Sep 2022",
     title: "Life Computer Institute training",
     body: "Structured IT training in MS Office, HTML/XHTML, CSS/CSS3, JavaScript, jQuery, PHP, Bootstrap, CorelDraw, FreeHand, Digital Marketing, basic hardware, and project work.",
-    assetNote: "Scan the training certificate.",
   },
   {
     year: "2022-present",
     title: "Joined Nepal South Asia International Travels & Tours",
     body: `I started building the company's digital backbone while beginning ${education.bachelor.degree} at ${education.bachelor.college}. At this point the company was just my father and me.`,
-    assetNote: "Use a photo of the travel office or team, if you have one.",
   },
   {
     year: "2022-present",
     title: "Digitized the travel business",
     body: "I built the accounting workflow, cloud storage and backup, customer and B2B records, and the company website. I also helped technically during the move toward IATA accreditation.",
-    assetNote: "Add screenshots of the app and website here.",
   },
   {
     year: "Dec 2023",
     title: "Travelport Basic Ticketing (TMA4)",
     body: "I completed basic ticketing training aligned with the systems we use in day-to-day operations.",
-    assetNote: "Certificate scan placeholder.",
   },
   {
     year: "Feb-Mar 2024",
     title: "Sabre Basic GDS",
     body: "Formal training in the core travel industry system stack.",
-    assetNote: "Certificate scan placeholder.",
   },
   {
     year: "Apr-May 2024",
     title: "Sabre Red360 Advanced Ticketing",
     body: "I went deeper into the operational tooling behind the agency's workflow.",
-    assetNote: "Certificate scan placeholder.",
   },
   {
     year: "May-Jun 2024",
     title: "Travelport Advanced Ticketing",
     body: "Further training for the ticketing and booking workflows we run every day.",
-    assetNote: "Certificate scan placeholder.",
   },
   {
     year: "Jul 2024",
     title: "VAT and compliance training",
     body: "Training for travel industry professionals from NATTA and the Ministry of Finance, Government of Nepal, delivered in Kathmandu on 30 July 2024. It fed directly into the compliant accounting system work.",
-    assetNote: "Certificate scan placeholder.",
   },
   {
     year: "2024",
     title: "Galileo GDS training",
     body: "I added Galileo to the GDS stack I can work in, alongside Sabre and Travelport.",
-    assetNote: "Certificate scan placeholder.",
   },
   {
     year: "2023-2026",
     title: "University workshops and final-year work",
     body: "UI/UX, WordPress, and Quality Assurance workshops; Advanced Java, Data Warehousing and Data Mining, Software Project Management, Advanced Database, and final-year project work.",
-    assetNote: "Add workshop certificates if you have them.",
   },
 ] as const;
 
@@ -441,15 +428,4 @@ export const currentFocus = [
   "Software architecture",
   "Product and UX thinking",
   "Deepening theoretical CS for US MS CS applications",
-] as const;
-
-export const missingAssets = [
-  "Resume PDF (public/resume.pdf)",
-  "NSA Travels logo (public/logos/nsa-travels-logo.svg)",
-  "Certificate and achievement images (public/certificates/)",
-  "Open Graph share image",
-  "Company website screenshots",
-  "Accounting app screenshots",
-  "Travora screenshots or demo captures",
-  "Real portfolio domain",
 ] as const;

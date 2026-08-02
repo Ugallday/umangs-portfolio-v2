@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: "Aalok Bhandari",
   description:
     "Computer science student and systems fixer building practical software for real workflows in Nepal.",
-  url: "https://theorigamiengineer.dev",
+  url: "https://www.aalokbhandari.com.np",
   location: "Nepal",
   author: {
     name: "Aalok Bhandari",
