@@ -10,7 +10,7 @@ Keep asset tracking here, never in `content.ts` or MDX bodies.
 - [ ] `public/resume.pdf` — required by the Download Resume button
 - [ ] `public/logos/nsa-travels-logo.svg` — credibility mark for the case study
 - [ ] `public/certificates/` — certificate + achievement images
-- [ ] Open Graph share image
+- [x] ~~Open Graph share image~~ — generated at `/api/og`, no asset needed
 - [ ] Professional headshot (current portrait is `src/assets/portrait.png`)
 - [ ] Company website screenshots
 - [ ] Accounting app screenshots

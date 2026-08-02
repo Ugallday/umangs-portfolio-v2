@@ -63,7 +63,12 @@ Each section is its own route; the homepage is a short hub that links to them.
 | `/contact`         | Contact channels                                |
 | _404_              | Custom not-found page with section links        |
 
-A floating WhatsApp button is present on every route.
+A floating WhatsApp button, a light/dark theme toggle, and a mobile disclosure
+menu are present on every route. Route changes animate via `app/template.tsx`.
+
+> **Note:** `npm run test:e2e` and Lighthouse both need a browser installed
+> (`npx playwright install`). Neither has been run against the current build —
+> no Lighthouse scores are recorded for it.
 
 ## Architecture
 
@@ -94,10 +99,10 @@ Decision history: [`docs/adr/`](docs/adr/)
 | Testing   | Vitest (unit) + Playwright (E2E)                   |
 | CI/CD     | GitHub Actions → Vercel                            |
 
-> **Note:** `package.json` also carries dependencies for features that are not
-> wired up yet — Resend, React Hook Form, Cloudinary, React Three Fiber,
-> Radix UI, and cmdk are installed but currently unused in `src/`. They should
-> either be used or removed before this is treated as a finished build.
+> **Note:** `package.json` still carries dependencies for features that are not
+> wired up — Resend, React Hook Form, Cloudinary, React Three Fiber, Radix UI,
+> and cmdk are installed but unused in `src/`. They should either be used or
+> removed before this is treated as a finished build.
 
 ## Folder structure
 
@@ -152,9 +157,9 @@ These are referenced by planned work and not yet in the repo:
 - `public/resume.pdf` — for the Download Resume button
 - `public/logos/nsa-travels-logo.svg` — NSA Travels credibility mark
 - `public/certificates/` — certificate and achievement images
-- An Open Graph share image
 - Company website / accounting app / Travora screenshots
-- The real portfolio domain
+
+The Open Graph card is generated at `/api/og`, so it needs no exported asset.
 
 ## Performance targets
 
