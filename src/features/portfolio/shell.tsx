@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 
+import { SiteHeader } from "@/components/layout/site-header";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { SocialLink } from "@/components/ui/social-link";
 import { WhatsAppGlyph } from "@/components/ui/whatsapp-glyph";
@@ -42,38 +42,11 @@ const footerLinks = [
   },
 ] as const;
 
-function HeaderNav(): React.JSX.Element {
-  return (
-    <nav
-      aria-label="Primary"
-      className="text-text-secondary flex flex-wrap items-center justify-end gap-x-5 gap-y-3 text-sm"
-    >
-      {siteConfig.nav.map((item) => (
-        <Link key={item.label} href={item.href} className="hover:text-text-primary transition">
-          {item.label}
-        </Link>
-      ))}
-    </nav>
-  );
-}
-
 export function SiteShell({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
   return (
     <div className="min-h-screen">
-      <div className="border-border-subtle sticky top-0 z-40 border-b bg-[color:var(--surface-base)]/82 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-8">
-          <Link
-            href="/"
-            className="text-text-primary text-sm font-medium tracking-[0.28em] uppercase"
-          >
-            {siteConfig.shortName}
-          </Link>
-          <div className="hidden md:block">
-            <HeaderNav />
-          </div>
-        </div>
-      </div>
-      <main>{children}</main>
+      <SiteHeader />
+      <main id="main-content">{children}</main>
       <footer className="border-border-subtle border-t">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-10 sm:py-12 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">

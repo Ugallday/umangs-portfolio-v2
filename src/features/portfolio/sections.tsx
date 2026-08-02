@@ -76,6 +76,17 @@ function SectionShell({
   );
 }
 
+/**
+ * Cards sit one level below their section's title. On a standalone route the
+ * title is the page <h1>, so cards are <h2>; inside the homepage the title is
+ * an <h2>, so cards are <h3>. Without this the markup jumped h1 -> h3.
+ */
+export type CardHeadingLevel = "h2" | "h3";
+
+function cardLevel(headingLevel: SectionHeadingLevel | undefined): CardHeadingLevel {
+  return headingLevel === "h1" ? "h2" : "h3";
+}
+
 /** Every section accepts these so a route can promote it to a standalone page. */
 export interface SectionProps {
   readonly headingLevel?: SectionHeadingLevel;
@@ -95,32 +106,42 @@ function FoldCard({
   body,
   note,
   meta,
+  as: Heading = "h3",
 }: {
   readonly title: string;
   readonly body: string;
   readonly note?: string;
   readonly meta?: string;
+  readonly as?: CardHeadingLevel;
 }): React.JSX.Element {
   return (
     <article className="fold-panel fold-hover rounded-3xl p-5 sm:p-6">
       {meta ? <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{meta}</p> : null}
-      <h3 className="text-text-primary mt-3 text-lg font-semibold tracking-tight">{title}</h3>
+      <Heading className="text-text-primary mt-3 text-lg font-semibold tracking-tight">
+        {title}
+      </Heading>
       <p className="text-text-secondary mt-3 leading-7">{body}</p>
       {note ? <p className="text-text-muted mt-4 text-sm leading-6">{note}</p> : null}
     </article>
   );
 }
 
-function ProjectCard({ project }: { readonly project: ProjectEntity }): React.JSX.Element {
+function ProjectCard({
+  project,
+  as: Heading = "h3",
+}: {
+  readonly project: ProjectEntity;
+  readonly as?: CardHeadingLevel;
+}): React.JSX.Element {
   return (
     <article className="fold-panel fold-hover flex h-full flex-col rounded-3xl p-5 sm:p-6">
       <div className="flex items-center justify-between gap-4">
         <Pill>{project.phase}</Pill>
         <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{project.period}</p>
       </div>
-      <h3 className="text-text-primary mt-4 text-xl font-semibold tracking-tight">
+      <Heading className="text-text-primary mt-4 text-xl font-semibold tracking-tight">
         {project.title}
-      </h3>
+      </Heading>
       <p className="text-text-secondary mt-3 text-sm leading-7">{project.summary}</p>
       <div className="border-border-subtle bg-surface-overlay mt-5 rounded-2xl border p-4">
         <p className="text-text-muted text-xs tracking-[0.22em] uppercase">
@@ -160,9 +181,11 @@ function ProjectCard({ project }: { readonly project: ProjectEntity }): React.JS
 function TimelineCard({
   item,
   index,
+  as: Heading = "h3",
 }: {
   readonly item: (typeof timeline)[number];
   readonly index: number;
+  readonly as?: CardHeadingLevel;
 }): React.JSX.Element {
   return (
     <details className="group fold-panel fold-hover rounded-3xl p-5 sm:p-6" open={index === 0}>
@@ -171,9 +194,9 @@ function TimelineCard({
           <div className="bg-accent-default mt-1 h-3 w-3 rounded-full" aria-hidden="true" />
           <div className="flex-1">
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{item.year}</p>
-            <h3 className="text-text-primary mt-2 text-lg font-semibold tracking-tight">
+            <Heading className="text-text-primary mt-2 text-lg font-semibold tracking-tight">
               {item.title}
-            </h3>
+            </Heading>
           </div>
           <span className="text-text-muted text-xs tracking-[0.24em] uppercase transition group-open:rotate-180">
             Fold
@@ -187,12 +210,12 @@ function TimelineCard({
   );
 }
 
-function TimelineList(): React.JSX.Element {
+function TimelineList({ as }: { readonly as: CardHeadingLevel }): React.JSX.Element {
   return (
     <div className="grid gap-4">
       {/* Keyed by title, not year — two entries legitimately share "2022-present". */}
       {timeline.map((item, index) => (
-        <TimelineCard key={item.title} item={item} index={index} />
+        <TimelineCard key={item.title} item={item} index={index} as={as} />
       ))}
     </div>
   );
@@ -201,9 +224,11 @@ function TimelineList(): React.JSX.Element {
 function SemesterCard({
   node,
   index,
+  as: Heading = "h3",
 }: {
   readonly node: (typeof curriculum)[number];
   readonly index: number;
+  readonly as?: CardHeadingLevel;
 }): React.JSX.Element {
   return (
     <details className="group fold-panel fold-hover rounded-3xl p-5 sm:p-6" open={index === 3}>
@@ -211,9 +236,9 @@ function SemesterCard({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{node.semester}</p>
-            <h3 className="text-text-primary mt-2 text-lg font-semibold tracking-tight">
+            <Heading className="text-text-primary mt-2 text-lg font-semibold tracking-tight">
               {node.emphasis}
-            </h3>
+            </Heading>
           </div>
           <span className="text-text-muted text-xs tracking-[0.24em] uppercase transition group-open:rotate-180">
             Fold
@@ -253,10 +278,12 @@ export function HeroSection(): React.JSX.Element {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(217,162,92,0.16),transparent_26%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_24%)]" />
       <div className="mx-auto grid min-h-[100svh] w-full max-w-7xl gap-12 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-end">
         <div className="flex flex-col justify-between gap-10 pt-6 pb-8 xl:pt-12 xl:pb-14">
-          <header className="text-text-muted flex items-center justify-between gap-4 text-xs tracking-[0.3em] uppercase">
+          {/* A meta row, not a banner — a second <header> here muddies the
+              landmark structure alongside the real site header. */}
+          <div className="text-text-muted flex items-center justify-between gap-4 text-xs tracking-[0.3em] uppercase">
             <span>{siteConfig.shortName}</span>
             <span>{siteConfig.location}</span>
-          </header>
+          </div>
           <div className="max-w-4xl space-y-8">
             <FoldReveal>
               <p className="text-text-muted text-xs tracking-[0.3em] uppercase">
@@ -398,6 +425,7 @@ export function HubSection(): React.JSX.Element {
 }
 
 export function AboutSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
   return (
     <SectionShell
       id="about"
@@ -419,7 +447,7 @@ export function AboutSection({ headingLevel, standalone }: SectionProps = {}): R
       <FoldReveal delayMs={90}>
         <div className="mt-8">
           <p className="text-text-muted mb-4 text-xs tracking-[0.24em] uppercase">Timeline</p>
-          <TimelineList />
+          <TimelineList as={sub} />
         </div>
       </FoldReveal>
       <FoldReveal delayMs={100}>
@@ -449,6 +477,7 @@ export function ExperienceSection({
 }: SectionProps & {
   readonly project: ProjectEntity;
 }): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
   return (
     <SectionShell
       id="experience"
@@ -460,11 +489,13 @@ export function ExperienceSection({
     >
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
         <FoldCard
+          as={sub}
           meta="Before"
           title="The manual state"
           body="Bookkeeping lived in Excel sheets and paper ledgers. Customer records were scattered. Ticket tracking was manual. There was no cloud backup, so the business had one fragile path for its records."
         />
         <FoldCard
+          as={sub}
           meta="After"
           title="What changed"
           body="A custom accounting app, cloud storage and backup, customer and B2B records, a public company site, and a workflow that lets a small team handle more without proportionally more manual effort."
@@ -472,12 +503,14 @@ export function ExperienceSection({
       </div>
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <FoldCard
+          as={sub}
           meta="Role"
           title="Technology lead and operations support"
           body="Not a formal developer role. A self-directed one: find what's broken, build the fix, and keep the business moving while studying full time."
           note="The company grew from 2 people to a small structured team with accounts, a manager, operations staff, and me on the technology side."
         />
         <FoldCard
+          as={sub}
           meta="Why it matters"
           title="My first real product environment"
           body="The family business gave me direct access to a real workflow. That access mattered more than a title or a hypothetical problem ever could have."
@@ -485,6 +518,7 @@ export function ExperienceSection({
       </div>
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
         <FoldCard
+          as={sub}
           meta="Flagship case study"
           title={project.title}
           body={project.summary}
@@ -534,6 +568,7 @@ export function ProjectsSection({
 }: SectionProps & {
   readonly projects: readonly ProjectEntity[];
 }): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
   return (
     <SectionShell
       id="projects"
@@ -545,7 +580,7 @@ export function ProjectsSection({
     >
       <div className="grid gap-5 lg:grid-cols-2">
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} as={sub} />
         ))}
       </div>
       <div className="border-border-subtle bg-surface-overlay mt-8 rounded-[1.75rem] border p-5 sm:p-6">
@@ -569,6 +604,8 @@ export function EducationSection({
   headingLevel,
   standalone,
 }: SectionProps = {}): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
+  const TrainingHeading = sub;
   return (
     <SectionShell
       id="education"
@@ -580,7 +617,7 @@ export function EducationSection({
     >
       <div className="grid gap-4 xl:grid-cols-2">
         {curriculum.map((node, index) => (
-          <SemesterCard key={node.semester} node={node} index={index} />
+          <SemesterCard key={node.semester} node={node} index={index} as={sub} />
         ))}
       </div>
       <div className="mt-10 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
@@ -596,7 +633,9 @@ export function EducationSection({
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <h3 className="text-text-primary text-base font-semibold">{training.title}</h3>
+                    <TrainingHeading className="text-text-primary text-base font-semibold">
+                      {training.title}
+                    </TrainingHeading>
                     <p className="text-text-muted mt-1 text-sm">{training.provider}</p>
                   </div>
                   <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
@@ -641,6 +680,7 @@ export function EducationSection({
 }
 
 export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
   return (
     <SectionShell
       id="skills"
@@ -653,6 +693,7 @@ export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): 
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {skillGroups.map((group) => (
           <FoldCard
+            as={sub}
             key={group.title}
             meta={group.title}
             title={group.title}
@@ -668,6 +709,7 @@ export function PhilosophySection({
   headingLevel,
   standalone,
 }: SectionProps = {}): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
   return (
     <SectionShell
       id="philosophy"
@@ -679,7 +721,12 @@ export function PhilosophySection({
     >
       <div className="grid gap-5 lg:grid-cols-2">
         {philosophy.map((principle) => (
-          <FoldCard key={principle.quote} title={principle.quote} body={principle.explanation} />
+          <FoldCard
+            as={sub}
+            key={principle.quote}
+            title={principle.quote}
+            body={principle.explanation}
+          />
         ))}
       </div>
     </SectionShell>

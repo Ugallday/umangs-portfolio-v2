@@ -87,9 +87,9 @@ export default async function RootLayout({
         <a href="#main-content" className="sr-only-focusable">
           Skip to content
         </a>
-        <Providers>
-          <div id="main-content">{children}</div>
-        </Providers>
+        {/* The skip link targets the <main> element rendered by SiteShell, so
+            this wrapper deliberately carries no id of its own. */}
+        <Providers>{children}</Providers>
         <Analytics />
         <SpeedInsights />
       </body>
