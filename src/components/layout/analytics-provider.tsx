@@ -19,7 +19,10 @@ interface AnalyticsProviderProps {
  * `useAnalytics()` and never knows or cares whether it's talking to Vercel
  * Analytics, PostHog, or a no-op test double.
  */
-export function AnalyticsProvider({ service, children }: AnalyticsProviderProps): React.JSX.Element {
+export function AnalyticsProvider({
+  service,
+  children,
+}: AnalyticsProviderProps): React.JSX.Element {
   return <AnalyticsContext.Provider value={service}>{children}</AnalyticsContext.Provider>;
 }
 

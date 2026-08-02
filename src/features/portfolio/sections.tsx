@@ -6,43 +6,65 @@ import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import {
   aboutOpeningParagraph,
+  academicPerformanceSummary,
   contactLinks,
   coreStory,
   currentFocus,
+  currentStatusSummary,
   curriculum,
   footerClosingStatement,
   heroHeadline,
+  heroSubheadline,
+  hubEntries,
   missingAssets,
   philosophy,
   skillGroups,
   timeline,
   trainings,
 } from "@/features/portfolio/content";
-import portraitImage from "../../../my photo.png";
+import portraitImage from "@/assets/portrait.png";
+
+/**
+ * Sections render both as part of a page and as the sole content of their own
+ * route. `headingLevel` lets the standalone route own the page's single <h1>
+ * without duplicating the markup.
+ */
+export type SectionHeadingLevel = "h1" | "h2";
 
 function SectionShell({
   eyebrow,
   title,
   description,
   id,
+  headingLevel = "h2",
+  standalone = false,
   children,
 }: {
   readonly eyebrow: string;
   readonly title: string;
   readonly description: string;
   readonly id: string;
+  readonly headingLevel?: SectionHeadingLevel;
+  readonly standalone?: boolean;
   readonly children: React.ReactNode;
 }): React.JSX.Element {
+  const Heading = headingLevel;
+
   return (
-    <section id={id} className="border-border-subtle scroll-mt-24 border-t py-20 sm:py-24">
+    <section
+      id={id}
+      className={
+        standalone ? "py-12 sm:py-16" : "border-border-subtle scroll-mt-24 border-t py-20 sm:py-24"
+      }
+    >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
           <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
             {eyebrow}
           </p>
-          <h2 className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-4xl">
+          <Heading className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-4xl">
             {title}
-          </h2>
+          </Heading>
         </div>
         <div className="space-y-8">
           <p className="text-text-secondary max-w-2xl text-base leading-8 sm:text-lg">
@@ -53,6 +75,12 @@ function SectionShell({
       </div>
     </section>
   );
+}
+
+/** Every section accepts these so a route can promote it to a standalone page. */
+export interface SectionProps {
+  readonly headingLevel?: SectionHeadingLevel;
+  readonly standalone?: boolean;
 }
 
 function Pill({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
@@ -164,8 +192,9 @@ function TimelineCard({
 function TimelineList(): React.JSX.Element {
   return (
     <div className="grid gap-4">
+      {/* Keyed by title, not year — two entries legitimately share "2022-present". */}
       {timeline.map((item, index) => (
-        <TimelineCard key={item.year} item={item} index={index} />
+        <TimelineCard key={item.title} item={item} index={index} />
       ))}
     </div>
   );
@@ -228,7 +257,7 @@ export function HeroSection(): React.JSX.Element {
         <div className="flex flex-col justify-between gap-10 pt-6 pb-8 xl:pt-12 xl:pb-14">
           <header className="text-text-muted flex items-center justify-between gap-4 text-xs tracking-[0.3em] uppercase">
             <span>{siteConfig.shortName}</span>
-            <span>Pokhara / Kathmandu, Nepal</span>
+            <span>{siteConfig.location}</span>
           </header>
           <div className="max-w-4xl space-y-8">
             <FoldReveal>
@@ -243,21 +272,19 @@ export function HeroSection(): React.JSX.Element {
             </FoldReveal>
             <FoldReveal delayMs={80}>
               <p className="text-text-secondary max-w-2xl text-lg leading-8 sm:text-xl">
-                Aalok Bhandari is a Nepali BSc CSIT student who used his family business as a live
-                testbed for software that replaces manual work with something steadier, searchable,
-                and easier to trust.
+                {heroSubheadline}
               </p>
             </FoldReveal>
             <FoldReveal delayMs={120}>
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="#projects"
+                  href="/projects"
                   className="bg-accent-default text-text-on-accent hover:bg-accent-hover inline-flex items-center rounded-full px-5 py-3 text-sm font-medium transition"
                 >
                   Explore the work
                 </Link>
                 <Link
-                  href="#about"
+                  href="/about"
                   className="border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex items-center rounded-full border px-5 py-3 text-sm font-medium transition"
                 >
                   Read the story
@@ -289,10 +316,10 @@ export function HeroSection(): React.JSX.Element {
             <div className="relative space-y-6">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-text-muted text-xs tracking-[0.3em] uppercase">
-                  Studio portrait slot
+                  {siteConfig.name}
                 </p>
                 <span className="border-border-default text-text-muted rounded-full border px-3 py-1 text-xs">
-                  Placeholder asset
+                  {siteConfig.location}
                 </span>
               </div>
               <div className="border-border-subtle relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_50%_30%,rgba(217,162,92,0.18),transparent_30%),linear-gradient(180deg,#1b1c20,#0b0b0c)] shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
@@ -333,13 +360,54 @@ export function HeroSection(): React.JSX.Element {
   );
 }
 
-export function AboutSection(): React.JSX.Element {
+/** The homepage's only body content: one card per route. */
+export function HubSection(): React.JSX.Element {
+  return (
+    <section className="border-border-subtle border-t py-20 sm:py-24">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
+        <div className="space-y-4">
+          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+            Where to go
+          </p>
+          <h2 className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-4xl">
+            The whole story, one page at a time.
+          </h2>
+        </div>
+        <nav aria-label="Portfolio sections" className="grid gap-4 sm:grid-cols-2">
+          {hubEntries.map((entry, index) => (
+            <FoldReveal key={entry.href} delayMs={index * 40}>
+              <Link
+                href={entry.href}
+                className="fold-panel fold-hover group flex h-full flex-col rounded-3xl p-5 sm:p-6"
+              >
+                <span className="text-text-primary text-lg font-semibold tracking-tight">
+                  {entry.label}
+                </span>
+                <span className="text-text-secondary mt-3 text-sm leading-7">{entry.blurb}</span>
+                <span
+                  className="text-accent-default mt-5 text-sm transition group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
+                  Open →
+                </span>
+              </Link>
+            </FoldReveal>
+          ))}
+        </nav>
+      </div>
+    </section>
+  );
+}
+
+export function AboutSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
   return (
     <SectionShell
       id="about"
       eyebrow="About"
-      title="A small business became the first real project."
+      title="A small business became my first real project."
       description={aboutOpeningParagraph}
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-5">
         {coreStory.map((paragraph) => (
@@ -360,17 +428,14 @@ export function AboutSection(): React.JSX.Element {
         <div className="border-border-subtle bg-surface-overlay mt-6 grid gap-4 rounded-[1.75rem] border p-5 sm:grid-cols-2 sm:p-6">
           <div>
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Current status</p>
-            <p className="text-text-secondary mt-2 text-sm leading-7">
-              BSc CSIT, 8th semester, 2022 batch, Institute of Science and Technology, Tribhuvan
-              University.
-            </p>
+            <p className="text-text-secondary mt-2 text-sm leading-7">{currentStatusSummary}</p>
           </div>
           <div>
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
               Academic performance
             </p>
             <p className="text-text-secondary mt-2 text-sm leading-7">
-              Consistent A-range performer, aggregate roughly 3.30-3.56 GPA across semesters.
+              {academicPerformanceSummary}
             </p>
           </div>
         </div>
@@ -381,15 +446,19 @@ export function AboutSection(): React.JSX.Element {
 
 export function ExperienceSection({
   project,
-}: {
+  headingLevel,
+  standalone,
+}: SectionProps & {
   readonly project: ProjectEntity;
 }): React.JSX.Element {
   return (
     <SectionShell
       id="experience"
       eyebrow="Experience"
-      title="NSA Travels is the story the portfolio is built around."
-      description="A two-person travel agency running on paper became the live system Aalok used to learn how software should actually behave when a business depends on it every day."
+      title="NSA Travels is the story this portfolio is built around."
+      description="A two-person travel agency running on paper became the live system I used to learn how software should actually behave when a business depends on it every day."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
         <FoldCard
@@ -407,13 +476,13 @@ export function ExperienceSection({
         <FoldCard
           meta="Role"
           title="Technology lead and operations support"
-          body="Not a formal developer role. A self-directed one: identify what is broken, build the fix, and keep the business moving while studying full time."
-          note="The company grew from 2 people to a small structured team with accounts, a manager, operations staff, and Aalok on the technology side."
+          body="Not a formal developer role. A self-directed one: find what's broken, build the fix, and keep the business moving while studying full time."
+          note="The company grew from 2 people to a small structured team with accounts, a manager, operations staff, and me on the technology side."
         />
         <FoldCard
           meta="Why it matters"
-          title="The first real product environment"
-          body="The family business gave direct access to a real workflow. That access mattered more than a title or a hypothetical problem ever could have."
+          title="My first real product environment"
+          body="The family business gave me direct access to a real workflow. That access mattered more than a title or a hypothetical problem ever could have."
         />
       </div>
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
@@ -421,7 +490,7 @@ export function ExperienceSection({
           meta="Flagship case study"
           title={project.title}
           body={project.summary}
-          note="Open the full case study for the full sequence: hook, background, problem, what was built, artifacts, outcome, reflection, and what comes next."
+          note="Open the full case study for the whole sequence: hook, background, problem, what I built, artifacts, outcome, reflection, and what comes next."
         />
         <div className="grid gap-4">
           <div className="fold-panel rounded-3xl p-5 sm:p-6">
@@ -462,7 +531,9 @@ export function ExperienceSection({
 
 export function ProjectsSection({
   projects,
-}: {
+  headingLevel,
+  standalone,
+}: SectionProps & {
   readonly projects: readonly ProjectEntity[];
 }): React.JSX.Element {
   return (
@@ -470,7 +541,9 @@ export function ProjectsSection({
       id="projects"
       eyebrow="Projects"
       title="One flagship case study, three forward-looking directions, and the academic work that supports them."
-      description="The projects here are intentionally framed by stage: shipped case study, in-progress concept, future concept, and practical coursework. Nothing is presented as more finished than it is."
+      description="I've framed these by stage on purpose: shipped case study, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-5 lg:grid-cols-2">
         {projects.map((project) => (
@@ -480,8 +553,9 @@ export function ProjectsSection({
       <div className="border-border-subtle bg-surface-overlay mt-8 rounded-[1.75rem] border p-5 sm:p-6">
         <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Academic practicals</p>
         <p className="text-text-secondary mt-3 max-w-2xl text-sm leading-7">
-          Course practicals and lab work live in the same portfolio because they show the same
-          pattern: identify the problem, structure the system, and make the workflow easier to use.
+          I keep course practicals and lab work in the same portfolio because they show the same
+          pattern I use everywhere: find the problem, structure the system, and make the workflow
+          easier to use.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {currentFocus.slice(0, 3).map((item) => (
@@ -493,13 +567,18 @@ export function ProjectsSection({
   );
 }
 
-export function EducationSection(): React.JSX.Element {
+export function EducationSection({
+  headingLevel,
+  standalone,
+}: SectionProps = {}): React.JSX.Element {
   return (
     <SectionShell
       id="education"
       eyebrow="Education"
-      title="The curriculum map matters because it shows where the later systems thinking came from."
-      description="The degree is not shown as a list of subjects. It is shown as a path: which course fed what kind of work later, and where the real connections are grounded."
+      title="The curriculum map matters because it shows where my systems thinking came from."
+      description="I'm not showing the degree as a list of subjects. I'm showing it as a path: which course fed what kind of work later, and where the real connections are grounded."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-4 xl:grid-cols-2">
         {curriculum.map((node, index) => (
@@ -563,13 +642,15 @@ export function EducationSection(): React.JSX.Element {
   );
 }
 
-export function SkillsSection(): React.JSX.Element {
+export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
   return (
     <SectionShell
       id="skills"
       eyebrow="Skills"
-      title="Grouped by what they actually let him do."
-      description="No skill bars. No fake percentages. Just the languages, frameworks, databases, tools, cloud systems, and working concepts he can apply."
+      title="Grouped by what they actually let me do."
+      description="No skill bars. No fake percentages. Just the languages, frameworks, databases, tools, cloud systems, and working concepts I can actually apply."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {skillGroups.map((group) => (
@@ -585,13 +666,18 @@ export function SkillsSection(): React.JSX.Element {
   );
 }
 
-export function PhilosophySection(): React.JSX.Element {
+export function PhilosophySection({
+  headingLevel,
+  standalone,
+}: SectionProps = {}): React.JSX.Element {
   return (
     <SectionShell
       id="philosophy"
       eyebrow="Philosophy"
-      title="The work starts with the problem, not the stack."
-      description="These are the principles that show up again and again in the portfolio, whether the project is travel operations, coursework, or a future product concept."
+      title="I start with the problem, not the stack."
+      description="These are the principles that show up again and again in my work, whether the project is travel operations, coursework, or a future product concept."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-5 lg:grid-cols-2">
         {philosophy.map((principle) => (
@@ -602,13 +688,15 @@ export function PhilosophySection(): React.JSX.Element {
   );
 }
 
-export function ContactSection(): React.JSX.Element {
+export function ContactSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
   return (
     <SectionShell
       id="contact"
       eyebrow="Contact"
       title="Reach out if you want to talk systems, travel, or applied product work in Nepal."
-      description="The closing line below is the honest one: this is the first chapter, not the finished book."
+      description="The closing line below is the honest one: this is my first chapter, not the finished book."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
         <div className="fold-panel rounded-3xl p-5 sm:p-6">

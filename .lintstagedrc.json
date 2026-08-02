@@ -1,4 +1,6 @@
 {
-  "*.{ts,tsx}": ["eslint --fix --max-warnings=0", "prettier --write"],
+  "src/**/*.{ts,tsx}": ["eslint --fix --max-warnings=0", "prettier --write"],
+  "tests/**/*.{ts,tsx}": ["eslint --fix --max-warnings=0", "prettier --write"],
+  "*.{ts,tsx}": ["prettier --write"],
   "*.{css,md,mdx,json}": ["prettier --write"]
 }

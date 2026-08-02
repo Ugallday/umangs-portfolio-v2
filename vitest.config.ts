@@ -8,6 +8,9 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./tests/setup.ts"],
+    // tests/e2e is Playwright's; vitest would otherwise try to collect those
+    // specs and fail on test.describe().
+    include: ["tests/unit/**/*.test.{ts,tsx}", "src/**/*.test.{ts,tsx}"],
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],
@@ -29,6 +32,7 @@ export default defineConfig({
       "@/core": path.resolve(__dirname, "./src/core"),
       "@/config": path.resolve(__dirname, "./src/config"),
       "@/styles": path.resolve(__dirname, "./src/styles"),
+      "@/assets": path.resolve(__dirname, "./src/assets"),
     },
   },
 });

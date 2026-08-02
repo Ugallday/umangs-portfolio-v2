@@ -3,6 +3,7 @@
 Target: WCAG 2.1 AA, verified continuously — not audited once before launch.
 
 ## Enforced in code, not just documented
+
 - **Color contrast:** `tests/unit/design-tokens.contrast.test.ts` asserts
   every text/surface token pairing meets 4.5:1 as a CI-gated unit test
   against `core/utils/color-contrast.ts`. A token change that breaks
@@ -23,6 +24,7 @@ Target: WCAG 2.1 AA, verified continuously — not audited once before launch.
   each picking their own padding.
 
 ## Planned for Phase 4+ (flagged now so it's not forgotten)
+
 - **Origami 3D scene (`features/origami-scene/`):** must have a fully
   keyboard-operable and screen-reader-safe fallback (the static SVG/image
   fallback already required by the progressive-enhancement strategy in
@@ -36,6 +38,7 @@ Target: WCAG 2.1 AA, verified continuously — not audited once before launch.
   out of the box — not custom-built.
 
 ## Semantic landmarks
+
 Every page template uses `<header>`, `<nav>`, `<main>`, `<footer>` — never
 generic `<div>` wrappers for structural regions. Enforced in code review via
 the PR template checklist, and by `eslint-plugin-jsx-a11y` (already wired

@@ -6,9 +6,13 @@
  */
 function hexToRgb(hex: string): readonly [number, number, number] {
   const normalized = hex.replace("#", "");
-  const value = normalized.length === 3
-    ? normalized.split("").map((c) => c + c).join("")
-    : normalized;
+  const value =
+    normalized.length === 3
+      ? normalized
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : normalized;
   const r = parseInt(value.substring(0, 2), 16);
   const g = parseInt(value.substring(2, 4), 16);
   const b = parseInt(value.substring(4, 6), 16);

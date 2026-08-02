@@ -11,5 +11,6 @@ labels: bug
 **Expected behavior**
 
 **Environment**
+
 - Browser/OS:
 - URL:

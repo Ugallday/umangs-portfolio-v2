@@ -1,7 +1,21 @@
 import Link from "next/link";
 
+import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { footerClosingStatement } from "@/features/portfolio/content";
 import { siteConfig } from "@/config/site";
+
+/** Socials hold bare addresses for email; everything else is already a URL. */
+const footerLinks = [
+  { label: "GitHub", href: siteConfig.socials.github },
+  { label: "LinkedIn", href: siteConfig.socials.linkedin },
+  { label: "Instagram", href: siteConfig.socials.instagram },
+  { label: "WhatsApp", href: siteConfig.whatsapp.href },
+  { label: "Email", href: `mailto:${siteConfig.socials.email}` },
+] as const;
+
+function footerLinkText(href: string): string {
+  return href.startsWith("mailto:") ? href.slice("mailto:".length) : href;
+}
 
 function HeaderNav(): React.JSX.Element {
   return (
@@ -44,27 +58,30 @@ export function SiteShell({ children }: { readonly children: React.ReactNode }):
                 {footerClosingStatement}
               </p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-              {Object.entries(siteConfig.socials).map(([label, href]) => (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {footerLinks.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noreferrer" : undefined}
                   className="fold-panel fold-hover text-text-secondary hover:text-text-primary rounded-2xl px-4 py-4 text-sm transition"
                 >
                   <span className="text-text-muted block text-xs tracking-[0.24em] uppercase">
                     {label}
                   </span>
-                  <span className="mt-2 block break-all">{href}</span>
+                  <span className="mt-2 block break-all">{footerLinkText(href)}</span>
                 </a>
               ))}
             </div>
           </div>
           <div className="border-border-subtle text-text-muted flex flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs tracking-[0.28em] uppercase">
             <span>Dark-first, type-driven, MDX-backed</span>
-            <span>Built for the long run</span>
+            <span>{siteConfig.location}</span>
           </div>
         </div>
       </footer>
+      <WhatsAppButton />
     </div>
   );
 }

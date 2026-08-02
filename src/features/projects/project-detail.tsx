@@ -1,7 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
+import { getProjectDiagram, type ProjectDiagram } from "@/features/projects/diagrams";
 
 function Pill({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
   return (
@@ -11,7 +14,39 @@ function Pill({ children }: { readonly children: React.ReactNode }): React.JSX.E
   );
 }
 
+function DiagramPanel({ diagram }: { readonly diagram: ProjectDiagram }): React.JSX.Element {
+  return (
+    <figure className="fold-panel rounded-[1.75rem] p-6 sm:p-8">
+      <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Diagram</p>
+      {/* Diagrams are authored wide; the wrapper scrolls rather than letting
+          the page body scroll horizontally on narrow viewports. */}
+      <div className="border-border-subtle bg-surface-overlay mt-4 overflow-x-auto rounded-2xl border p-4">
+        <Image
+          src={diagram.src}
+          alt={diagram.alt}
+          className="mx-auto h-auto w-full max-w-3xl"
+          sizes="(min-width: 1024px) 48rem, 100vw"
+        />
+      </div>
+      <figcaption className="text-text-muted mt-4 text-sm leading-6">{diagram.caption}</figcaption>
+    </figure>
+  );
+}
+
+/**
+ * The diagram belongs next to "what was built", but the shorter academic
+ * practicals have no such section — there we fall back to the last section so
+ * the diagram still renders instead of silently disappearing.
+ */
+function diagramAnchorId(project: ProjectEntity): string | undefined {
+  const preferred = project.sections.find((section) => section.id === "what-was-built");
+  return (preferred ?? project.sections.at(-1))?.id;
+}
+
 export function ProjectDetail({ project }: { readonly project: ProjectEntity }): React.JSX.Element {
+  const diagram = getProjectDiagram(project.slug);
+  const anchorId = diagramAnchorId(project);
+
   return (
     <article className="mx-auto w-full max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
       <FoldReveal>
@@ -24,7 +59,7 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
             <p className="text-text-secondary max-w-3xl text-lg leading-8">{project.summary}</p>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/#projects"
+                href="/projects"
                 className="border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition"
               >
                 Back to projects
@@ -82,33 +117,40 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
 
       <div className="mt-16 grid gap-5">
         {project.sections.map((section, index) => (
-          <FoldReveal key={section.id} delayMs={index * 50}>
-            <section className="fold-panel rounded-[1.75rem] p-6 sm:p-8">
-              <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{section.id}</p>
-              <h2 className="text-text-primary mt-3 text-2xl font-semibold tracking-tight">
-                {section.heading}
-              </h2>
-              <p className="text-text-secondary mt-4 max-w-4xl text-base leading-8">
-                {section.body}
-              </p>
-              {section.bullets.length > 0 ? (
-                <ul className="text-text-secondary mt-5 grid gap-3 text-sm leading-7 sm:grid-cols-2">
-                  {section.bullets.map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="border-border-subtle bg-surface-base flex items-start gap-3 rounded-2xl border p-4"
-                    >
-                      <span
-                        className="bg-accent-default mt-2 h-1.5 w-1.5 rounded-full"
-                        aria-hidden="true"
-                      />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </section>
-          </FoldReveal>
+          <Fragment key={section.id}>
+            <FoldReveal delayMs={index * 50}>
+              <section className="fold-panel rounded-[1.75rem] p-6 sm:p-8">
+                <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{section.id}</p>
+                <h2 className="text-text-primary mt-3 text-2xl font-semibold tracking-tight">
+                  {section.heading}
+                </h2>
+                <p className="text-text-secondary mt-4 max-w-4xl text-base leading-8">
+                  {section.body}
+                </p>
+                {section.bullets.length > 0 ? (
+                  <ul className="text-text-secondary mt-5 grid gap-3 text-sm leading-7 sm:grid-cols-2">
+                    {section.bullets.map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="border-border-subtle bg-surface-base flex items-start gap-3 rounded-2xl border p-4"
+                      >
+                        <span
+                          className="bg-accent-default mt-2 h-1.5 w-1.5 rounded-full"
+                          aria-hidden="true"
+                        />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </section>
+            </FoldReveal>
+            {section.id === anchorId && diagram ? (
+              <FoldReveal delayMs={index * 50 + 40}>
+                <DiagramPanel diagram={diagram} />
+              </FoldReveal>
+            ) : null}
+          </Fragment>
         ))}
       </div>
     </article>

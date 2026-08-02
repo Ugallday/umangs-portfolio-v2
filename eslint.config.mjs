@@ -33,6 +33,9 @@ const boundaryElements = [
   },
   { type: "core-utils", pattern: "src/core/utils/**" },
   { type: "config", pattern: "src/config/**" },
+  // Static media (diagrams, logos) imported through next/image. Leaf-only:
+  // nothing imports out of it, so it carries no dependency direction risk.
+  { type: "assets", pattern: "src/assets/**" },
 ];
 
 const baseConfig = {
@@ -69,7 +72,14 @@ const baseConfig = {
         rules: [
           {
             from: "app",
-            allow: ["features", "components", "core-application", "core-domain", "config"],
+            allow: [
+              "features",
+              "components",
+              "core-application",
+              "core-domain",
+              "config",
+              "assets",
+            ],
           },
           {
             from: "features",
@@ -81,9 +91,11 @@ const baseConfig = {
               "core-infrastructure",
               "core-utils",
               "config",
+              "assets",
             ],
           },
-          { from: "components", allow: ["components", "core-utils", "config"] },
+          { from: "components", allow: ["components", "core-utils", "config", "assets"] },
+          { from: "assets", allow: [] },
           { from: "core-application", allow: ["core-domain", "core-contracts"] },
           { from: "core-infrastructure", allow: ["core-domain", "core-contracts", "core-utils"] },
           { from: "core-domain", allow: [] },

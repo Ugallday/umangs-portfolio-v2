@@ -1,0 +1,63 @@
+<svg viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="arrow3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#D9A25C"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="620" fill="#0A0A0B"/>
+  <text x="30" y="40" fill="#F2F2F0" font-size="20" font-weight="600">Transport Management Digitization — Level 1 DFD (Concept)</text>
+  <text x="30" y="62" fill="#8A8A8E" font-size="12">Notation: System Analysis &amp; Design — early-stage concept, not a built system</text>
+
+  <rect x="30" y="110" width="150" height="60" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="105" y="145" fill="#F2F2F0" font-size="13" text-anchor="middle">Vehicle Owner</text>
+
+  <rect x="30" y="260" width="150" height="60" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="105" y="287" fill="#F2F2F0" font-size="13" text-anchor="middle">Dealer /</text>
+  <text x="105" y="303" fill="#F2F2F0" font-size="13" text-anchor="middle">Second-hand Market</text>
+
+  <rect x="30" y="410" width="150" height="60" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="105" y="445" fill="#F2F2F0" font-size="13" text-anchor="middle">Government / Tax Office</text>
+
+  <rect x="340" y="250" width="280" height="110" rx="55" fill="none" stroke="#D9A25C" stroke-width="2"/>
+  <text x="480" y="298" fill="#F2F2F0" font-size="15" text-anchor="middle" font-weight="600">1.0</text>
+  <text x="480" y="318" fill="#F2F2F0" font-size="14" text-anchor="middle">Digital Ownership &amp;</text>
+  <text x="480" y="336" fill="#F2F2F0" font-size="14" text-anchor="middle">Tax Records System</text>
+
+  <g>
+    <line x1="770" y1="130" x2="770" y2="180" stroke="#F2F2F0" stroke-width="1.5"/>
+    <line x1="770" y1="130" x2="910" y2="130" stroke="#F2F2F0" stroke-width="1.5"/>
+    <line x1="770" y1="180" x2="910" y2="180" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="840" y="160" fill="#F2F2F0" font-size="12" text-anchor="middle">D1 Ownership</text>
+    <text x="840" y="174" fill="#F2F2F0" font-size="12" text-anchor="middle">History</text>
+  </g>
+  <g>
+    <line x1="770" y1="270" x2="770" y2="320" stroke="#F2F2F0" stroke-width="1.5"/>
+    <line x1="770" y1="270" x2="910" y2="270" stroke="#F2F2F0" stroke-width="1.5"/>
+    <line x1="770" y1="320" x2="910" y2="320" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="840" y="300" fill="#F2F2F0" font-size="12" text-anchor="middle">D2 Tax</text>
+    <text x="840" y="314" fill="#F2F2F0" font-size="12" text-anchor="middle">Records</text>
+  </g>
+  <g>
+    <line x1="770" y1="400" x2="770" y2="450" stroke="#F2F2F0" stroke-width="1.5"/>
+    <line x1="770" y1="400" x2="910" y2="400" stroke="#F2F2F0" stroke-width="1.5"/>
+    <line x1="770" y1="450" x2="910" y2="450" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="840" y="430" fill="#F2F2F0" font-size="12" text-anchor="middle">D3 Documents</text>
+    <text x="840" y="444" fill="#F2F2F0" font-size="12" text-anchor="middle">&amp; Filings</text>
+  </g>
+
+  <path d="M180,140 C 260,140 260,270 340,290" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <text x="195" y="180" fill="#8A8A8E" font-size="11">ownership transfer request</text>
+
+  <path d="M180,290 C 260,290 260,300 340,300" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <text x="195" y="285" fill="#8A8A8E" font-size="11">sale / listing data</text>
+
+  <path d="M180,440 C 260,440 260,330 340,325" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <text x="185" y="400" fill="#8A8A8E" font-size="11">tax rules / verification</text>
+
+  <path d="M620,290 C 690,250 690,190 770,155" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <path d="M620,305 C 690,300 690,295 770,295" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <path d="M620,325 C 690,360 690,410 770,425" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow3)"/>
+
+  <text x="480" y="560" fill="#8A8A8E" font-size="12" text-anchor="middle">Status: design/research stage — replacing an offline, paper-based transfer and tax process</text>
+</svg>

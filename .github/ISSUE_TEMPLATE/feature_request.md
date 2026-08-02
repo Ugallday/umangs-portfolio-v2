@@ -9,6 +9,7 @@ labels: enhancement
 **Proposed solution**
 
 **Which layer does this touch?**
+
 - [ ] core/domain
 - [ ] core/application
 - [ ] core/infrastructure

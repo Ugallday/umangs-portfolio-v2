@@ -34,6 +34,7 @@ Deployment checklist for Vercel
    - Check analytics and any integrations that rely on environment variables.
 
 Notes
+
 - If the build fails due to linting or type errors, run locally:
 
 ```bash

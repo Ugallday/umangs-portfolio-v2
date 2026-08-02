@@ -1,0 +1,39 @@
+<svg viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="arrow4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#D9A25C"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="620" fill="#0A0A0B"/>
+  <text x="30" y="40" fill="#F2F2F0" font-size="20" font-weight="600">Nepal Hotel Booking Platform — Conceptual System Architecture</text>
+  <text x="30" y="62" fill="#8A8A8E" font-size="12">Future-direction concept, not yet built</text>
+
+  <rect x="60" y="110" width="180" height="70" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="150" y="150" fill="#F2F2F0" font-size="13" text-anchor="middle">Guest</text>
+  <text x="150" y="166" fill="#8A8A8E" font-size="11" text-anchor="middle">web / mobile client</text>
+
+  <rect x="60" y="420" width="180" height="70" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="150" y="460" fill="#F2F2F0" font-size="13" text-anchor="middle">Hotel Partner</text>
+  <text x="150" y="476" fill="#8A8A8E" font-size="11" text-anchor="middle">inventory / pricing</text>
+
+  <rect x="360" y="270" width="240" height="90" rx="8" fill="none" stroke="#D9A25C" stroke-width="2"/>
+  <text x="480" y="308" fill="#F2F2F0" font-size="14" text-anchor="middle" font-weight="600">Booking Engine</text>
+  <text x="480" y="328" fill="#8A8A8E" font-size="12" text-anchor="middle">availability · pricing rules</text>
+  <text x="480" y="344" fill="#8A8A8E" font-size="12" text-anchor="middle">direct guest-hotel messaging</text>
+
+  <rect x="680" y="130" width="230" height="80" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="795" y="165" fill="#F2F2F0" font-size="13" text-anchor="middle">Search &amp; Recommendation</text>
+  <text x="795" y="183" fill="#8A8A8E" font-size="11" text-anchor="middle">AI-assisted, planned</text>
+
+  <rect x="680" y="420" width="230" height="80" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="795" y="455" fill="#F2F2F0" font-size="13" text-anchor="middle">Payment &amp; Transparent</text>
+  <text x="795" y="473" fill="#8A8A8E" font-size="11" text-anchor="middle">Pricing Layer</text>
+
+  <path d="M240,150 C 320,150 320,290 360,300" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow4)"/>
+  <path d="M240,450 C 320,450 320,340 360,330" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow4)"/>
+  <path d="M600,295 C 640,250 640,190 680,170" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow4)"/>
+  <path d="M600,335 C 640,390 640,440 680,455" fill="none" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow4)"/>
+
+  <text x="480" y="580" fill="#8A8A8E" font-size="12" text-anchor="middle">Goal: lower service charges and clearer pricing than international platforms, Nepal-first</text>
+</svg>

@@ -1,6 +1,7 @@
 # Coding Standards
 
 ## Strict TypeScript
+
 - No `any`, ever — enforced by `@typescript-eslint/no-explicit-any` as a
   hard error, not a warning.
 - `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes` are on in
@@ -11,6 +12,7 @@
   of type-only code.
 
 ## Architectural boundaries
+
 The dependency direction documented in `docs/architecture/system-design.md`
 is enforced by `eslint-plugin-boundaries` in `eslint.config.mjs`:
 
@@ -28,6 +30,7 @@ A PR that violates these fails CI at the `npm run lint` step — this is not
 a style preference reviewers negotiate on.
 
 ## Naming
+
 - Files: `kebab-case.ts` / `kebab-case.tsx`.
 - Components: `PascalCase` export matching the file's primary export.
 - Hooks: `useX`, colocated with the feature or primitive that owns them.
@@ -36,12 +39,14 @@ a style preference reviewers negotiate on.
   and read more clearly as "this is a seam" in file listings).
 
 ## No dead code, no TODOs
+
 `eslint` has no `no-unused-vars` escape hatch beyond the `^_` prefix
 convention for intentionally-unused parameters. A `// TODO` comment is a
 review-blocking finding, not a note-to-self — if it's not ready, it doesn't
 merge to `main`.
 
 ## Comments
+
 JSDoc is required on every exported member of `core/contracts/`,
 `core/application/`, and every feature's `index.ts` — these are the actual
 public APIs of the system. Presentational components in `components/ui/`

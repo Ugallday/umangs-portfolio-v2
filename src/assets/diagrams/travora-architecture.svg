@@ -1,0 +1,40 @@
+<svg viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#D9A25C"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="620" fill="#0A0A0B"/>
+  <text x="30" y="40" fill="#F2F2F0" font-size="20" font-weight="600">Travora — Three-Tier System Architecture</text>
+  <text x="30" y="62" fill="#8A8A8E" font-size="12">Notation: Software Engineering (Sem VI) layered architecture diagram</text>
+
+  <!-- Tier labels -->
+  <text x="480" y="110" fill="#D9A25C" font-size="13" text-anchor="middle" letter-spacing="1">PRESENTATION TIER</text>
+  <rect x="130" y="130" width="700" height="90" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="480" y="168" fill="#F2F2F0" font-size="14" text-anchor="middle" font-weight="600">React 19 + TypeScript Web Client</text>
+  <text x="480" y="188" fill="#8A8A8E" font-size="12" text-anchor="middle">Expense dashboard · Receipt capture (Tesseract.js OCR) · AI travel planner UI</text>
+
+  <path d="M480,220 L480,255" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow2)"/>
+
+  <text x="480" y="280" fill="#D9A25C" font-size="13" text-anchor="middle" letter-spacing="1">APPLICATION / BUSINESS LOGIC TIER</text>
+  <rect x="130" y="300" width="330" height="100" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="295" y="338" fill="#F2F2F0" font-size="14" text-anchor="middle" font-weight="600">Application Layer</text>
+  <text x="295" y="358" fill="#8A8A8E" font-size="12" text-anchor="middle">Expense use cases</text>
+  <text x="295" y="374" fill="#8A8A8E" font-size="12" text-anchor="middle">Trip planning use cases</text>
+
+  <rect x="500" y="300" width="330" height="100" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="665" y="338" fill="#F2F2F0" font-size="14" text-anchor="middle" font-weight="600">Groq LLaMA 3.3-70B</text>
+  <text x="665" y="358" fill="#8A8A8E" font-size="12" text-anchor="middle">AI travel planning</text>
+  <text x="665" y="374" fill="#8A8A8E" font-size="12" text-anchor="middle">Natural-language assistance</text>
+
+  <path d="M460,350 L500,350" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <path d="M295,400 L295,435" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow2)"/>
+
+  <text x="480" y="460" fill="#D9A25C" font-size="13" text-anchor="middle" letter-spacing="1">DATA TIER</text>
+  <rect x="130" y="480" width="700" height="90" rx="8" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+  <text x="480" y="518" fill="#F2F2F0" font-size="14" text-anchor="middle" font-weight="600">Supabase (PostgreSQL + Auth + Storage)</text>
+  <text x="480" y="538" fill="#8A8A8E" font-size="12" text-anchor="middle">Expense records · receipts · trip plans · user accounts</text>
+
+  <text x="480" y="600" fill="#8A8A8E" font-size="12" text-anchor="middle">Final-year capstone — university project work, Sem VII–VIII</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg viewBox="0 0 980 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="arrow7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#D9A25C"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="300" fill="#0A0A0B"/>
+  <text x="30" y="40" fill="#F2F2F0" font-size="20" font-weight="600">Army Training Center Platform — PM Workflow</text>
+  <text x="30" y="62" fill="#8A8A8E" font-size="12">Software Project Management coursework, Sem VII</text>
+
+  <!-- 6 sequential process boxes -->
+  <g>
+    <rect x="30" y="110" width="140" height="80" rx="6" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="100" y="145" fill="#F2F2F0" font-size="13" text-anchor="middle">Initiation &amp;</text>
+    <text x="100" y="162" fill="#F2F2F0" font-size="13" text-anchor="middle">Scope</text>
+  </g>
+  <path d="M170,150 L200,150" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow7)"/>
+
+  <g>
+    <rect x="200" y="110" width="140" height="80" rx="6" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="270" y="145" fill="#F2F2F0" font-size="13" text-anchor="middle">WBS</text>
+    <text x="270" y="162" fill="#F2F2F0" font-size="13" text-anchor="middle">Breakdown</text>
+  </g>
+  <path d="M340,150 L370,150" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow7)"/>
+
+  <g>
+    <rect x="370" y="110" width="140" height="80" rx="6" fill="none" stroke="#D9A25C" stroke-width="2"/>
+    <text x="440" y="145" fill="#F2F2F0" font-size="13" text-anchor="middle">Gantt</text>
+    <text x="440" y="162" fill="#F2F2F0" font-size="13" text-anchor="middle">Scheduling</text>
+  </g>
+  <path d="M510,150 L540,150" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow7)"/>
+
+  <g>
+    <rect x="540" y="110" width="140" height="80" rx="6" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="610" y="145" fill="#F2F2F0" font-size="13" text-anchor="middle">Risk</text>
+    <text x="610" y="162" fill="#F2F2F0" font-size="13" text-anchor="middle">Register</text>
+  </g>
+  <path d="M680,150 L710,150" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow7)"/>
+
+  <g>
+    <rect x="710" y="110" width="140" height="80" rx="6" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="780" y="145" fill="#F2F2F0" font-size="13" text-anchor="middle">Communication</text>
+    <text x="780" y="162" fill="#F2F2F0" font-size="13" text-anchor="middle">Plan</text>
+  </g>
+  <path d="M850,150 L880,150" stroke="#D9A25C" stroke-width="1.5" marker-end="url(#arrow7)"/>
+
+  <g>
+    <rect x="880" y="110" width="90" height="80" rx="6" fill="none" stroke="#F2F2F0" stroke-width="1.5"/>
+    <text x="925" y="145" fill="#F2F2F0" font-size="12" text-anchor="middle">Trello</text>
+    <text x="925" y="162" fill="#F2F2F0" font-size="12" text-anchor="middle">Tracking</text>
+  </g>
+
+  <text x="490" y="250" fill="#8A8A8E" font-size="12" text-anchor="middle">Planning-focused coursework artifact — deliverable is the plan, not shipped code</text>
+</svg>
