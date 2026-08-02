@@ -7,7 +7,7 @@ export default function Loading(): React.JSX.Element {
     >
       <div className="fold-panel h-8 w-1/3 rounded-full opacity-60" />
       <div className="fold-panel h-4 w-2/3 rounded-full opacity-50" />
-      <div className="fold-panel h-64 w-full rounded-[1.5rem] opacity-70" />
+      <div className="fold-panel h-64 w-full rounded-3xl opacity-70" />
     </div>
   );
 }

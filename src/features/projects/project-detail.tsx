@@ -5,18 +5,12 @@ import { Fragment } from "react";
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import { getProjectDiagram, type ProjectDiagram } from "@/features/projects/diagrams";
-
-function Pill({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
-  return (
-    <span className="border-border-default text-text-secondary inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium">
-      {children}
-    </span>
-  );
-}
+import { actionClass } from "@/components/ui/action";
+import { Pill } from "@/components/ui/pill";
 
 function DiagramPanel({ diagram }: { readonly diagram: ProjectDiagram }): React.JSX.Element {
   return (
-    <figure className="fold-panel rounded-[1.75rem] p-6 sm:p-8">
+    <figure className="fold-panel rounded-3xl p-6 sm:p-8">
       <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Diagram</p>
       {/* Diagrams are authored wide; the wrapper scrolls rather than letting
           the page body scroll horizontally on narrow viewports. */}
@@ -58,10 +52,7 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
             </h1>
             <p className="text-text-secondary max-w-3xl text-lg leading-8">{project.summary}</p>
             <div className="flex flex-wrap gap-3">
-              <Link
-                href="/projects"
-                className="border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition"
-              >
+              <Link href="/projects" className={actionClass({ variant: "secondary" })}>
                 Back to projects
               </Link>
               {project.links.map((link) => (
@@ -70,14 +61,14 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                  className="bg-accent-default text-text-on-accent hover:bg-accent-hover inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition"
+                  className={actionClass()}
                 >
                   {link.label}
                 </a>
               ))}
             </div>
           </div>
-          <div className="fold-panel rounded-[2rem] p-6 sm:p-8">
+          <div className="fold-panel rounded-3xl p-6 sm:p-8">
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
               {project.visual.eyebrow}
             </p>
@@ -119,7 +110,7 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
         {project.sections.map((section, index) => (
           <Fragment key={section.id}>
             <FoldReveal delayMs={index * 50}>
-              <section className="fold-panel rounded-[1.75rem] p-6 sm:p-8">
+              <section className="fold-panel rounded-3xl p-6 sm:p-8">
                 <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{section.id}</p>
                 <h2 className="text-text-primary mt-3 text-2xl font-semibold tracking-tight">
                   {section.heading}

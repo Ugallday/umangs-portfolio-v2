@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
 import { SiteShell } from "@/features/portfolio/shell";
+import { actionClass } from "@/components/ui/action";
 
 export default function NotFound(): React.JSX.Element {
   return (
@@ -16,10 +17,7 @@ export default function NotFound(): React.JSX.Element {
             The page you&apos;re looking for isn&apos;t here — it may have moved, or it may never
             have been folded in the first place. Everything else is one link away.
           </p>
-          <Link
-            href="/"
-            className="bg-accent-default text-text-on-accent hover:bg-accent-hover inline-flex items-center rounded-full px-5 py-3 text-sm font-medium transition"
-          >
+          <Link href="/" className={actionClass({ size: "md" })}>
             Back to home
           </Link>
         </div>

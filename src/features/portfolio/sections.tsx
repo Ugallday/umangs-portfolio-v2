@@ -22,6 +22,8 @@ import {
   trainings,
 } from "@/features/portfolio/content";
 import portraitImage from "@/assets/portrait.png";
+import { actionClass } from "@/components/ui/action";
+import { Pill } from "@/components/ui/pill";
 
 /**
  * Sections render both as part of a page and as the sole content of their own
@@ -52,9 +54,9 @@ function SectionShell({
   return (
     <section
       id={id}
-      className={
-        standalone ? "py-12 sm:py-16" : "border-border-subtle scroll-mt-24 border-t py-20 sm:py-24"
-      }
+      // Standalone routes get their vertical rhythm from SectionPage's
+      // container; adding padding here too stacked ~7rem above the heading.
+      className={standalone ? "" : "border-border-subtle scroll-mt-24 border-t py-20 sm:py-24"}
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
@@ -91,14 +93,6 @@ function cardLevel(headingLevel: SectionHeadingLevel | undefined): CardHeadingLe
 export interface SectionProps {
   readonly headingLevel?: SectionHeadingLevel;
   readonly standalone?: boolean;
-}
-
-function Pill({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
-  return (
-    <span className="border-border-default text-text-secondary inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium">
-      {children}
-    </span>
-  );
 }
 
 function FoldCard({
@@ -156,10 +150,7 @@ function ProjectCard({
         ))}
       </div>
       <div className="mt-6 flex flex-wrap gap-3">
-        <Link
-          href={`/projects/${project.slug}`}
-          className="bg-accent-default text-text-on-accent hover:bg-accent-hover inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition"
-        >
+        <Link href={`/projects/${project.slug}`} className={actionClass()}>
           Read case study
         </Link>
         {project.links.map((link) => (
@@ -168,7 +159,7 @@ function ProjectCard({
             href={link.href}
             target={link.href.startsWith("http") ? "_blank" : undefined}
             rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            className="border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition"
+            className={actionClass({ variant: "secondary" })}
           >
             {link.label}
           </a>
@@ -248,12 +239,9 @@ function SemesterCard({
       <div className="border-border-subtle mt-5 space-y-5 border-t pt-5">
         <div className="flex flex-wrap gap-2">
           {node.courses.map((course) => (
-            <span
-              key={course.name}
-              className="border-border-default text-text-secondary rounded-full border px-3 py-1 text-xs"
-            >
+            <Pill key={course.name} className="font-normal">
               {course.name}
-            </span>
+            </Pill>
           ))}
         </div>
         <p className="text-text-secondary max-w-2xl text-sm leading-7">{node.outcome}</p>
@@ -302,16 +290,10 @@ export function HeroSection(): React.JSX.Element {
             </FoldReveal>
             <FoldReveal delayMs={120}>
               <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/projects"
-                  className="bg-accent-default text-text-on-accent hover:bg-accent-hover inline-flex items-center rounded-full px-5 py-3 text-sm font-medium transition"
-                >
+                <Link href="/projects" className={actionClass({ size: "md" })}>
                   Explore the work
                 </Link>
-                <Link
-                  href="/about"
-                  className="border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex items-center rounded-full border px-5 py-3 text-sm font-medium transition"
-                >
+                <Link href="/about" className={actionClass({ variant: "secondary", size: "md" })}>
                   Read the story
                 </Link>
               </div>
@@ -336,7 +318,7 @@ export function HeroSection(): React.JSX.Element {
         </div>
 
         <FoldReveal delayMs={80} className="xl:pt-12 xl:pb-14">
-          <aside className="fold-panel relative overflow-hidden rounded-[2rem] p-6 sm:p-8">
+          <aside className="fold-panel relative overflow-hidden rounded-3xl p-6 sm:p-8">
             <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(217,162,92,0.14),transparent_28%)]" />
             <div className="relative space-y-6">
               <div className="flex items-center justify-between gap-4">
@@ -347,7 +329,7 @@ export function HeroSection(): React.JSX.Element {
                   {siteConfig.location}
                 </span>
               </div>
-              <div className="border-border-subtle relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_50%_30%,rgba(217,162,92,0.18),transparent_30%),linear-gradient(180deg,#1b1c20,#0b0b0c)] shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+              <div className="border-border-subtle relative aspect-[4/5] overflow-hidden rounded-3xl border bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_50%_30%,rgba(217,162,92,0.18),transparent_30%),linear-gradient(180deg,#1b1c20,#0b0b0c)] shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
                 <Image
                   src={portraitImage}
                   alt="Aalok Bhandari portrait"
@@ -451,7 +433,7 @@ export function AboutSection({ headingLevel, standalone }: SectionProps = {}): R
         </div>
       </FoldReveal>
       <FoldReveal delayMs={100}>
-        <div className="border-border-subtle bg-surface-overlay mt-6 grid gap-4 rounded-[1.75rem] border p-5 sm:grid-cols-2 sm:p-6">
+        <div className="border-border-subtle bg-surface-overlay mt-6 grid gap-4 rounded-3xl border p-5 sm:grid-cols-2 sm:p-6">
           <div>
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Current status</p>
             <p className="text-text-secondary mt-2 text-sm leading-7">{currentStatusSummary}</p>
@@ -536,10 +518,7 @@ export function ExperienceSection({
           <div className="fold-panel rounded-3xl p-5 sm:p-6">
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Links</p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <Link
-                href={`/projects/${project.slug}`}
-                className="bg-accent-default text-text-on-accent hover:bg-accent-hover inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition"
-              >
+              <Link href={`/projects/${project.slug}`} className={actionClass()}>
                 Read the case study
               </Link>
               {project.links.map((link) => (
@@ -548,7 +527,7 @@ export function ExperienceSection({
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                  className="border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition"
+                  className={actionClass({ variant: "secondary" })}
                 >
                   {link.label}
                 </a>
@@ -583,7 +562,7 @@ export function ProjectsSection({
           <ProjectCard key={project.slug} project={project} as={sub} />
         ))}
       </div>
-      <div className="border-border-subtle bg-surface-overlay mt-8 rounded-[1.75rem] border p-5 sm:p-6">
+      <div className="border-border-subtle bg-surface-overlay mt-8 rounded-3xl border p-5 sm:p-6">
         <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Academic practicals</p>
         <p className="text-text-secondary mt-3 max-w-2xl text-sm leading-7">
           I keep course practicals and lab work in the same portfolio because they show the same
@@ -692,13 +671,8 @@ export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): 
     >
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {skillGroups.map((group) => (
-          <FoldCard
-            as={sub}
-            key={group.title}
-            meta={group.title}
-            title={group.title}
-            body={group.items.join(" • ")}
-          />
+          // `meta` was also group.title, so every group name rendered twice.
+          <FoldCard as={sub} key={group.title} title={group.title} body={group.items.join(" • ")} />
         ))}
       </div>
     </SectionShell>
