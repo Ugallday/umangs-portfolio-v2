@@ -74,6 +74,50 @@
     box-shadow: var(--elevation-2-shadow);
   }
 
+  /* Page transition. Driven by app/template.tsx, which React remounts on every
+     navigation — so this replaces the hard cut between routes without pulling
+     an animation library into the client bundle. */
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.994);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .page-enter {
+    animation: page-enter var(--duration-page) var(--ease-fold) both;
+  }
+
+  /* The single ambient effect in the hero — a slow drift on the existing
+     gradient wash. Deliberately not stacked with parallax or particles. */
+  @keyframes ambient-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(1.5%, -1%, 0);
+    }
+  }
+
+  .ambient-drift {
+    animation: ambient-drift 22s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* --duration-page already collapses to 0ms under reduced motion, but the
+     infinite ambient loop needs switching off outright. */
+  @media (prefers-reduced-motion: reduce) {
+    .page-enter,
+    .ambient-drift {
+      animation: none;
+    }
+  }
+
   .sr-only-focusable:not(:focus) {
     position: absolute;
     width: 1px;

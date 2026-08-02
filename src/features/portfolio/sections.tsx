@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
+import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import {
@@ -203,12 +204,14 @@ function TimelineCard({
 
 function TimelineList({ as }: { readonly as: CardHeadingLevel }): React.JSX.Element {
   return (
-    <div className="grid gap-4">
-      {/* Keyed by title, not year — two entries legitimately share "2022-present". */}
-      {timeline.map((item, index) => (
-        <TimelineCard key={item.title} item={item} index={index} as={as} />
-      ))}
-    </div>
+    <ScrollProgressTrack>
+      <div className="grid gap-4">
+        {/* Keyed by title, not year — two entries legitimately share "2022-present". */}
+        {timeline.map((item, index) => (
+          <TimelineCard key={item.title} item={item} index={index} as={as} />
+        ))}
+      </div>
+    </ScrollProgressTrack>
   );
 }
 
@@ -263,7 +266,11 @@ function SemesterCard({
 export function HeroSection(): React.JSX.Element {
   return (
     <section className="border-border-subtle relative overflow-hidden border-b">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(217,162,92,0.16),transparent_26%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_24%)]" />
+      {/* Inset so the drift never exposes an unpainted edge. */}
+      <div
+        aria-hidden="true"
+        className="ambient-drift absolute -inset-[6%] -z-10 bg-[radial-gradient(circle_at_top_left,rgba(217,162,92,0.16),transparent_26%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_24%)]"
+      />
       <div className="mx-auto grid min-h-[100svh] w-full max-w-7xl gap-12 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-end">
         <div className="flex flex-col justify-between gap-10 pt-6 pb-8 xl:pt-12 xl:pb-14">
           {/* A meta row, not a banner — a second <header> here muddies the
