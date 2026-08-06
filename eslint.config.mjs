@@ -38,9 +38,19 @@ const boundaryElements = [
   { type: "assets", pattern: "src/assets/**" },
 ];
 
+/**
+ * Global ignores. This has to be its own config object containing *only*
+ * `ignores` — listing them next to `files` in the config below would only
+ * filter that one config's matches, leaving build output to be linted with no
+ * config at all (which surfaces as "rule definition not found" on the inline
+ * eslint-disable comments inside bundled dependencies).
+ */
+const globalIgnores = {
+  ignores: [".next/**", "node_modules/**", "coverage/**", "playwright-report/**"],
+};
+
 const baseConfig = {
   files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
-  ignores: [".next/**", "node_modules/**", "coverage/**", "playwright-report/**"],
   ...js.configs.recommended,
   languageOptions: {
     parser: tsParser,
@@ -130,4 +140,4 @@ const coreOnlyConfig = {
   },
 };
 
-export default [baseConfig, coreOnlyConfig];
+export default [globalIgnores, baseConfig, coreOnlyConfig];
