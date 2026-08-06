@@ -14,12 +14,30 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],
+      // Without this, coverage instruments the whole repo — including .next/
+      // build output and the coverage report's own HTML. That inflated
+      // statements to 93% off bundled vendor code while src/ went unmeasured,
+      // which is worse than no gate at all: the number looked healthy and
+      // meant nothing.
+      include: ["src/**/*.{ts,tsx}"],
       thresholds: {
+        // Repo-wide thresholds are flat keys. They were previously nested
+        // under a `global: {}` object, which is Jest's syntax — Vitest read
+        // "global" as a glob pattern, matched no files, and enforced nothing.
+        // The 70/65 recorded there had never once been checked.
+        //
+        // These are the real numbers today, and they only go up. The view
+        // layer (features/, components/) has no tests yet, which is what
+        // keeps statements this low; raising the floor is the job of those
+        // tests, not of editing this line downward.
+        statements: 5,
+        branches: 45,
+
         // Enforced as a CI gate, not aspirational — see ci.yml.
-        // core/ carries the business logic and is held to a higher bar
-        // than the overall repo average.
+        // core/ carries the business logic and is held to a higher bar than
+        // the overall repo average. Glob thresholds do work, and this is the
+        // one that had been failing CI.
         "src/core/**": { statements: 90, branches: 85 },
-        global: { statements: 70, branches: 65 },
       },
       exclude: ["**/*.d.ts", "src/app/**/layout.tsx", "src/app/**/page.tsx"],
     },
