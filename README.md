@@ -30,6 +30,12 @@ Travels & Tours**, my family's travel agency: replacing Excel/paper
 bookkeeping with a custom accounting system, adding cloud backup and a
 structured customer/B2B database, and building the company's public website.
 
+The key engineering project inside that story is the
+[**VAT Billing System**](https://github.com/aalokbhandari/vat-billing-system) —
+a multi-tenant, offline-first double-entry accounting system that the agency
+runs its books on. It leads the homepage below the hero and has its own case
+study at `/projects/vat-billing-system`.
+
 ## Features
 
 - **Typed MDX content collections** — adding one `.mdx` file under
@@ -50,18 +56,18 @@ structured customer/B2B database, and building the company's public website.
 
 Each section is its own route; the homepage is a short hub that links to them.
 
-| Route              | Contents                                        |
-| ------------------ | ----------------------------------------------- |
-| `/`                | Hero + hub linking to every section             |
-| `/about`           | The story, plus the full timeline               |
-| `/experience`      | NSA Travels — before/after, role, flagship link |
-| `/projects`        | All projects, grouped by stage                  |
-| `/projects/[slug]` | Case study, with its architecture/DFD diagram   |
-| `/education`       | Curriculum map, trainings, workshops            |
-| `/skills`          | Grouped capabilities — no skill bars            |
-| `/philosophy`      | Working principles                              |
-| `/contact`         | Contact channels                                |
-| _404_              | Custom not-found page with section links        |
+| Route              | Contents                                               |
+| ------------------ | ------------------------------------------------------ |
+| `/`                | Hero + featured project + hub linking to every section |
+| `/about`           | The story, plus the full timeline                      |
+| `/experience`      | NSA Travels — before/after, role, flagship link        |
+| `/projects`        | All projects, grouped by stage                         |
+| `/projects/[slug]` | Case study, with its architecture/DFD diagram          |
+| `/education`       | Curriculum map, trainings, workshops                   |
+| `/skills`          | Grouped capabilities — no skill bars                   |
+| `/philosophy`      | Working principles                                     |
+| `/contact`         | Contact channels                                       |
+| _404_              | Custom not-found page with section links               |
 
 A floating WhatsApp button, a light/dark theme toggle, and a mobile disclosure
 menu are present on every route. Route changes animate via `app/template.tsx`.

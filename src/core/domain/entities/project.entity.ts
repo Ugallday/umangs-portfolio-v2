@@ -10,6 +10,12 @@ export interface ProjectSection {
   readonly bullets: readonly string[];
 }
 
+/** A headline figure — `value` is the number as it should read, unit and all. */
+export interface ProjectMetric {
+  readonly value: string;
+  readonly label: string;
+}
+
 export interface ProjectVisual {
   readonly eyebrow: string;
   readonly label: string;
@@ -27,6 +33,7 @@ export interface ProjectEntity {
   readonly role: string;
   readonly organization: string;
   readonly techStack: readonly string[];
+  readonly metrics: readonly ProjectMetric[];
   readonly links: readonly ProjectLink[];
   readonly visual: ProjectVisual;
   readonly sections: readonly ProjectSection[];

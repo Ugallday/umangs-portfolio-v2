@@ -1,31 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
-import { getProjectDiagram, type ProjectDiagram } from "@/features/projects/diagrams";
+import { DiagramPanel } from "@/features/projects/diagram-panel";
+import { getProjectDiagram } from "@/features/projects/diagrams";
 import { actionClass } from "@/components/ui/action";
 import { Pill } from "@/components/ui/pill";
-
-function DiagramPanel({ diagram }: { readonly diagram: ProjectDiagram }): React.JSX.Element {
-  return (
-    <figure className="fold-panel rounded-3xl p-6 sm:p-8">
-      <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Diagram</p>
-      {/* Diagrams are authored wide; the wrapper scrolls rather than letting
-          the page body scroll horizontally on narrow viewports. */}
-      <div className="border-border-subtle bg-surface-overlay mt-4 overflow-x-auto rounded-2xl border p-4">
-        <Image
-          src={diagram.src}
-          alt={diagram.alt}
-          className="mx-auto h-auto w-full max-w-3xl"
-          sizes="(min-width: 1024px) 48rem, 100vw"
-        />
-      </div>
-      <figcaption className="text-text-muted mt-4 text-sm leading-6">{diagram.caption}</figcaption>
-    </figure>
-  );
-}
+import { ProjectMetrics } from "@/features/projects/project-metrics";
 
 /**
  * The diagram belongs next to "what was built", but the shorter academic
@@ -105,6 +87,12 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
           </div>
         </div>
       </FoldReveal>
+
+      {project.metrics.length > 0 ? (
+        <FoldReveal delayMs={60}>
+          <ProjectMetrics metrics={project.metrics} className="mt-12" />
+        </FoldReveal>
+      ) : null}
 
       <div className="mt-16 grid gap-5">
         {project.sections.map((section, index) => (
