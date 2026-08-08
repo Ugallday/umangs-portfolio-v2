@@ -57,7 +57,7 @@ sections:
   - id: what-was-built
     heading: One shell over a framework-free core
     body: >-
-      I replaced the approach rather than patching the defects. No view computes a balance now; it asks `ledger.js` for figures and asks the component kit to draw them. The core modules never touch the DOM.
+      I replaced the approach rather than patching the defects. No view computes a balance now; it asks ledger.js for figures and asks the component kit to draw them. The core modules never touch the DOM.
     bullets:
       - Nine voucher types over one fixed chart of accounts.
       - Seven reports, every one of them a sum over the same postings.
@@ -66,7 +66,7 @@ sections:
   - id: correctness
     heading: Three invariants the ledger refuses to break
     body: >-
-      An unbalanced voucher never saves. `post()` sums both sides and throws if they differ by more than half a paisa, and no code path into the ledger skips that check. Totals are derived from their components rather than read off the form.
+      An unbalanced voucher never saves. post() sums both sides and throws if they differ by more than half a paisa, and no code path into the ledger skips that check. Totals are derived from their components rather than read off the form.
     bullets:
       - The ticketing VAT split is verified against the real supplier day book, to the paisa.
       - Rounding drift is bounded and explained; the three parts always re-add to the bill.

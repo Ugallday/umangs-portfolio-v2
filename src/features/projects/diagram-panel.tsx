@@ -19,7 +19,7 @@ export function DiagramPanel({ diagram }: { readonly diagram: ProjectDiagram }):
       <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Diagram</p>
       {/* Diagrams are authored wide; the wrapper scrolls rather than letting
           the page body scroll horizontally on narrow viewports. */}
-      <div className="border-border-subtle bg-surface-overlay mt-4 overflow-x-auto rounded-2xl border p-4">
+      <div className="border-border-subtle bg-surface-overlay mt-4 overflow-x-auto rounded-2xl border p-3 sm:p-4">
         {art.kind === "image" ? (
           <Image
             src={art.src}
@@ -28,7 +28,7 @@ export function DiagramPanel({ diagram }: { readonly diagram: ProjectDiagram }):
             sizes="(min-width: 1024px) 48rem, 100vw"
           />
         ) : (
-          <div role="img" aria-label={diagram.alt} className="mx-auto w-full min-w-[46rem]">
+          <div role="img" aria-label={diagram.alt} className="mx-auto w-full sm:min-w-[44rem]">
             <art.Art />
           </div>
         )}

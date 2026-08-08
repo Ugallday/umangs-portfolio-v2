@@ -32,13 +32,13 @@ export function ProjectMetrics({
   return (
     <dl
       className={cn(
-        "border-border-subtle bg-border-subtle grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-2 xl:grid-cols-4",
+        "border-border-subtle bg-border-subtle grid grid-cols-1 gap-px overflow-hidden rounded-2xl border sm:grid-cols-2 xl:grid-cols-4",
         className,
       )}
     >
       {metrics.map((metric) => (
-        <div key={metric.label} className="bg-surface-overlay p-5">
-          <dt className="text-text-primary font-display text-3xl leading-none font-semibold tracking-tight tabular-nums">
+        <div key={metric.label} className="bg-surface-overlay p-4 sm:p-5">
+          <dt className="text-text-primary font-display text-2xl leading-none font-semibold tracking-tight tabular-nums sm:text-3xl">
             {metric.value}
           </dt>
           <dd className="text-text-muted mt-3 text-sm leading-6">{metric.label}</dd>

@@ -16,14 +16,16 @@ export function VatBillingArchitecture(): React.JSX.Element {
   return (
     <svg viewBox="0 0 920 560" role="img" aria-hidden="true" className="h-auto w-full" fill="none">
       <defs>
-        {/* The stops name the token directly. `currentColor` resolves against
-            the element that *references* a gradient, which for a <stop> inside
-            <defs> is nothing — the crease came out invisible. */}
+        {/* The stops name a token directly. `currentColor` resolves against the
+            element that *references* a gradient, which for a <stop> inside
+            <defs> is nothing, so the crease came out invisible. --border-strong
+            was then still too dark to see against the panel; --text-muted is
+            the lightest neutral and reads on both themes. */}
         <linearGradient id="vat-crease" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--border-strong)" stopOpacity="0" />
-          <stop offset="16%" stopColor="var(--border-strong)" stopOpacity="1" />
-          <stop offset="84%" stopColor="var(--border-strong)" stopOpacity="1" />
-          <stop offset="100%" stopColor="var(--border-strong)" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--text-muted)" stopOpacity="0" />
+          <stop offset="14%" stopColor="var(--text-muted)" stopOpacity="0.85" />
+          <stop offset="86%" stopColor="var(--text-muted)" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="var(--text-muted)" stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -147,18 +149,28 @@ export function VatBillingArchitecture(): React.JSX.Element {
 
       {/* ---------- the crease: the sync boundary ---------- */}
       <path d="M40 268 H880" stroke="url(#vat-crease)" strokeWidth="1.5" strokeDasharray="9 6" />
-      <path
-        d="M436 258 l24 10 l-24 10"
-        className="stroke-accent-default"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
 
-      <text x="40" y="248" className="fill-text-muted text-[12px] tracking-[0.2em] uppercase">
+      {/* The label sits on the crease rather than floating beside it, with the
+          panel colour behind it so the dashes break cleanly around the text. */}
+      <rect
+        x="374"
+        y="253"
+        width="172"
+        height="30"
+        rx="15"
+        className="fill-surface-raised stroke-border-strong"
+        strokeWidth="1.25"
+      />
+      <text
+        x="460"
+        y="272"
+        textAnchor="middle"
+        className="fill-text-secondary text-[11.5px] tracking-[0.2em] uppercase"
+      >
         Sync boundary
       </text>
-      <text x="880" y="248" textAnchor="end" className="fill-text-muted text-[12px]">
+
+      <text x="880" y="246" textAnchor="end" className="fill-text-muted text-[12px]">
         a cycle is push, then pull — never the other way round
       </text>
 

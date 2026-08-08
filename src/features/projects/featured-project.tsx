@@ -34,7 +34,7 @@ export function FeaturedProjects({
     >
       <FoldField className="opacity-25" />
 
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-4">
           <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
             Featured work
@@ -76,12 +76,12 @@ function FeaturedProjectCard({
   return (
     <div className="space-y-5">
       <FoldReveal delayMs={index * 60}>
-        <article className="fold-panel relative overflow-hidden rounded-[1.75rem] p-6 sm:p-10">
+        <article className="fold-panel relative overflow-hidden rounded-3xl p-5 sm:rounded-[1.75rem] sm:p-10">
           {/* The index, set large and nearly out of sight. It gives the panel a
               corner to be anchored by without adding another thing to read. */}
           <span
             aria-hidden="true"
-            className="text-text-primary/[0.04] font-display pointer-events-none absolute -top-6 right-2 text-[9rem] leading-none font-bold tabular-nums select-none sm:text-[12rem]"
+            className="text-text-primary/[0.04] font-display pointer-events-none absolute -top-6 right-2 hidden text-[9rem] leading-none font-bold tabular-nums select-none sm:block sm:text-[10rem] lg:text-[12rem]"
           >
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -95,7 +95,7 @@ function FeaturedProjectCard({
               {live ? <LiveChip /> : null}
             </div>
 
-            <h3 className="text-text-primary mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+            <h3 className="text-text-primary mt-5 max-w-3xl text-2xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
               {project.title}
             </h3>
             <p className="text-accent-default mt-3 text-base leading-7">{project.visual.label}</p>

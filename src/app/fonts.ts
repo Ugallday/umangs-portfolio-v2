@@ -25,8 +25,17 @@ export const fontSans = IBM_Plex_Sans({
   display: "swap",
 });
 
+/**
+ * The width and optical-size axes are requested explicitly. next/font ships
+ * only `wght` from a variable family unless the others are named, and without
+ * `wdth` the headings came out at default width — close enough to the old
+ * Geist that the change did not read as a decision at all. Headings set
+ * `wdth` to a semi-condensed value in globals.css, which is where the
+ * character actually comes from.
+ */
 export const fontDisplay = Bricolage_Grotesque({
   subsets: ["latin"],
+  axes: ["opsz", "wdth"],
   variable: "--font-display",
   display: "swap",
 });

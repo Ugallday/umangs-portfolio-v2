@@ -69,7 +69,7 @@ sections:
   - id: schema
     heading: Five tables, and no way to read someone else's
     body: >-
-      The schema is deliberately small. `users` extends Supabase Auth rather than duplicating it, `trips` belong to a user, and `expenses` belong to a trip and a category. Categories are the interesting case — a null `user_id` means a system default everyone can read.
+      The schema is deliberately small. users extends Supabase Auth rather than duplicating it, trips belong to a user, and expenses belong to a trip and a category. Categories are the interesting case — a null user_id means a system default everyone can read.
     bullets:
       - Row-level security is enabled on all five tables, not only the obvious ones.
       - Category reads match defaults or your own rows; writes match only your own.
