@@ -19,7 +19,6 @@ import {
   coreStory,
   currentFocus,
   currentStatusSummary,
-  curriculum,
   engineeringJudgmentSummary,
   footerClosingStatement,
   games,
@@ -30,13 +29,11 @@ import {
   heroHeadline,
   heroSubheadline,
   hubEntries,
-  philosophy,
   skillGroups,
   stackLead,
   timeline,
   toolkitGroups,
   toolkitLead,
-  trainings,
   workflowPractices,
 } from "@/features/portfolio/content";
 import portraitImage from "@/assets/portrait.png";
@@ -44,6 +41,7 @@ import { actionClass } from "@/components/ui/action";
 import { BrandMark } from "@/components/ui/brand-mark";
 import { InstitutionLogo } from "@/components/ui/institution-logo";
 import { institutionLogos } from "@/features/portfolio/institution-logos";
+import { FoldToggle } from "@/components/ui/fold-toggle";
 import { Pill } from "@/components/ui/pill";
 import { SocialLink } from "@/components/ui/social-link";
 import { TechBadge } from "@/components/ui/tech-badge";
@@ -219,9 +217,7 @@ function TimelineCard({
               alt={institutionLogos[item.logo].alt}
             />
           ) : null}
-          <span className="text-text-muted text-xs tracking-[0.24em] uppercase transition group-open:rotate-180">
-            Fold
-          </span>
+          <FoldToggle />
         </div>
       </summary>
       <div className="border-border-subtle mt-4 border-l pl-7">
@@ -244,58 +240,6 @@ function TimelineList({ as }: { readonly as: CardHeadingLevel }): React.JSX.Elem
   );
 }
 
-function SemesterCard({
-  node,
-  index,
-  as: Heading = "h3",
-}: {
-  readonly node: (typeof curriculum)[number];
-  readonly index: number;
-  readonly as?: CardHeadingLevel;
-}): React.JSX.Element {
-  return (
-    <details className="group fold-panel fold-hover rounded-3xl p-5 sm:p-6" open={index === 3}>
-      <summary className="cursor-pointer list-none">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{node.semester}</p>
-            <Heading className="text-text-primary mt-2 text-lg font-semibold tracking-tight">
-              {node.emphasis}
-            </Heading>
-          </div>
-          <span className="text-text-muted text-xs tracking-[0.24em] uppercase transition group-open:rotate-180">
-            Fold
-          </span>
-        </div>
-      </summary>
-      <div className="border-border-subtle mt-5 space-y-5 border-t pt-5">
-        <div className="flex flex-wrap gap-2">
-          {node.courses.map((course) => (
-            <Pill key={course.name} className="font-normal">
-              {course.name}
-            </Pill>
-          ))}
-        </div>
-        <p className="text-text-secondary max-w-2xl text-sm leading-7">{node.outcome}</p>
-        <div className="space-y-3">
-          {node.courses
-            .filter((course) => course.link)
-            .map((course) => (
-              <div key={course.name} className="text-text-muted text-sm leading-6">
-                <span className="text-text-secondary font-medium">{course.name}</span>
-                {course.link ? ` → ${course.link}` : null}
-              </div>
-            ))}
-        </div>
-      </div>
-    </details>
-  );
-}
-
-/**
- * Same shape as FoldCard, plus the tool pills. Kept separate rather than adding
- * a `children` escape hatch to FoldCard, which is deliberately a text-only card.
- */
 function ToolkitCard({
   group,
   as: Heading = "h3",
@@ -586,94 +530,6 @@ export function AboutSection({ headingLevel, standalone }: SectionProps = {}): R
   );
 }
 
-export function ExperienceSection({
-  project,
-  headingLevel,
-  standalone,
-}: SectionProps & {
-  readonly project: ProjectEntity;
-}): React.JSX.Element {
-  const sub = cardLevel(headingLevel);
-  return (
-    <SectionShell
-      id="experience"
-      eyebrow="Experience"
-      title="NSA Travels is the story this portfolio is built around."
-      description="A two-person travel agency running on paper became the live system I used to learn how software should actually behave when a business depends on it every day."
-      {...(headingLevel ? { headingLevel } : {})}
-      {...(standalone ? { standalone } : {})}
-    >
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-        <FoldCard
-          as={sub}
-          meta="Before"
-          title="The manual state"
-          body="Bookkeeping lived in Excel sheets and paper ledgers. Customer records were scattered. Ticket tracking was manual. There was no cloud backup, so the business had one fragile path for its records."
-        />
-        <FoldCard
-          as={sub}
-          meta="After"
-          title="What changed"
-          body="A custom accounting app, cloud storage and backup, customer and B2B records, a public company site, and a workflow that lets a small team handle more without proportionally more manual effort."
-        />
-      </div>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <FoldCard
-          as={sub}
-          meta="Role"
-          title="Technology lead and operations support"
-          body="Not a formal developer role. A self-directed one: find what's broken, build the fix, and keep the business moving while studying full time."
-          note="The company grew from 2 people to a small structured team with accounts, a manager, operations staff, and me on the technology side."
-        />
-        <FoldCard
-          as={sub}
-          meta="Why it matters"
-          title="My first real product environment"
-          body="The family business gave me direct access to a real workflow. That access mattered more than a title or a hypothetical problem ever could have."
-        />
-      </div>
-      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
-        <FoldCard
-          as={sub}
-          meta="Flagship case study"
-          title={project.title}
-          body={project.summary}
-          note="Open the full case study for the whole sequence: hook, background, problem, what I built, artifacts, outcome, reflection, and what comes next."
-        />
-        <div className="grid gap-4">
-          <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Key built systems</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {project.techStack.map((item) => (
-                <TechBadge key={item} label={item} />
-              ))}
-            </div>
-          </div>
-          <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Links</p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <Link href={`/projects/${project.slug}`} className={actionClass()}>
-                Read the case study
-              </Link>
-              {project.links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith("http") ? "_blank" : undefined}
-                  rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                  className={actionClass({ variant: "secondary" })}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </SectionShell>
-  );
-}
-
 export function ProjectsSection({
   projects,
   headingLevel,
@@ -707,85 +563,6 @@ export function ProjectsSection({
           {currentFocus.slice(0, 3).map((item) => (
             <Pill key={item}>{item}</Pill>
           ))}
-        </div>
-      </div>
-    </SectionShell>
-  );
-}
-
-export function EducationSection({
-  headingLevel,
-  standalone,
-}: SectionProps = {}): React.JSX.Element {
-  const sub = cardLevel(headingLevel);
-  const TrainingHeading = sub;
-  return (
-    <SectionShell
-      id="education"
-      eyebrow="Education"
-      title="The curriculum map matters because it shows where my systems thinking came from."
-      description="I'm not showing the degree as a list of subjects. I'm showing it as a path: which course fed what kind of work later, and where the real connections are grounded."
-      {...(headingLevel ? { headingLevel } : {})}
-      {...(standalone ? { standalone } : {})}
-    >
-      <div className="grid gap-4 xl:grid-cols-2">
-        {curriculum.map((node, index) => (
-          <SemesterCard key={node.semester} node={node} index={index} as={sub} />
-        ))}
-      </div>
-      <div className="mt-10 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
-        <div className="fold-panel rounded-3xl p-5 sm:p-6">
-          <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
-            Training and certifications
-          </p>
-          <div className="mt-5 grid gap-4">
-            {trainings.map((training) => (
-              <article
-                key={`${training.title}-${training.period}`}
-                className="border-border-subtle bg-surface-base rounded-2xl border p-4"
-              >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <TrainingHeading className="text-text-primary text-base font-semibold">
-                      {training.title}
-                    </TrainingHeading>
-                    <p className="text-text-muted mt-1 text-sm">{training.provider}</p>
-                  </div>
-                  <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
-                    {training.period}
-                  </p>
-                </div>
-                <p className="text-text-secondary mt-3 text-sm leading-6">
-                  {training.whyItMatters}
-                </p>
-                <p className="text-text-muted mt-2 text-sm leading-6">
-                  Connects to: {training.connectsTo}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
-              What I’m learning now
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {currentFocus.map((item) => (
-                <Pill key={item}>{item}</Pill>
-              ))}
-            </div>
-          </div>
-          <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
-              University workshops
-            </p>
-            <div className="text-text-secondary mt-4 space-y-3 text-sm leading-7">
-              <p>UI/UX Workshop — 2023</p>
-              <p>WordPress Workshop — 2024</p>
-              <p>Quality Assurance Workshop — 2026</p>
-            </div>
-          </div>
         </div>
       </div>
     </SectionShell>
@@ -973,34 +750,6 @@ export function GamingSection({ headingLevel, standalone }: SectionProps = {}): 
           </a>
         </div>
       </FoldReveal>
-    </SectionShell>
-  );
-}
-
-export function PhilosophySection({
-  headingLevel,
-  standalone,
-}: SectionProps = {}): React.JSX.Element {
-  const sub = cardLevel(headingLevel);
-  return (
-    <SectionShell
-      id="philosophy"
-      eyebrow="Philosophy"
-      title="I start with the problem, not the stack."
-      description="These are the principles that show up again and again in my work, whether the project is travel operations, coursework, or a future product concept."
-      {...(headingLevel ? { headingLevel } : {})}
-      {...(standalone ? { standalone } : {})}
-    >
-      <div className="grid gap-5 lg:grid-cols-2">
-        {philosophy.map((principle) => (
-          <FoldCard
-            as={sub}
-            key={principle.quote}
-            title={principle.quote}
-            body={principle.explanation}
-          />
-        ))}
-      </div>
     </SectionShell>
   );
 }

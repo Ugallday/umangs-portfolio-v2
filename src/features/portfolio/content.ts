@@ -38,11 +38,6 @@ export interface SkillGroup {
   readonly kind: "tech" | "concept";
 }
 
-export interface Principle {
-  readonly quote: string;
-  readonly explanation: string;
-}
-
 export interface ContactLink {
   readonly label: string;
   readonly href: string;
@@ -79,6 +74,12 @@ export const heroRotatingWords = [
   "expense trackers that get used",
   "VAT returns that tie",
 ] as const;
+
+export const backgroundLead =
+  "The degree and the company ran at the same time, and kept handing things to each other. A database course became the agency's accounting schema; a VAT compliance seminar became the rules the ledger enforces. This page is both tracks on one timeline, because separating them was never honest.";
+
+export const backgroundSpineLead =
+  "A filled node means that semester produced something that shipped. An empty one means it did not, and I would rather show the gap than invent a link.";
 
 export const stackLead =
   "No aspirational logos. Everything here appears in something I have shipped, and most of it in something running in production right now.";
@@ -447,34 +448,6 @@ export const games: readonly GameEntry[] = [
 export const gamingCloser =
   "None of this belongs on a CV. It's here because leaving it out would make the picture tidier and less true.";
 
-export const philosophy: readonly Principle[] = [
-  {
-    quote: "I automate before I optimize.",
-    explanation: "A manual bottleneck should be removed before anyone starts polishing it.",
-  },
-  {
-    quote: "Understand the business before writing the code.",
-    explanation: "The workflow matters more than the tool that eventually implements it.",
-  },
-  {
-    quote: "The best internal tool is the one nobody has to think about using.",
-    explanation: "A good system fades into the background and just makes the work happen.",
-  },
-  {
-    quote: "Documentation and clear process are part of the engineering.",
-    explanation: "The build is only as durable as the knowledge around it.",
-  },
-  {
-    quote: "Start where you actually have access to the problem.",
-    explanation:
-      "The family business became my first real project because it was the place where my help could be real.",
-  },
-  {
-    quote: "AI should remove grunt work, not replace judgment.",
-    explanation: "I'm after better leverage, not blind automation.",
-  },
-] as const;
-
 export const aiWorkflowLead =
   "AI is part of how I work now, the way version control and a good editor are. It shortens the distance between a question and a working answer. Whether the software is correct, maintainable and worth building stays my call.";
 
@@ -684,19 +657,14 @@ export const hubEntries: readonly HubEntry[] = [
     blurb: "How a two-person family agency became my first real engineering project.",
   },
   {
-    label: "Experience",
-    href: "/experience",
-    blurb: "What I actually did at NSA Travels, before and after.",
+    label: "Background",
+    href: "/background",
+    blurb: "The degree and the agency, on one timeline — each semester and what it fed.",
   },
   {
     label: "Projects",
     href: "/projects",
     blurb: "Two deployed case studies, active concepts, and the coursework behind them.",
-  },
-  {
-    label: "Education",
-    href: "/education",
-    blurb: "BSc CSIT mapped course by course to the work it fed.",
   },
   {
     label: "Skills",
@@ -712,11 +680,6 @@ export const hubEntries: readonly HubEntry[] = [
     label: "Gaming",
     href: "/gaming",
     blurb: "7,000 hours in Dota 2, a Valorant trophy, and why both are here.",
-  },
-  {
-    label: "Philosophy",
-    href: "/philosophy",
-    blurb: "The principles I keep coming back to.",
   },
   {
     label: "Contact",
