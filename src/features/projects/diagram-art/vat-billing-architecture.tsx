@@ -14,18 +14,33 @@
  */
 export function VatBillingArchitecture(): React.JSX.Element {
   return (
-    <svg viewBox="0 0 920 560" role="img" aria-hidden="true" className="h-auto w-full" fill="none">
+    <svg viewBox="0 0 920 480" role="img" aria-hidden="true" className="h-auto w-full" fill="none">
       <defs>
-        {/* The stops name a token directly. `currentColor` resolves against the
-            element that *references* a gradient, which for a <stop> inside
-            <defs> is nothing, so the crease came out invisible. --border-strong
-            was then still too dark to see against the panel; --text-muted is
-            the lightest neutral and reads on both themes. */}
-        <linearGradient id="vat-crease" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--text-muted)" stopOpacity="0" />
-          <stop offset="14%" stopColor="var(--text-muted)" stopOpacity="0.85" />
-          <stop offset="86%" stopColor="var(--text-muted)" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="var(--text-muted)" stopOpacity="0" />
+        {/* Three separate things kept this gradient from painting, which is why
+            it survived two earlier attempts at fixing the colour.
+
+            1. `currentColor` resolves against whatever references a gradient,
+               and for a <stop> inside <defs> that is nothing.
+            2. `stopColor` compiles to the stop-color *attribute*, and no SVG
+               presentation attribute accepts var() — the token has to be
+               handed over as a CSS property, through style.
+            3. The real one: gradientUnits defaults to objectBoundingBox, and
+               the crease is a horizontal line, so its bounding box is 840 x 0.
+               The spec says a gradient in bounding-box units is not rendered
+               when either dimension is zero. Any colour fix was going to be
+               invisible until this became userSpaceOnUse. */}
+        <linearGradient
+          id="vat-crease"
+          gradientUnits="userSpaceOnUse"
+          x1="40"
+          y1="0"
+          x2="880"
+          y2="0"
+        >
+          <stop offset="0%" style={{ stopColor: "var(--text-muted)", stopOpacity: 0 }} />
+          <stop offset="14%" style={{ stopColor: "var(--text-muted)", stopOpacity: 0.85 }} />
+          <stop offset="86%" style={{ stopColor: "var(--text-muted)", stopOpacity: 0.85 }} />
+          <stop offset="100%" style={{ stopColor: "var(--text-muted)", stopOpacity: 0 }} />
         </linearGradient>
       </defs>
 
@@ -147,14 +162,21 @@ export function VatBillingArchitecture(): React.JSX.Element {
         markerEnd="url(#vat-arrow)"
       />
 
-      {/* ---------- the crease: the sync boundary ---------- */}
-      <path d="M40 268 H880" stroke="url(#vat-crease)" strokeWidth="1.5" strokeDasharray="9 6" />
+      {/* ---------- the crease: the sync boundary ----------
+
+          The band between the two blocks used to run from y=222 to y=388 —
+          166 units of empty diagram for a label 30 units tall. Worse, both
+          arrows stopped at y=330, well short of the database panel, so they
+          ended in mid-air instead of touching anything. The band is now sized
+          to the arrows that cross it, and the arrows span the full distance
+          between the two blocks. */}
+      <path d="M40 276 H880" stroke="url(#vat-crease)" strokeWidth="1.5" strokeDasharray="9 6" />
 
       {/* The label sits on the crease rather than floating beside it, with the
           panel colour behind it so the dashes break cleanly around the text. */}
       <rect
         x="374"
-        y="253"
+        y="261"
         width="172"
         height="30"
         rx="15"
@@ -163,49 +185,57 @@ export function VatBillingArchitecture(): React.JSX.Element {
       />
       <text
         x="460"
-        y="272"
+        y="280"
         textAnchor="middle"
         className="fill-text-secondary text-[11.5px] tracking-[0.2em] uppercase"
       >
         Sync boundary
       </text>
 
-      <text x="880" y="246" textAnchor="end" className="fill-text-muted text-[12px]">
-        a cycle is push, then pull — never the other way round
+      {/* Right-aligned at x=880 this ran straight through the pull arrow. It
+          now sits centred under the chip, inside the lane between the two
+          arrows (300 and 600) where nothing else is drawn. */}
+      <text x="460" y="308" textAnchor="middle" className="fill-text-muted text-[11.5px]">
+        push, then pull — never the other way round
       </text>
 
-      {/* Push and pull, drawn crossing the crease in opposite directions. */}
+      {/* Both arrows run the whole way, from just under the browser block to
+          the top edge of the database panel, crossing the crease between them.
+          Their x positions clear the label chip (374–546) and sit under the
+          installation card rather than in the gap beside it — the pull arrow
+          used to point at x=660, which is between two panels and belongs to
+          neither. */}
       <path
-        d="M240 206 V330"
+        d="M300 230 V322"
         className="stroke-accent-default"
         strokeWidth="1.75"
         markerEnd="url(#vat-arrow-accent)"
       />
-      <text x="252" y="300" className="fill-accent-default font-serif text-[12px]">
+      <text x="312" y="256" className="fill-accent-default font-serif text-[12px]">
         1. push
       </text>
 
       <path
-        d="M660 330 V206"
+        d="M600 322 V230"
         className="stroke-border-strong"
         strokeWidth="1.75"
         markerEnd="url(#vat-arrow)"
       />
-      <text x="560" y="300" className="fill-text-muted font-serif text-[12px]">
+      <text x="588" y="256" textAnchor="end" className="fill-text-secondary font-serif text-[12px]">
         2. then pull
       </text>
 
       {/* ---------- below the crease: the shared database ---------- */}
-      <text x="40" y="368" className="fill-accent-default text-[13px] tracking-[0.22em] uppercase">
+      <text x="40" y="302" className="fill-accent-default text-[13px] tracking-[0.22em] uppercase">
         In PostgreSQL
       </text>
-      <text x="880" y="368" textAnchor="end" className="fill-text-muted text-[13px]">
+      <text x="880" y="302" textAnchor="end" className="fill-text-muted text-[13px]">
         one deployment, every client
       </text>
 
       <rect
         x="40"
-        y="388"
+        y="322"
         width="840"
         height="140"
         rx="14"
@@ -213,43 +243,43 @@ export function VatBillingArchitecture(): React.JSX.Element {
         strokeWidth="1.5"
       />
 
-      <text x="64" y="418" className="fill-text-primary text-[14px]">
+      <text x="64" y="352" className="fill-text-primary text-[14px]">
         Supabase — PostgreSQL + Auth
       </text>
 
       <g className="fill-surface-base stroke-border-default" strokeWidth="1.25">
-        <rect x="64" y="432" width="92" height="28" rx="7" />
-        <rect x="164" y="432" width="92" height="28" rx="7" />
-        <rect x="264" y="432" width="92" height="28" rx="7" />
-        <rect x="364" y="432" width="92" height="28" rx="7" />
-        <rect x="464" y="432" width="92" height="28" rx="7" />
-        <rect x="564" y="432" width="112" height="28" rx="7" />
-        <rect x="684" y="432" width="92" height="28" rx="7" />
-        <rect x="784" y="432" width="72" height="28" rx="7" />
+        <rect x="64" y="366" width="92" height="28" rx="7" />
+        <rect x="164" y="366" width="92" height="28" rx="7" />
+        <rect x="264" y="366" width="92" height="28" rx="7" />
+        <rect x="364" y="366" width="92" height="28" rx="7" />
+        <rect x="464" y="366" width="92" height="28" rx="7" />
+        <rect x="564" y="366" width="112" height="28" rx="7" />
+        <rect x="684" y="366" width="92" height="28" rx="7" />
+        <rect x="784" y="366" width="72" height="28" rx="7" />
       </g>
       <g className="fill-text-secondary font-serif text-[11px]" textAnchor="middle">
-        <text x="110" y="450">
+        <text x="110" y="384">
           tenants
         </text>
-        <text x="210" y="450">
+        <text x="210" y="384">
           users
         </text>
-        <text x="310" y="450">
+        <text x="310" y="384">
           accounts
         </text>
-        <text x="410" y="450">
+        <text x="410" y="384">
           parties
         </text>
-        <text x="510" y="450">
+        <text x="510" y="384">
           vouchers
         </text>
-        <text x="620" y="450">
+        <text x="620" y="384">
           ledger_lines
         </text>
-        <text x="730" y="450">
+        <text x="730" y="384">
           audit_log
         </text>
-        <text x="820" y="450">
+        <text x="820" y="384">
           settings
         </text>
       </g>
@@ -257,7 +287,7 @@ export function VatBillingArchitecture(): React.JSX.Element {
       {/* The boundary that makes one database safe to share. */}
       <rect
         x="64"
-        y="476"
+        y="410"
         width="792"
         height="36"
         rx="9"
@@ -265,7 +295,7 @@ export function VatBillingArchitecture(): React.JSX.Element {
         strokeWidth="1.25"
         strokeDasharray="4 4"
       />
-      <text x="80" y="499" className="fill-accent-default text-[12.5px]">
+      <text x="80" y="433" className="fill-accent-default text-[12.5px]">
         Row-level security — every table keyed to the tenant_id inside the caller&rsquo;s signed
         token, never to anything the browser can edit
       </text>
