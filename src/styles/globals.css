@@ -29,6 +29,33 @@
     background-attachment: fixed;
   }
 
+  /* Paper grain. The site is named after folded paper and had none of its
+     texture — every surface was a flat fill. This is the --paper-texture-opacity
+     token finally doing the job it was declared for.
+
+     A body background layer cannot carry its own opacity, so the grain is a
+     fixed pseudo-element instead. body's background propagates to the canvas,
+     which leaves a negative z-index child painting above that fill and below
+     all content — the same trick the hero's 3D layer relies on. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: var(--paper-texture-opacity);
+    background-image: var(--paper-grain);
+    background-size: 180px 180px;
+  }
+
+  /* Headings take the display face. Set here rather than on every component so
+     a heading cannot be added later and quietly come out in the body face. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+
   /* Focus is never suppressed. Only the visual affordance is scoped to
      keyboard use via :focus-visible, per docs/architecture/accessibility-strategy.md */
   :focus-visible {

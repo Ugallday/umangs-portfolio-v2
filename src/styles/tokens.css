@@ -56,7 +56,11 @@
   --paper-weight-light: 1px;
   --paper-weight-regular: 1.5px;
   --paper-weight-heavy: 2px;
-  --paper-texture-opacity: 0.03;
+  --paper-texture-opacity: 0.045;
+  /* Grayscale fractal noise, inlined. An external texture would be a network
+     request the content security policy refuses; feTurbulence costs nothing
+     and tiles seamlessly via stitchTiles. */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
   --fold-angle-subtle: 2deg;
   --fold-angle-default: 6deg;
   --fold-angle-dramatic: 14deg;
@@ -134,6 +138,9 @@
   --accent-hover: #7d5410;
   --accent-muted: rgba(138, 92, 20, 0.18);
   --focus-ring-color: #8a5c14;
+  /* Dark grain on a light ground reads much heavier than light grain on a
+     dark one, so light mode gets roughly half the strength. */
+  --paper-texture-opacity: 0.022;
   --glass-tint: rgba(250, 248, 245, 0.72);
   --elevation-1-shadow: 0 1px 2px rgba(40, 32, 24, 0.08), 0 1px 1px rgba(40, 32, 24, 0.04);
   --elevation-2-shadow: 0 8px 24px rgba(40, 32, 24, 0.12), 0 2px 6px rgba(40, 32, 24, 0.06);

@@ -5,6 +5,8 @@ import { Github, Linkedin } from "lucide-react";
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { TypingHeadline } from "@/components/motion/typing-headline";
+import { MarqueeColumn } from "@/components/motion/marquee-columns";
+import { RotatingWords } from "@/components/motion/rotating-words";
 import { FoldField } from "@/components/three/fold-field";
 import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
@@ -24,12 +26,16 @@ import {
   games,
   gamingCloser,
   gamingLead,
+  gamingProfile,
   gamingStory,
   heroHeadline,
+  heroRotatingPrefix,
+  heroRotatingWords,
   heroSubheadline,
   hubEntries,
   philosophy,
   skillGroups,
+  stackLead,
   timeline,
   toolkitGroups,
   toolkitLead,
@@ -365,9 +371,11 @@ export function HeroSection(): React.JSX.Element {
           </div>
           <div className="max-w-4xl space-y-8">
             <FoldReveal>
-              <p className="text-text-muted text-xs tracking-[0.3em] uppercase">
-                Systems fixer • BSc CSIT • Travel operations
-              </p>
+              <RotatingWords
+                prefix={heroRotatingPrefix}
+                words={heroRotatingWords}
+                className="text-text-secondary font-serif text-sm sm:text-base"
+              />
             </FoldReveal>
             <FoldReveal delayMs={40}>
               <TypingHeadline
@@ -447,6 +455,57 @@ export function HeroSection(): React.JSX.Element {
             </div>
           </aside>
         </FoldReveal>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * The stack, moving.
+ *
+ * Three columns at different speeds, masked top and bottom so items enter and
+ * leave rather than popping. It is decorative — every technology here is also
+ * listed statically on /skills — so the whole band is hidden from assistive
+ * technology instead of read out three times over in a random order.
+ */
+export function StackSection(): React.JSX.Element {
+  const columns = [
+    skillGroups.find((group) => group.title === "Languages")?.items ?? [],
+    skillGroups.find((group) => group.title === "Frameworks and libraries")?.items ?? [],
+    [
+      ...(skillGroups.find((group) => group.title === "Databases and data")?.items ?? []),
+      ...(skillGroups.find((group) => group.title === "Cloud and hosting")?.items ?? []),
+    ],
+  ];
+
+  return (
+    <section className="border-border-subtle border-t py-20 sm:py-24">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-14">
+        <div className="space-y-4">
+          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+            The stack
+          </p>
+          <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+            Everything here is something I have shipped with.
+          </h2>
+          <p className="text-text-muted text-sm leading-7">{stackLead}</p>
+          <Link href="/skills" className={actionClass({ variant: "secondary" })}>
+            See the full list
+          </Link>
+        </div>
+
+        <div
+          aria-hidden="true"
+          className="grid max-h-[24rem] grid-cols-2 gap-3 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_14%,black_86%,transparent)] sm:grid-cols-3"
+        >
+          <MarqueeColumn items={columns[0] ?? []} durationSeconds={34} />
+          <MarqueeColumn items={columns[1] ?? []} durationSeconds={44} />
+          <MarqueeColumn
+            items={columns[2] ?? []}
+            durationSeconds={38}
+            className="hidden sm:block"
+          />
+        </div>
       </div>
     </section>
   );
@@ -906,9 +965,23 @@ export function GamingSection({ headingLevel, standalone }: SectionProps = {}): 
       </div>
 
       <FoldReveal delayMs={100}>
-        <p className="text-text-muted border-border-subtle max-w-3xl border-t pt-6 text-sm leading-7">
-          {gamingCloser}
-        </p>
+        <div className="border-border-subtle flex flex-wrap items-center justify-between gap-6 border-t pt-6">
+          <p className="text-text-muted max-w-xl text-sm leading-7">{gamingCloser}</p>
+          <a
+            href={gamingProfile.href}
+            target="_blank"
+            rel="noreferrer"
+            className="fold-panel fold-hover group flex items-center gap-4 rounded-2xl p-4 pr-6"
+          >
+            <BrandMark label={gamingProfile.label} />
+            <span>
+              <span className="text-text-primary block text-sm font-medium">
+                {gamingProfile.label}
+              </span>
+              <span className="text-text-muted block text-xs leading-5">{gamingProfile.note}</span>
+            </span>
+          </a>
+        </div>
       </FoldReveal>
     </SectionShell>
   );

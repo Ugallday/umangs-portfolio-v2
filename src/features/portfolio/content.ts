@@ -65,6 +65,24 @@ export const heroHeadline = "Building Software That Solves Real-World Problems";
 export const heroSubheadline =
   "I'm Aalok Bhandari, a BSc CSIT student at Tribhuvan University. Since 2022 I've been rebuilding my family's travel agency in software — the accounting, the records, the backups — while carrying a full course load. I'm drawn to the problems where the software has to be correct, not just finished.";
 
+/**
+ * The hero's cycling line. Deliberately concrete: every entry is a thing that
+ * exists in one of the case studies, so the line doubles as a claim a reader
+ * can go and check rather than a list of adjectives.
+ */
+export const heroRotatingPrefix = "I build";
+
+export const heroRotatingWords = [
+  "double-entry ledgers",
+  "offline-first sync engines",
+  "multi-tenant schemas",
+  "expense trackers that get used",
+  "VAT returns that tie",
+] as const;
+
+export const stackLead =
+  "No aspirational logos. Everything here appears in something I have shipped, and most of it in something running in production right now.";
+
 export const aboutOpeningParagraph =
   "Most of my classmates spent university chasing an internship. I spent mine moving my family's travel agency off paper ledgers and Excel. I wanted to find out whether I could fix a real business that was already running, not just study one.";
 
@@ -392,11 +410,17 @@ export interface GameEntry {
 }
 
 export const gamingLead =
-  "I've played competitively for about as long as I've been building software. Both reward reading a system faster than it can punish you, committing on incomplete information, and being honest afterwards about why the last attempt failed.";
+  "I've played competitively for about as long as I've been building software. Both reward reading a system quickly and being honest about why the last attempt failed.";
+
+export const gamingProfile = {
+  label: "Steam",
+  href: "https://steamcommunity.com/id/alokbndry10/",
+  note: "The hours are public. Nothing here is rounded up.",
+} as const;
 
 export const gamingStory = [
-  "I didn't start playing to learn anything. I started because it was fun, and stayed because a match gives you an unambiguous answer about whether your read was right.",
-  "How much of it transferred surprised me. Drafting is architecture under constraints. A losing lane is a bug you have to diagnose while the system is still running. Reviewing a loss without flinching is the same muscle as reading a code review that finds eight defects in your work.",
+  "I didn't start playing to learn anything. I stayed because a match gives you an unambiguous answer about whether your read was right.",
+  "Drafting is architecture under constraints. A losing lane is a bug you diagnose while the system is still running. Reviewing a loss without flinching is the same muscle as reading a code review that finds eight defects in your work.",
 ] as const;
 
 export const games: readonly GameEntry[] = [
@@ -404,19 +428,19 @@ export const games: readonly GameEntry[] = [
     name: "Dota 2",
     figure: "7,000+",
     figureLabel: "hours, in this one game alone",
-    body: "The most complicated system I've spent serious time inside that I didn't build myself. Over a hundred heroes, each one changing what the other side can safely do, and a draft that settles much of the outcome before anyone moves. Seven thousand hours is why I'm comfortable being the least knowledgeable person in a complex system and working out the rules from inside it.",
+    body: "The most complicated system I've spent real time inside that I didn't build. Over a hundred heroes, each one changing what the other side can safely do. Seven thousand hours is why I'm comfortable being the least knowledgeable person in a complex system.",
   },
   {
     name: "Valorant",
     figure: "1st",
     figureLabel: "intercollege tournament, first year of college",
-    body: "We won the intercollege tournament in my first year. Five people, each doing one job properly and calling what they saw immediately, in plain words, because a late call and no call amount to the same thing. It taught me that a partial read shared early beats a complete one delivered after the round.",
+    body: "We won the intercollege tournament in my first year. Five people, each doing one job and calling what they saw immediately. A partial read shared early beats a complete one delivered after the round.",
   },
   {
     name: "PUBG",
     figure: "Risk",
     figureLabel: "management, mostly",
-    body: "Position and patience matter far more than aim. Almost every loss traces back to taking a fight with nothing to win, or holding ground past the point it was defensible. I've used that in build decisions more often than I expected to.",
+    body: "Position and patience over aim. Almost every loss traces back to a fight with nothing to win, or ground held past the point it was defensible.",
   },
 ] as const;
 

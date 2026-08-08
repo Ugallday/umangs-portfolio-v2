@@ -96,19 +96,31 @@ function FoldedSheet({
   sheet,
   accentColor,
   paperColor,
+  index,
 }: {
   readonly sheet: Sheet;
   readonly accentColor: string;
   readonly paperColor: string;
+  readonly index: number;
 }): React.JSX.Element {
   const group = useRef<Group>(null);
   const geometry = useFoldGeometry(0.75);
 
-  useFrame((_state, delta) => {
-    if (group.current) {
-      group.current.rotation.y += sheet.spin * delta;
-      group.current.rotation.x += sheet.spin * delta * 0.35;
-    }
+  // Each sheet drifts on its own period and phase. Shared timing would read as
+  // one object cut into pieces rather than as paper hanging in air.
+  const driftSpeed = 0.22 + index * 0.045;
+  const driftPhase = index * 1.7;
+
+  useFrame((state, delta) => {
+    const node = group.current;
+    if (!node) return;
+
+    node.rotation.y += sheet.spin * delta;
+    node.rotation.x += sheet.spin * delta * 0.35;
+
+    const time = state.clock.elapsedTime;
+    node.position.y = sheet.position[1] + Math.sin(time * driftSpeed + driftPhase) * 0.42;
+    node.position.x = sheet.position[0] + Math.cos(time * driftSpeed * 0.7 + driftPhase) * 0.18;
   });
 
   return (
@@ -151,7 +163,13 @@ export default function FoldFieldScene({
       <directionalLight position={[4, 6, 5]} intensity={1.4} />
       <directionalLight position={[-5, -2, 2]} intensity={0.5} color={accentColor} />
       {SHEETS.map((sheet, index) => (
-        <FoldedSheet key={index} sheet={sheet} accentColor={accentColor} paperColor={paperColor} />
+        <FoldedSheet
+          key={index}
+          sheet={sheet}
+          index={index}
+          accentColor={accentColor}
+          paperColor={paperColor}
+        />
       ))}
     </Canvas>
   );

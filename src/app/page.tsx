@@ -1,5 +1,5 @@
 import { SiteShell } from "@/features/portfolio/shell";
-import { HeroSection, HubSection } from "@/features/portfolio/sections";
+import { HeroSection, HubSection, StackSection } from "@/features/portfolio/sections";
 import { FeaturedProjects } from "@/features/projects/featured-project";
 import { getProject } from "@/features/projects";
 
@@ -23,6 +23,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
       <HeroSection />
       <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
         <FeaturedProjects projects={projects} />
+        <StackSection />
         <HubSection />
       </div>
     </SiteShell>
