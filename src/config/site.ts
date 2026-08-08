@@ -16,6 +16,7 @@ export const siteConfig = {
     { label: "Education", href: "/education" },
     { label: "Skills", href: "/skills" },
     { label: "Workflow", href: "/workflow" },
+    { label: "Gaming", href: "/gaming" },
     { label: "Philosophy", href: "/philosophy" },
     { label: "Contact", href: "/contact" },
   ],

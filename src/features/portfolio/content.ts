@@ -31,6 +31,11 @@ export interface TrainingCard {
 export interface SkillGroup {
   readonly title: string;
   readonly items: readonly string[];
+  /**
+   * `concept` groups render as plain pills. A monogram tile next to "REST APIs"
+   * implies a vendor mark that does not exist, so only named products get one.
+   */
+  readonly kind: "tech" | "concept";
 }
 
 export interface Principle {
@@ -303,29 +308,69 @@ export const trainings: readonly TrainingCard[] = [
 export const skillGroups: readonly SkillGroup[] = [
   {
     title: "Languages",
-    items: ["Java", "C", "C++", "JavaScript", "PHP", "SQL", "HTML", "CSS", "Python (basic)"],
+    kind: "tech",
+    items: [
+      "JavaScript",
+      "TypeScript",
+      "Java",
+      "C",
+      "C++",
+      "C#",
+      "PHP",
+      "SQL",
+      "HTML",
+      "CSS",
+      "Python (basic)",
+    ],
   },
   {
     title: "Frameworks and libraries",
-    items: ["Bootstrap", "React", "Next.js", "Node.js", "Express"],
+    kind: "tech",
+    items: [
+      "React",
+      "Next.js",
+      "Vite",
+      "Node.js",
+      "Express",
+      "Tailwind CSS",
+      "Bootstrap",
+      "ASP.NET",
+      "Radix UI",
+      "Zustand",
+      "Framer Motion",
+      "Three.js",
+      "Recharts",
+    ],
   },
   {
-    title: "Databases",
-    items: ["MySQL", "PostgreSQL", "SQLite"],
+    title: "Databases and data",
+    kind: "tech",
+    items: ["PostgreSQL", "MySQL", "SQLite", "IndexedDB", "Supabase RLS", "PostgREST"],
+  },
+  {
+    title: "Testing and quality",
+    kind: "tech",
+    items: ["Vitest", "Playwright", "ESLint", "Prettier", "GitHub Actions"],
   },
   {
     title: "Tools",
-    items: ["Git", "GitHub", "VS Code", "Figma", "Canva"],
+    kind: "tech",
+    items: ["Git", "GitHub", "VS Code", "Figma", "Canva", "Postman"],
   },
   {
     title: "Cloud and hosting",
+    kind: "tech",
     items: ["Supabase", "Firebase", "Vercel", "Netlify"],
   },
   {
     title: "Concepts",
+    kind: "concept",
     items: [
       "REST APIs",
       "Authentication",
+      "Row-level security",
+      "Offline-first sync",
+      "Double-entry accounting",
       "MVC",
       "OOP design",
       "Database design",
@@ -337,6 +382,46 @@ export const skillGroups: readonly SkillGroup[] = [
     ],
   },
 ] as const;
+
+export interface GameEntry {
+  /** Matches a vendored brand glyph, so the card can show the game's mark. */
+  readonly name: string;
+  readonly figure: string;
+  readonly figureLabel: string;
+  readonly body: string;
+}
+
+export const gamingLead =
+  "I have played competitively for about as long as I have been building software, and I have stopped treating that as a separate fact about me. Both reward the same three things: reading a system faster than it can punish you, committing to a decision on incomplete information, and being honest afterwards about why the last attempt failed.";
+
+export const gamingStory = [
+  "The honest version is that I did not start playing to learn anything. I started because it was fun, and I stayed because a good match is one of the few things that gives you an unambiguous answer about whether your read was correct.",
+  "What I did not expect was how much of it transferred. Drafting is architecture under constraints. A losing lane is a bug report you have to diagnose while the system is still running. Reviewing a lost match without flinching is the same muscle as reading a code review that finds eight defects in something you wrote and being glad it did.",
+] as const;
+
+export const games: readonly GameEntry[] = [
+  {
+    name: "Dota 2",
+    figure: "7,000+",
+    figureLabel: "hours, in this one game alone",
+    body: "The most complicated system I have spent serious time inside that I did not build myself. Over a hundred heroes, every one of them changing what the other side can safely do, and a draft that decides a meaningful share of the outcome before anyone moves. Seven thousand hours is not a boast — it is why I am comfortable being the least knowledgeable person in a complex system and working out the rules from the inside.",
+  },
+  {
+    name: "Valorant",
+    figure: "1st",
+    figureLabel: "intercollege tournament, first year of college",
+    body: "We won the intercollege tournament in my first year. Five people who each had to do one job properly and call what they saw, immediately, in plain words — because a late call and no call are the same thing. It is the closest I have come to a real team under time pressure, and it is where I learned that communicating a partial read early beats delivering a complete one after the round is over.",
+  },
+  {
+    name: "PUBG",
+    figure: "Risk",
+    figureLabel: "management, mostly",
+    body: "A game about position and patience far more than aim. Almost every loss traces back to taking a fight that had nothing to win, or holding a position past the point it stopped being defensible. That is a lesson I have used more often in build decisions than I would have guessed.",
+  },
+] as const;
+
+export const gamingCloser =
+  "None of this belongs on a CV, and I am not pretending it does. It is here because leaving it out would make the picture tidier and less true.";
 
 export const philosophy: readonly Principle[] = [
   {
@@ -440,6 +525,56 @@ export const workflowPractices: readonly WorkflowPractice[] = [
   },
 ] as const;
 
+export interface WorkflowStage {
+  readonly name: string;
+  /** The half a model can take a first pass at. */
+  readonly drafted: string;
+  /** The half that does not transfer to a tool. */
+  readonly decided: string;
+}
+
+export const workflowModelLead =
+  "The same six stages run on every build, and each one splits the same way. The line down the middle is the whole method: everything on the left is a draft I asked for, everything on the right is a decision I am answerable for. Nothing crosses the line by accident.";
+
+export const workflowStages: readonly WorkflowStage[] = [
+  {
+    name: "Understand",
+    drafted: "Domain research, prior art, and the vocabulary of an unfamiliar field, compressed.",
+    decided: "What the problem actually is, and whether it is worth solving with software at all.",
+  },
+  {
+    name: "Design",
+    drafted: "Several viable structures, each argued against, with the trade-offs made explicit.",
+    decided: "Which one survives a real budget, a real team, and real data — and why.",
+  },
+  {
+    name: "Build",
+    drafted: "Boilerplate, scaffolding, and a first implementation to react to.",
+    decided:
+      "The interfaces and the data model, because those are the parts that are expensive to change.",
+  },
+  {
+    name: "Verify",
+    drafted: "Cases around boundaries I have defined, and the edge conditions easy to miss.",
+    decided:
+      "What 'correct' means here, and which invariants get enforced where they cannot be routed around.",
+  },
+  {
+    name: "Document",
+    drafted: "The first pass of the prose — READMEs, architecture notes, setup guides.",
+    decided:
+      "What is actually true, and what the system does not do. A known limit is a feature of the docs.",
+  },
+  {
+    name: "Ship",
+    drafted: "Migrations, release notes, and the mechanical half of getting it out.",
+    decided: "Whether it is ready, and full responsibility for it once it is.",
+  },
+] as const;
+
+export const workflowModelCloser =
+  "Then it loops. Shipping produces the next round of things I did not understand, which is where the first stage gets its material.";
+
 export const toolkitLead =
   "This isn't a skills list or a technology stack. These are the tools I actually reach for at each stage of building something, from the first unfamiliar question through to the version that ships and has to keep working.";
 
@@ -535,7 +670,7 @@ export const hubEntries: readonly HubEntry[] = [
   {
     label: "Projects",
     href: "/projects",
-    blurb: "One shipped case study, active concepts, and the coursework behind them.",
+    blurb: "Two deployed case studies, active concepts, and the coursework behind them.",
   },
   {
     label: "Education",
@@ -551,6 +686,11 @@ export const hubEntries: readonly HubEntry[] = [
     label: "Workflow",
     href: "/workflow",
     blurb: "How I use AI as an engineering assistant, and the tools behind each stage.",
+  },
+  {
+    label: "Gaming",
+    href: "/gaming",
+    blurb: "7,000 hours in Dota 2, a Valorant trophy, and why both are here.",
   },
   {
     label: "Philosophy",

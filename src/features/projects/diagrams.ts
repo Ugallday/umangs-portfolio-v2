@@ -34,8 +34,9 @@ const diagramsBySlug: Readonly<Record<string, ProjectDiagram>> = {
   },
   travora: {
     src: travoraArchitecture,
-    alt: "Architecture diagram for Travora, showing the client application, API layer, and data services.",
-    caption: "Travora — system architecture.",
+    alt: "Three-tier architecture diagram for Travora. A React 19 and TypeScript single-page app on Vite handles onboarding, the wallet, in-browser receipt OCR and the assistant. Beneath it, Zustand holds trip and budget state while Groq's hosted LLaMA drafts itineraries without computing any figure. Both sit on Supabase PostgreSQL, whose five tables — users, trips, categories, expenses and chat messages — all have row-level security enabled.",
+    caption:
+      "Travora — three tiers, with ownership enforced by row-level security in the database rather than by a filter in the client.",
   },
   "transport-management": {
     src: transportManagementDfd,

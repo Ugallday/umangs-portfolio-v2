@@ -10,6 +10,8 @@ techStack:
   - JavaScript (ES modules)
   - PostgreSQL
   - Supabase (RLS + Edge Functions)
+  - Supabase Auth
+  - PostgREST
   - IndexedDB
   - Double-entry accounting
   - Node.js headless tests
@@ -24,10 +26,12 @@ metrics:
   - value: "0"
     label: build steps and runtime dependencies — static files that run from a USB stick
 links:
+  - label: Open the live app
+    href: https://vatbilling.aalokbhandari.com.np
+  - label: Explore the schema in 3D
+    href: /projects/vat-billing-system#schema
   - label: Source on GitHub
     href: https://github.com/aalokbhandari/vat-billing-system
-  - label: Database schema
-    href: https://github.com/aalokbhandari/vat-billing-system/blob/main/db/schema.sql
 visual:
   eyebrow: Key project
   label: One ledger, many tenants, no internet required
@@ -55,10 +59,10 @@ sections:
     body: >-
       I replaced the approach rather than patching the defects. One application shell over a shared core of framework-free modules, none of which touch the DOM: the store, the formatters, authentication, the chart of accounts, the fiscal-year register, the sync engine, and `ledger.js` — the posting engine every figure in the system comes from. A view never computes a balance. It asks the ledger for figures and asks the component kit to draw them.
     bullets:
-      - One voucher per document, posting debits and credits, replacing v1's combined records.
+      - "Nine voucher types over one fixed chart of accounts: purchase, sales, both returns, payment, receipt, journal, contra and opening."
+      - "Seven reports, all views over the same postings: day book, general ledger, party statement, outstanding, VAT return, final report and activity log."
       - Arithmetic computed once in the posting engine and stored, never recomputed per screen.
-      - Four transaction screens served by one implementation, so they cannot drift apart.
-      - 100% static files, no build step and no runtime dependency — it runs from a USB stick.
+      - "One shell replaced roughly 700 KB spread across 22 duplicated pages: 100% static files, no build step, runs from a USB stick."
   - id: correctness
     heading: The three guarantees the ledger enforces
     body: >-
@@ -71,12 +75,21 @@ sections:
   - id: multi-tenant
     heading: One deployment, every client, isolated by the database
     body: >-
-      The v3 rewrite turned an internal tool into something sellable. Every row carries a tenant id, and every table has row-level security keyed to the tenant id inside the caller's signed token — not to anything the browser can edit. Each client signs in silently with a device account whose credentials arrive in a one-line activation key. The question "which books am I allowed to see" is answered by PostgreSQL, from a signed claim, on every single request.
+      The v3 rewrite turned an internal tool into something sellable. Every row carries a tenant id, and every table has row-level security keyed to the tenant id inside the caller's signed token — not to anything the browser can edit. Each client is provisioned from a vendor console and signs in against Supabase Auth; the question "which books am I allowed to see" is answered by PostgreSQL, from a signed claim, on every single request.
     bullets:
       - Isolation is structural too — composite foreign keys mean a row cannot physically point across a tenant boundary.
       - "Closed fiscal years are enforced three times over: in the guard, in the ledger, and by a database trigger."
       - Five ranked roles; nobody can create or grant a role above their own, and the last holder of a tier cannot be removed.
-      - Passwords are salted and stretched through 12,000 rounds of SHA-256, verified against Node's crypto implementation.
+      - Staff credentials moved out of the application entirely — see the section below.
+  - id: credentials
+    heading: The change I am most glad I made — deleting my own password code
+    body: >-
+      v3 originally hashed staff passwords in the browser: a salt, twelve thousand rounds of SHA-256, and a verification test against Node's crypto implementation. It worked, and it was still the wrong place for it. Credentials now live in Supabase Auth, which owns the hashing and the rate limiting, and the application's `users` table holds no password material at all. The migration does not merely stop writing those columns — it drops them, because while `salt` and `password_hash` still exist, a leaked backup carries credential material for logins that no longer open anything, and eventually someone writes code that trusts them.
+    bullets:
+      - "Dropped outright: salt, password_hash, failed_attempts, locked_until."
+      - What is kept is the part the app genuinely owns — whether a user still has to choose their own password, and when they last did.
+      - "A password change now ends the session honestly: say it changed, then send them back to sign in."
+      - Two systems answering "is this password correct" is one system too many.
   - id: offline-sync
     heading: Local-first, because the connection is not guaranteed
     body: >-
@@ -86,6 +99,15 @@ sections:
       - Voucher counters merge by maximum, never by recency — skipping a number is harmless, repeating one is not.
       - Records map to real columns, so the books can be queried in SQL instead of unpacked from JSON.
       - A push that fails halfway leaves the row queued and still readable, which the test suite asserts.
+  - id: sync-hardening
+    heading: Teaching the sync engine to fail in one place at a time
+    body: >-
+      The most recent round of work was not a feature — it was making a push that goes wrong stop taking everything else down with it. A cycle used to send all its tables together, so one table refused by a policy stranded the rest of the queue behind it. Now each table settles on its own: a refusal is recorded against that table, the others still land, and the outbox retries only what actually failed. The same instinct applies to the payload — rows are grouped by column shape and each shape is sent as its own request, because one row with an extra key used to be enough for PostgREST to reject the whole batch.
+    bullets:
+      - One refused table no longer strands the tables queued behind it.
+      - Rows are grouped by column shape, so a single odd row cannot fail a whole batch.
+      - Fiscal years push insert-only, because that is exactly what their row-level security allows.
+      - The exempt-column list is derived from the data rather than maintained by hand — a list kept by reading is a list that goes stale.
   - id: performance
     heading: The migration that proved the rewrite
     body: >-
@@ -130,7 +152,7 @@ sections:
       - Bikram Sambat conversion, BS date pickers and BS-month VAT periods.
       - IRD-format sales and purchase registers.
       - Supabase Realtime, so changes appear without waiting for the next sync cycle.
-      - Per-record locking, and billing and renewal tracking in the vendor console.
+      - Per-record locking to replace last-write-wins, and multi-branch support inside a single tenant.
 order: 1
 status: published
 ---

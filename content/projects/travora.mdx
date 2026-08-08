@@ -1,60 +1,127 @@
 ---
 slug: travora
 title: Travora
-summary: A final-year web project for expense management and AI-assisted travel planning, built as a practical university capstone rather than a speculative demo.
-phase: academic
+summary: A seventh-semester travel expense and planning app where every trip is a budget, every receipt can be photographed instead of typed, and each user's data is fenced off by row-level security rather than by a filter in the front end.
+phase: case-study
 period: 2025-2026
-role: Final-year project
-organization: Tribhuvan University BSc CSIT
+role: Sole developer — product, schema, front end, AI integration
+organization: Tribhuvan University BSc CSIT — 7th semester project
 techStack:
   - React 19
   - TypeScript
-  - Supabase
-  - Tesseract.js
-  - Groq LLaMA 3.3-70B
+  - Vite 7
+  - Tailwind CSS
+  - Radix UI (shadcn/ui)
+  - Zustand
+  - Supabase (Auth + RLS)
+  - PostgreSQL
+  - Tesseract.js OCR
+  - Groq LLaMA
+  - Recharts
+  - Framer Motion
+metrics:
+  - value: "5"
+    label: PostgreSQL tables, every one of them behind row-level security keyed to the signed-in user
+  - value: "3"
+    label: currencies stored per expense — the original, the NPR equivalent, and the rate that connects them
+  - value: OCR
+    label: receipts read in the browser with Tesseract.js, so an expense is a photograph rather than a form
+  - value: "7"
+    label: seeded default categories every account starts with, alongside any it creates itself
+links:
+  - label: Open the live app
+    href: https://travora.aalokbhandari.com.np
+  - label: Explore the schema in 3D
+    href: /projects/travora#schema
+  - label: Source on GitHub
+    href: https://github.com/aalokbhandari/app
 visual:
-  eyebrow: Academic project
-  label: Expense management plus AI-assisted planning
-  description: A capstone that blends practical bookkeeping with travel planning support.
+  eyebrow: Seventh-semester project
+  label: Trip budgets that survive contact with a real trip
+  description: An expense tracker built around the way spending on a journey actually happens — in several currencies, from a pile of receipts, and always against a budget somebody set before leaving.
 sections:
   - id: hook
-    heading: The capstone project that tied the degree together
+    heading: The seventh-semester project I built like a product rather than a submission
     body: >-
-      Travora is the final-year project: a web-based expense management and AI-assisted travel planning system defended with a full presentation.
+      Travora is my 7th semester project, and I set out to build it the way I build things for the travel agency: pick a workflow people genuinely do badly, and make the software carry the parts they get wrong. The workflow here is money on a trip. People plan a budget before they leave, spend in a currency that is not their own, keep receipts in a pocket, and reconcile the whole thing weeks later from memory.
     bullets:
-      - Built with modern web tooling.
-      - Focused on practical use rather than novelty.
-  - id: background
-    heading: Why this project exists
+      - A trip is a budget with dates, a destination and a party size — not just a folder for receipts.
+      - Expenses record the original currency, the NPR equivalent, and the rate used, so a total is reproducible later.
+      - Receipts are photographed and read by OCR rather than retyped.
+  - id: problem
+    heading: Why a spreadsheet stops working the moment you cross a border
     body: >-
-      The project reflects the same instinct as the family-business work: make the travel workflow easier to manage by structuring the information around it.
+      A spreadsheet handles one currency and one person well. A trip is neither. The moment spending happens in baht and the budget is in rupees, a plain total is meaningless unless the rate is stored next to the amount — and a rate looked up after the fact is not the rate that was actually paid. Add a second traveller and shared categories, and the sheet becomes a thing only its author can read.
     bullets:
-      - Aligns with the portfolio's travel domain.
-      - Feeds into product thinking and applied AI interest.
+      - A converted total with no stored rate cannot be audited or explained afterwards.
+      - Categories that live in one person's head cannot be reported on.
+      - Receipts photographed into a camera roll are not data until somebody types them in.
+      - The reconciliation always happens later, which is exactly when the details have been forgotten.
   - id: what-was-built
-    heading: What was built
+    heading: What I built
     body: >-
-      React 19 and TypeScript front the experience, Supabase provides the backend foundation, Tesseract.js handles OCR, and Groq's LLaMA 3.3-70B powers the AI-assisted travel planning features.
+      A React 19 and TypeScript single-page app on Vite, with Tailwind and Radix primitives through shadcn/ui for the interface, Zustand holding client state, and Supabase providing authentication and PostgreSQL underneath. The interesting decisions are all in the data model rather than the framework list: five tables, each one scoped to its owner in the database, with expenses hanging off both a trip and a category so the same spending can be read either as "this journey" or "this kind of cost".
     bullets:
-      - Expense management flow.
-      - AI-assisted travel planning.
-      - OCR-backed document handling.
+      - "Onboarding is an interview: destination, dates, budget, party size and interests, which become the trip record itself."
+      - A wallet view with running balance and expense entry, and a filterable transaction history.
+      - Recharts for the category breakdown, so where the money went is a picture rather than a column.
+      - Framer Motion for the transitions, kept to page and list level rather than sprinkled over every control.
+  - id: schema
+    heading: Five tables, and no way to read someone else's
+    body: >-
+      The schema is deliberately small. `users` extends Supabase's auth table rather than duplicating it. `trips` belong to a user. `expenses` belong to a trip and a category. `categories` are the one interesting case — a null `user_id` means a system default that everybody sees, and a non-null one means a category somebody made for themselves. `chat_messages` keeps the assistant's conversation history so a multi-turn conversation has something to remember.
+    bullets:
+      - Every one of the five tables has row-level security switched on, not just the obvious ones.
+      - The category policy reads defaults or your own rows; inserts and updates are restricted to your own.
+      - Deleting a user cascades through trips, expenses and chat history — no orphaned rows to leak later.
+      - Seven default categories are seeded at migration time so a new account is never staring at an empty list.
+  - id: ocr
+    heading: Making a receipt into a record without typing it
+    body: >-
+      Expense entry is where trackers are abandoned, so the entry path had to be shorter than the excuse for skipping it. Tesseract.js runs the OCR in the browser, which means the receipt image does not need to leave the device to become text, and the app keeps the image alongside the parsed figures rather than throwing it away. The stored receipt is what makes the entry checkable months later.
+    bullets:
+      - OCR runs client-side; no receipt upload step and no third-party image service.
+      - The image is retained with its format so the expense can be verified against the original.
+      - Loading state is explicit, because OCR on a phone is slow enough that silence reads as failure.
+      - Payment method is constrained to cash, card or digital — three real answers rather than a free-text field.
+  - id: ai
+    heading: Where the AI actually earns its place
+    body: >-
+      The assistant is scoped to the one job it is genuinely better at than a form: turning a destination, a length of stay, a budget and a list of interests into a draft itinerary worth editing. Groq's hosted LLaMA generates it, the result is stored on the trip as JSON alongside a tier, and the conversation history lives in its own table. It drafts; it does not decide what anything costs.
+    bullets:
+      - Itineraries are generated from the trip record the user already filled in during onboarding.
+      - The generated itinerary is stored on the trip, so it survives a reload and can be revised.
+      - Chat history is persisted per user, which is what makes a follow-up question sensible.
+      - Money is never AI's to compute — every figure in the app comes from a recorded expense.
   - id: outcome
-    heading: Where it stands now
+    heading: Cutting the feature that did not survive real use
     body: >-
-      I defended the project with a full presentation, and it remains one of the clearest examples of me applying web systems thinking to a travel context.
+      The most useful thing I did to Travora was take something out. I built live foreign-exchange fetching against a rates API, and then removed it — the fallback behaviour was doing more harm than the feature was doing good, and a wrong rate silently applied is worse than no automatic rate at all. The wallet narrowed to NPR, and the per-expense rate stayed as a stored value rather than a live lookup.
     bullets:
-      - Final-year defense completed.
-      - Fits the broader portfolio story.
+      - The forex module was implemented, shipped, and then deleted along with its references.
+      - Currency options narrowed to NPR rather than offering a list the app could not honestly support.
+      - Expenses still carry the rate that was used, because that is data, not a live dependency.
+      - "The lesson generalises: a feature that guesses when it fails does not belong in something that counts money."
+  - id: reflection
+    heading: What it taught me that the VAT system did not
+    body: >-
+      The VAT Billing System taught me to enforce invariants in the database. Travora taught me the other half — that a system nobody bothers to use has no invariants worth enforcing. Everything hard about this project was about lowering the cost of entering a record: the OCR path, the seeded categories, the onboarding that produces a real trip instead of an empty dashboard.
+    bullets:
+      - Put the security boundary in the database here too — RLS on all five tables, not a filter in the client.
+      - Reduce the effort of correct data entry before adding anything that analyses it.
+      - Ship a feature, watch it fail honestly, and remove it rather than defending it.
+      - Store the inputs to a calculation, not only its result.
   - id: whats-next
     heading: What comes next
     body: >-
-      The same pattern extends naturally into transport records and hotel booking, both of which are still underserved in Nepal.
+      Travora sits in the same domain as the agency work, so the natural extensions are the ones that connect the two — a trip a business books and a trip a person budgets are the same journey seen from two sides.
     bullets:
-      - Apply the same workflow discipline to other manual systems.
-      - Expand AI only where it meaningfully helps.
-order: 3
+      - Shared trips, so a party of travellers keeps one budget rather than several.
+      - Rates fetched once at expense time and pinned, if it can be done without a silent fallback.
+      - Exports that match the formats the accounting work already produces.
+      - Offline entry, which is the obvious borrow from the VAT system.
+order: 2
 status: published
 ---
 
-Travora is a course project and not a shipped commercial product.
+Travora is my seventh-semester BSc CSIT project, deployed and in use rather than presented only as a defence.

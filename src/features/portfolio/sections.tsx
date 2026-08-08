@@ -5,6 +5,7 @@ import { Github, Linkedin } from "lucide-react";
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { TypingHeadline } from "@/components/motion/typing-headline";
+import { FoldField } from "@/components/three/fold-field";
 import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import {
@@ -20,6 +21,10 @@ import {
   curriculum,
   engineeringJudgmentSummary,
   footerClosingStatement,
+  games,
+  gamingCloser,
+  gamingLead,
+  gamingStory,
   heroHeadline,
   heroSubheadline,
   hubEntries,
@@ -33,10 +38,13 @@ import {
 } from "@/features/portfolio/content";
 import portraitImage from "@/assets/portrait.png";
 import { actionClass } from "@/components/ui/action";
+import { BrandMark } from "@/components/ui/brand-mark";
 import { InstitutionLogo } from "@/components/ui/institution-logo";
 import { institutionLogos } from "@/features/portfolio/institution-logos";
 import { Pill } from "@/components/ui/pill";
 import { SocialLink } from "@/components/ui/social-link";
+import { TechBadge } from "@/components/ui/tech-badge";
+import { WorkflowModel } from "@/features/portfolio/workflow-model";
 
 /**
  * Sections render both as part of a page and as the sole content of their own
@@ -159,7 +167,7 @@ function ProjectCard({
       </div>
       <div className="mt-5 flex flex-wrap gap-2">
         {project.techStack.slice(0, 4).map((item) => (
-          <Pill key={item}>{item}</Pill>
+          <TechBadge key={item} label={item} />
         ))}
       </div>
       <div className="mt-6 flex flex-wrap gap-3">
@@ -300,7 +308,7 @@ function ToolkitCard({
       <p className="text-text-secondary mt-3 leading-7">{group.note}</p>
       <div className="mt-5 flex flex-wrap gap-2">
         {group.tools.map((tool) => (
-          <Pill key={tool}>{tool}</Pill>
+          <TechBadge key={tool} label={tool} />
         ))}
       </div>
     </article>
@@ -339,8 +347,11 @@ export function HeroSection(): React.JSX.Element {
       {/* Inset so the drift never exposes an unpainted edge. */}
       <div
         aria-hidden="true"
-        className="ambient-drift absolute -inset-[6%] -z-10 bg-[radial-gradient(circle_at_top_left,rgba(217,162,92,0.16),transparent_26%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_24%)]"
+        className="ambient-drift absolute -inset-[6%] -z-20 bg-[radial-gradient(circle_at_top_left,rgba(217,162,92,0.16),transparent_26%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_24%)]"
       />
+      {/* Sits between the gradient wash and the content, so the folds read as
+          depth behind the hero rather than as objects competing with it. */}
+      <FoldField />
       {/* items-center, not items-end: bottom-aligning two columns of different
           heights left the shorter one hanging off the baseline. Centring them
           balances the pair without touching either column's own spacing. */}
@@ -585,7 +596,7 @@ export function ExperienceSection({
             <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Key built systems</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {project.techStack.map((item) => (
-                <Pill key={item}>{item}</Pill>
+                <TechBadge key={item} label={item} />
               ))}
             </div>
           </div>
@@ -626,7 +637,7 @@ export function ProjectsSection({
     <SectionShell
       id="projects"
       eyebrow="Projects"
-      title="One flagship case study, three forward-looking directions, and the academic work that supports them."
+      title="Two deployed case studies, forward-looking concepts, and the academic work behind them."
       description="I've framed these by stage on purpose: shipped case study, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
@@ -744,10 +755,32 @@ export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): 
       {...(standalone ? { standalone } : {})}
     >
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-        {skillGroups.map((group) => (
-          // `meta` was also group.title, so every group name rendered twice.
-          <FoldCard as={sub} key={group.title} title={group.title} body={group.items.join(" • ")} />
-        ))}
+        {skillGroups.map((group, index) => {
+          const Heading = sub;
+          return (
+            <FoldReveal key={group.title} delayMs={index * 40}>
+              <article className="fold-panel fold-hover flex h-full flex-col rounded-3xl p-5 sm:p-6">
+                <div className="flex items-baseline justify-between gap-3">
+                  <Heading className="text-text-primary text-lg font-semibold tracking-tight">
+                    {group.title}
+                  </Heading>
+                  <span className="text-text-muted font-serif text-xs tabular-nums">
+                    {group.items.length}
+                  </span>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {group.items.map((item) =>
+                    group.kind === "tech" ? (
+                      <TechBadge key={item} label={item} />
+                    ) : (
+                      <Pill key={item}>{item}</Pill>
+                    ),
+                  )}
+                </div>
+              </article>
+            </FoldReveal>
+          );
+        })}
       </div>
     </SectionShell>
   );
@@ -776,6 +809,9 @@ export function AiWorkflowSection({
           </FoldReveal>
         ))}
       </div>
+      <FoldReveal delayMs={80}>
+        <WorkflowModel as={sub} />
+      </FoldReveal>
       <FoldReveal delayMs={90}>
         <div className="mt-8">
           <p className="text-text-muted mb-4 text-xs tracking-[0.24em] uppercase">
@@ -824,6 +860,56 @@ export function ToolkitSection({ headingLevel, standalone }: SectionProps = {}):
           <ToolkitCard key={group.title} group={group} as={sub} />
         ))}
       </div>
+    </SectionShell>
+  );
+}
+
+export function GamingSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
+  const CardHeading = cardLevel(headingLevel);
+  return (
+    <SectionShell
+      id="gaming"
+      eyebrow="Gaming"
+      title="The other system I have spent thousands of hours reading."
+      description={gamingLead}
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
+    >
+      <div className="grid gap-5">
+        {gamingStory.map((paragraph) => (
+          <FoldReveal key={paragraph}>
+            <p className="text-text-secondary max-w-3xl text-base leading-8 sm:text-lg">
+              {paragraph}
+            </p>
+          </FoldReveal>
+        ))}
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-3">
+        {games.map((game, index) => (
+          <FoldReveal key={game.name} delayMs={index * 60}>
+            <article className="fold-panel fold-hover group flex h-full flex-col rounded-3xl p-5 sm:p-6">
+              <BrandMark label={game.name} />
+              <CardHeading className="text-text-primary mt-5 text-lg font-semibold tracking-tight">
+                {game.name}
+              </CardHeading>
+              <p className="text-accent-default mt-4 text-3xl font-semibold tracking-tight tabular-nums">
+                {game.figure}
+              </p>
+              <p className="text-text-muted mt-1 text-xs tracking-[0.2em] uppercase">
+                {game.figureLabel}
+              </p>
+              <p className="text-text-secondary mt-5 text-sm leading-7">{game.body}</p>
+            </article>
+          </FoldReveal>
+        ))}
+      </div>
+
+      <FoldReveal delayMs={100}>
+        <p className="text-text-muted border-border-subtle max-w-3xl border-t pt-6 text-sm leading-7">
+          {gamingCloser}
+        </p>
+      </FoldReveal>
     </SectionShell>
   );
 }

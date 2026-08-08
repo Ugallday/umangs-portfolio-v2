@@ -10,7 +10,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = buildSectionMetadata({
   title: "Projects",
   description:
-    "The flagship NSA Travels case study alongside active concepts and academic practicals, grouped by stage.",
+    "The VAT Billing System and Travora case studies alongside active concepts and academic practicals, grouped by stage.",
   path: "/projects",
 });
 
