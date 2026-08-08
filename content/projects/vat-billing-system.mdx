@@ -1,7 +1,7 @@
 ---
 slug: vat-billing-system
 title: VAT Billing System
-summary: A multi-tenant, offline-first double-entry VAT accounting system for Nepali travel agencies. Every document posts a balanced journal entry, one deployment serves every client behind row-level security, and a 29,825-row migration imports in 420 ms.
+summary: Double-entry VAT accounting for Nepali travel agencies. It runs offline, syncs to one multi-tenant PostgreSQL database, and imported two years of real books — 29,825 rows — in 420 ms.
 phase: case-study
 period: 2023-present
 role: Sole engineer — architecture, implementation, migration, testing
@@ -18,13 +18,13 @@ techStack:
   - SheetJS
 metrics:
   - value: 420 ms
-    label: to import a 29,825-row day book — about 1,050× faster than the version it replaced
+    label: to import a 29,825-row day book, roughly 1,050× faster than the version it replaced
   - value: "150"
     label: headless assertions across three suites, written without a test framework
   - value: "1"
     label: deployment serving every client, isolated by database row-level security
   - value: "0"
-    label: build steps and runtime dependencies — static files that run from a USB stick
+    label: build steps and runtime dependencies
 links:
   - label: Open the live app
     href: https://vatbilling.aalokbhandari.com.np
@@ -35,124 +35,124 @@ links:
 visual:
   eyebrow: Key project
   label: One ledger, many tenants, no internet required
-  description: The accounting system that replaced the spreadsheets at my family's travel agency — rebuilt twice, now a multi-tenant product one deployment can sell to every client.
+  description: The accounting system that replaced the spreadsheets at my family's travel agency. Rebuilt twice, and now a product one deployment can sell to every client.
 sections:
   - id: hook
-    heading: The accounting system behind the NSA Travels case study, rebuilt until it was correct.
+    heading: The books my family's travel agency actually runs on
     body: >-
-      This is the software the travel agency actually runs its books on. Every business document — a purchase, a sale, a return, a payment — is written as a balanced journal entry, and the day book, the registers, the VAT return and the final report are all views over that one ledger. They cannot disagree with each other, because there is nothing for them to disagree about.
+      Every document here — a purchase, a sale, a return, a payment — is written as a balanced journal entry. The day book, the registers, the VAT return and the final report are all views over that one ledger, so they cannot disagree with each other. Getting to that took two rewrites.
     bullets:
-      - Double-entry from the ground up, not a spreadsheet with totals bolted on.
-      - "Three versions: 22 duplicated HTML pages, then one shared core, then a multi-tenant product."
-      - Runs fully offline; syncing to PostgreSQL is optional and changes nothing about how the app behaves.
+      - Double-entry from the ground up, not totals bolted onto a spreadsheet.
+      - "Three versions: 22 copied HTML pages, then a shared core, then a multi-tenant product."
+      - Works fully offline. Syncing to PostgreSQL is optional.
   - id: problem
-    heading: Version one worked until you compared two screens
+    heading: Version one disagreed with itself
     body: >-
-      v1 was 22 standalone HTML pages, each carrying its own copy of the navigation, the CSS, the formatters and — the part that mattered — its own arithmetic. A code review of it recorded eight defects and eight structural problems. Two pages computed VAT by different formulas and produced different figures for the same money. Reports joined transactions on party name strings, so renaming a customer silently detached their history. A purchase return wrote a field that eight consumers never read, so payables were quietly overstated.
+      v1 was 22 standalone pages, each carrying its own copy of the navigation, the CSS and the arithmetic. A review of it recorded eight defects. Two pages calculated VAT by different formulas and reported different figures for the same money.
     bullets:
-      - Two incompatible VAT engines shipping in the same product.
-      - Foreign keys were name strings; a rename broke the join.
-      - localStorage capped the business at roughly 5 MB — the real day book is 23 MB.
+      - Two VAT engines shipping inside one product.
+      - Reports joined on party name, so renaming a customer detached their history.
+      - localStorage capped the business at roughly 5 MB. The real day book is 23 MB.
       - Importing two years of history took over seven minutes, one record at a time.
   - id: what-was-built
-    heading: What I built instead
+    heading: One shell over a framework-free core
     body: >-
-      I replaced the approach rather than patching the defects. One application shell over a shared core of framework-free modules, none of which touch the DOM: the store, the formatters, authentication, the chart of accounts, the fiscal-year register, the sync engine, and `ledger.js` — the posting engine every figure in the system comes from. A view never computes a balance. It asks the ledger for figures and asks the component kit to draw them.
+      I replaced the approach rather than patching the defects. No view computes a balance now; it asks `ledger.js` for figures and asks the component kit to draw them. The core modules never touch the DOM.
     bullets:
-      - "Nine voucher types over one fixed chart of accounts: purchase, sales, both returns, payment, receipt, journal, contra and opening."
-      - "Seven reports, all views over the same postings: day book, general ledger, party statement, outstanding, VAT return, final report and activity log."
-      - Arithmetic computed once in the posting engine and stored, never recomputed per screen.
-      - "One shell replaced roughly 700 KB spread across 22 duplicated pages: 100% static files, no build step, runs from a USB stick."
+      - Nine voucher types over one fixed chart of accounts.
+      - Seven reports, every one of them a sum over the same postings.
+      - Arithmetic computed once at posting time and stored, never recomputed per screen.
+      - One shell replaced roughly 700 KB across 22 pages. No build step, and it runs from a USB stick.
   - id: correctness
-    heading: The three guarantees the ledger enforces
+    heading: Three invariants the ledger refuses to break
     body: >-
-      Accounting software is only worth the trust placed in it, so the invariants are enforced in code rather than documented as conventions. An unbalanced voucher is refused at save time — `post()` sums both sides and throws if they differ by more than half a paisa, and there is no code path into the ledger that skips that check. Totals are always derived from their components, never read from the form. A return can never exceed what is left after earlier returns against the same document.
+      An unbalanced voucher never saves. `post()` sums both sides and throws if they differ by more than half a paisa, and no code path into the ledger skips that check. Totals are derived from their components rather than read off the form.
     bullets:
       - The ticketing VAT split is verified against the real supplier day book, to the paisa.
-      - Rounding drift is bounded and explained rather than hidden — the three parts always re-add to the bill exactly.
-      - Cancelling a voucher removes its ledger effect while keeping the document and its number, because a tax sequence must not develop holes.
+      - Rounding drift is bounded and explained; the three parts always re-add to the bill.
+      - Cancelling a voucher removes its ledger effect but keeps its number, because a tax sequence must not develop holes.
       - A health check re-derives every invariant across the whole database on demand.
   - id: multi-tenant
-    heading: One deployment, every client, isolated by the database
+    heading: One deployment, every client, separated by the database
     body: >-
-      The v3 rewrite turned an internal tool into something sellable. Every row carries a tenant id, and every table has row-level security keyed to the tenant id inside the caller's signed token — not to anything the browser can edit. Each client is provisioned from a vendor console and signs in against Supabase Auth; the question "which books am I allowed to see" is answered by PostgreSQL, from a signed claim, on every single request.
+      Every row carries a tenant id, and every table has row-level security keyed to the tenant id inside the caller's signed token rather than to anything the browser can edit. PostgreSQL answers "whose books are these" on every single request.
     bullets:
-      - Isolation is structural too — composite foreign keys mean a row cannot physically point across a tenant boundary.
-      - "Closed fiscal years are enforced three times over: in the guard, in the ledger, and by a database trigger."
-      - Five ranked roles; nobody can create or grant a role above their own, and the last holder of a tier cannot be removed.
-      - Staff credentials moved out of the application entirely — see the section below.
+      - Composite foreign keys mean a row cannot physically point across a tenant boundary.
+      - Closed years are enforced three times over — in the guard, in the ledger, and by a database trigger.
+      - Five ranked roles. Nobody can grant a role above their own, and the last holder of a tier cannot be removed.
+      - Onboarding a client is a vendor console entry and one activation key.
   - id: credentials
-    heading: The change I am most glad I made — deleting my own password code
+    heading: Deleting my own password code
     body: >-
-      v3 originally hashed staff passwords in the browser: a salt, twelve thousand rounds of SHA-256, and a verification test against Node's crypto implementation. It worked, and it was still the wrong place for it. Credentials now live in Supabase Auth, which owns the hashing and the rate limiting, and the application's `users` table holds no password material at all. The migration does not merely stop writing those columns — it drops them, because while `salt` and `password_hash` still exist, a leaked backup carries credential material for logins that no longer open anything, and eventually someone writes code that trusts them.
+      v3 hashed staff passwords in the browser: a salt, 12,000 rounds of SHA-256, and a check against Node's crypto implementation. It worked, and it was still the wrong place for it. Supabase Auth owns the credential now, and the migration drops the old columns instead of quietly leaving them behind.
     bullets:
       - "Dropped outright: salt, password_hash, failed_attempts, locked_until."
-      - What is kept is the part the app genuinely owns — whether a user still has to choose their own password, and when they last did.
-      - "A password change now ends the session honestly: say it changed, then send them back to sign in."
-      - Two systems answering "is this password correct" is one system too many.
+      - A leaked backup should not carry credential material for logins that no longer open anything.
+      - The app keeps only what it owns — whether a password is still temporary, and when it last changed.
+      - Changing a password now ends the session and sends you back to sign in.
   - id: offline-sync
     heading: Local-first, because the connection is not guaranteed
     body: >-
-      IndexedDB stays the working copy — it is what every screen reads, and it is why the app still works on a bad connection in a Kathmandu office. PostgreSQL is the shared, durable copy the machines converge on. Every mutation is recorded in a persisted outbox, and a cycle is push-then-pull, in that order, so "the server wins" can never discard an edit that had simply not been uploaded yet. Losing the internet degrades the system to "changes are queued", never to "the app stopped working".
+      IndexedDB is the working copy every screen reads, which is why the app still works on a bad line in a Kathmandu office. PostgreSQL is the durable copy the machines converge on. A cycle pushes before it pulls, so the server can never discard an edit that had simply not uploaded yet.
     bullets:
-      - Deletes are tombstoned rather than dropped, so they actually propagate to other machines.
-      - Voucher counters merge by maximum, never by recency — skipping a number is harmless, repeating one is not.
-      - Records map to real columns, so the books can be queried in SQL instead of unpacked from JSON.
-      - A push that fails halfway leaves the row queued and still readable, which the test suite asserts.
+      - Deletes are tombstoned rather than dropped, so they reach the other machines.
+      - Voucher counters merge by maximum. Skipping a number is harmless; repeating one is not.
+      - Records map to real columns, so the books can be queried in SQL.
+      - Losing the connection queues changes. It does not stop the app.
   - id: sync-hardening
-    heading: Teaching the sync engine to fail in one place at a time
+    heading: Teaching a failed push to fail quietly
     body: >-
-      The most recent round of work was not a feature — it was making a push that goes wrong stop taking everything else down with it. A cycle used to send all its tables together, so one table refused by a policy stranded the rest of the queue behind it. Now each table settles on its own: a refusal is recorded against that table, the others still land, and the outbox retries only what actually failed. The same instinct applies to the payload — rows are grouped by column shape and each shape is sent as its own request, because one row with an extra key used to be enough for PostgREST to reject the whole batch.
+      A cycle used to send every table together, so one table refused by a policy stranded the whole queue behind it. Each table now settles on its own, and the outbox retries only what actually failed.
     bullets:
-      - One refused table no longer strands the tables queued behind it.
-      - Rows are grouped by column shape, so a single odd row cannot fail a whole batch.
-      - Fiscal years push insert-only, because that is exactly what their row-level security allows.
-      - The exempt-column list is derived from the data rather than maintained by hand — a list kept by reading is a list that goes stale.
+      - One refused table no longer blocks the tables queued behind it.
+      - Rows are grouped by column shape, so a single odd row cannot fail a batch.
+      - Fiscal years push insert-only, which is what their row-level security allows.
+      - The exempt-column list is derived from the data rather than maintained by hand.
   - id: performance
     heading: The migration that proved the rewrite
     body: >-
-      The honest measure of a rewrite is what happens when you point it at the real data. I imported a 29,825-row Tally day book export — the agency's actual history — and analysed it before writing a single row: voucher counts by type, the period covered, how many parties would be created, and whether the source itself balanced.
+      I pointed v3 at the agency's real Tally export — 29,825 rows, two years of trading — and analysed it before writing a single row. Voucher counts by type, the period covered, the parties it would create, and whether the source itself balanced.
     bullets:
-      - 7,445 vouchers, 1,084 parties and 8 new accounts created, 0 rows skipped.
+      - 7,445 vouchers, 1,084 parties and 8 new accounts created. 0 rows skipped.
       - ₨845,644,371.27 of source debits posted, with the trial balance tying exactly.
-      - 420 ms, against the seven-plus minutes the same work took in v1 — roughly 1,050× faster.
-      - "The gain came from architecture, not micro-optimisation: load once into memory, batch the writes, flush once."
+      - 420 ms, against the seven-plus minutes the same work took in v1.
+      - "The gain was architectural: load once into memory, batch the writes, flush once."
   - id: testing
     heading: 150 assertions, no test framework
     body: >-
-      The core has no DOM dependencies, so it is tested headlessly under Node against a small window stand-in. There is no test framework for the same reason there is no build step — it has to keep working on a machine with nothing installed. Three suites cover storage and fiscal-year rules, the sync engine, and document generation.
+      The core has no DOM dependencies, so it runs headlessly under Node against a small window stand-in. There is no test framework for the same reason there is no build step — it has to keep working on a machine with nothing installed.
     bullets:
-      - The sync suite runs three app instances against an in-memory PostgREST stand-in — two belonging to one client, one to another.
-      - It asserts the third client sees none of the other's data and is refused when it forges a tenant id.
-      - The document suite checks the hand-written PDF writer byte by byte, including cross-reference offsets landing on their objects.
-      - What is not covered is stated plainly in the README rather than left for someone to discover.
+      - The sync suite runs three app instances against an in-memory PostgREST stand-in.
+      - It asserts the third client sees none of the other's data, and is refused when it forges a tenant id.
+      - The document suite checks the hand-written PDF byte by byte, cross-reference offsets included.
+      - What is not covered is stated in the README rather than left to be discovered.
   - id: outcome
-    heading: What it changed
+    heading: What changed for the business
     body: >-
-      The agency's books moved off spreadsheets and paper onto a system where the numbers are consistent by construction and a year, once filed, cannot quietly change. The v3 work took it further than internal use: there is no per-client build, so onboarding a new business is a vendor console entry and one activation key, and suspending a client for non-payment is enforced by the database while their app keeps working locally and queues everything.
+      The agency's books moved off spreadsheets and paper onto a system where the numbers agree by construction and a filed year cannot quietly change. v3 also made it sellable: there is no per-client build, so a new business is a console entry away.
     bullets:
       - Replaced the Excel and paper bookkeeping described in the NSA Travels case study.
-      - Reports export to Excel with live formulas, so the totals recalculate rather than arriving frozen.
-      - Documents print, optionally flattened to an image, and can be emailed to the party as a PDF built without a PDF library.
-      - Ready to be sold to other agencies from a single deployment.
+      - Reports export to Excel with live formulas, so totals recalculate rather than arrive frozen.
+      - Documents print, flatten to an image, and email as a PDF built without a PDF library.
+      - Suspending a client is enforced by the database while their app keeps working locally.
   - id: reflection
-    heading: What I learned building it
+    heading: What building it taught me
     body: >-
-      The most useful thing I learned is that an invariant you only document is not an invariant. Every rule in this system that actually holds — the balance check, the closed year, the tenant boundary — holds because something refuses to proceed when it is violated, and usually in more than one place. The rules I was merely careful about in v1 are exactly the ones that broke.
+      An invariant you only document is not an invariant. Every rule that actually holds in this system holds because something refuses to proceed when it is broken, usually in more than one place. The rules I was merely careful about in v1 are the ones that broke.
     bullets:
       - Enforce constraints where they cannot be routed around — the database, not the form.
-      - Derive values rather than storing them twice; v1's worst defect was two copies of one number.
-      - Measure the rewrite against real data, not a fixture that flatters it.
-      - Write down what the system does not do; a known limit is a feature of the documentation.
+      - Derive values rather than storing them twice. v1's worst defect was two copies of one number.
+      - Measure a rewrite against real data, not a fixture that flatters it.
+      - Write down what the system does not do.
   - id: whats-next
     heading: What comes next
     body: >-
-      The roadmap is written against real gaps rather than a wish list. Nepal's tax year runs on the Bikram Sambat calendar and the IRD expects its own register formats, so that is the compliance work. Operationally, the interesting problems are realtime propagation and replacing last-write-wins with per-record locking.
+      The roadmap tracks real gaps rather than a wish list. Nepal's tax year runs on the Bikram Sambat calendar and the IRD expects its own register formats, so that is the compliance work ahead.
     bullets:
       - Bikram Sambat conversion, BS date pickers and BS-month VAT periods.
       - IRD-format sales and purchase registers.
-      - Supabase Realtime, so changes appear without waiting for the next sync cycle.
-      - Per-record locking to replace last-write-wins, and multi-branch support inside a single tenant.
+      - Supabase Realtime, so changes land without waiting for the next sync cycle.
+      - Per-record locking to replace last-write-wins, and multi-branch support inside one tenant.
 order: 1
 status: published
 ---
