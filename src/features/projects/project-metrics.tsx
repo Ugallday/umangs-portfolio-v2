@@ -3,12 +3,20 @@ import { cn } from "@/core/utils/cn";
 
 /**
  * The headline figures for a project, if it has any. Renders nothing when the
- * list is empty, so a project without measured results simply skips the strip
- * instead of showing an apologetic placeholder.
+ * list is empty, so a project without measured results skips the strip instead
+ * of showing an apologetic placeholder.
  *
- * `flex-col-reverse` puts the number above its label on screen while keeping
- * the `<dt>` before its `<dd>` in the markup, which is what a description list
- * has to be for assistive tech.
+ * The figure is the `<dt>` and its explanation is the `<dd>`, which is the
+ * order they are read in and the order they are shown in. The previous version
+ * put the label first in the markup and flipped it visually with
+ * `flex-col-reverse`; that looked right and was wrong everywhere else. Copying
+ * the strip, or hearing it read out, paired every figure with the *next*
+ * metric's label — "420 ms / headless assertions across three suites". Making
+ * a number the term reads well too: "420 ms — to import a 29,825-row day book".
+ *
+ * Cells are separated by a one-pixel gap over a border-coloured backing rather
+ * than by four individual borders, so the dividers stay hairline and shared
+ * instead of doubling up between neighbours.
  */
 export function ProjectMetrics({
   metrics,
@@ -22,16 +30,18 @@ export function ProjectMetrics({
   }
 
   return (
-    <dl className={cn("grid gap-4 sm:grid-cols-2 xl:grid-cols-4", className)}>
+    <dl
+      className={cn(
+        "border-border-subtle bg-border-subtle grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-2 xl:grid-cols-4",
+        className,
+      )}
+    >
       {metrics.map((metric) => (
-        <div
-          key={metric.label}
-          className="border-border-subtle bg-surface-overlay flex flex-col-reverse gap-2 rounded-2xl border p-4"
-        >
-          <dt className="text-text-muted text-sm leading-6">{metric.label}</dt>
-          <dd className="text-text-primary text-3xl font-semibold tracking-tight">
+        <div key={metric.label} className="bg-surface-overlay p-5">
+          <dt className="text-text-primary font-display text-3xl leading-none font-semibold tracking-tight tabular-nums">
             {metric.value}
-          </dd>
+          </dt>
+          <dd className="text-text-muted mt-3 text-sm leading-6">{metric.label}</dd>
         </div>
       ))}
     </dl>
