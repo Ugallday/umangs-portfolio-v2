@@ -4,7 +4,7 @@
   "private": true,
   "description": "Engineering portfolio platform — production-grade software, not a template.",
   "engines": {
-    "node": ">=20.11.0"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "next dev --turbopack",

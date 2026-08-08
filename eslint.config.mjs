@@ -49,6 +49,27 @@ const globalIgnores = {
   ignores: [".next/**", "node_modules/**", "coverage/**", "playwright-report/**"],
 };
 
+/**
+ * The Next plugin is registered with no `files` restriction, deliberately.
+ *
+ * `next build` runs its own lint check, and detects the plugin by resolving
+ * the ESLint config for `eslint.config.mjs` and `package.json` — paths that
+ * match none of baseConfig's globs. Registering the plugin only under
+ * `src/**` therefore made every build report "The Next.js plugin was not
+ * detected in your ESLint configuration" and skip its rules.
+ *
+ * Registering a plugin costs nothing on its own: it supplies rules, it does
+ * not enable them. The rules stay scoped to source in baseConfig below.
+ */
+const nextPluginRegistration = {
+  plugins: { "@next/next": nextPlugin },
+  // `rules` is set explicitly because once Next finds the plugin it reads the
+  // resolved rules straight into Object.entries(). With no rules key anywhere
+  // in scope that value is undefined, and the build fails with "Cannot convert
+  // undefined or null to object" instead of linting. An empty object is enough.
+  rules: {},
+};
+
 const baseConfig = {
   files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
   ...js.configs.recommended,
@@ -61,7 +82,6 @@ const baseConfig = {
   },
   plugins: {
     "@typescript-eslint": tsPlugin,
-    "@next/next": nextPlugin,
     "jsx-a11y": jsxA11y,
     boundaries,
   },
@@ -140,4 +160,4 @@ const coreOnlyConfig = {
   },
 };
 
-export default [globalIgnores, baseConfig, coreOnlyConfig];
+export default [globalIgnores, nextPluginRegistration, baseConfig, coreOnlyConfig];
