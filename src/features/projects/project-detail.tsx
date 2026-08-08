@@ -6,8 +6,10 @@ import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import { DiagramPanel } from "@/features/projects/diagram-panel";
 import { getProjectDiagram } from "@/features/projects/diagrams";
 import { actionClass } from "@/components/ui/action";
-import { Pill } from "@/components/ui/pill";
+import { TechBadge } from "@/components/ui/tech-badge";
 import { ProjectMetrics } from "@/features/projects/project-metrics";
+import { getSchemaModel } from "@/features/projects/schema/model";
+import { SchemaPanel } from "@/features/projects/schema/schema-panel";
 
 /**
  * The diagram belongs next to "what was built", but the shorter academic
@@ -19,9 +21,21 @@ function diagramAnchorId(project: ProjectEntity): string | undefined {
   return (preferred ?? project.sections.at(-1))?.id;
 }
 
+/**
+ * The explorer follows the project's own "schema" section where the case study
+ * has written one, and otherwise sits with the diagram — the two are answering
+ * the same question and should not end up on opposite ends of the page.
+ */
+function schemaAnchorId(project: ProjectEntity): string | undefined {
+  const preferred = project.sections.find((section) => section.id === "schema");
+  return (preferred ?? project.sections.find((section) => section.id === "what-was-built"))?.id;
+}
+
 export function ProjectDetail({ project }: { readonly project: ProjectEntity }): React.JSX.Element {
   const diagram = getProjectDiagram(project.slug);
   const anchorId = diagramAnchorId(project);
+  const schema = getSchemaModel(project.slug);
+  const schemaAnchor = schemaAnchorId(project);
 
   return (
     <article className="mx-auto w-full max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
@@ -62,7 +76,7 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {project.techStack.map((item) => (
-                <Pill key={item}>{item}</Pill>
+                <TechBadge key={item} label={item} />
               ))}
             </div>
             <div className="border-border-subtle bg-surface-overlay mt-6 rounded-3xl border p-5">
@@ -127,6 +141,11 @@ export function ProjectDetail({ project }: { readonly project: ProjectEntity }):
             {section.id === anchorId && diagram ? (
               <FoldReveal delayMs={index * 50 + 40}>
                 <DiagramPanel diagram={diagram} />
+              </FoldReveal>
+            ) : null}
+            {section.id === schemaAnchor && schema ? (
+              <FoldReveal delayMs={index * 50 + 60}>
+                <SchemaPanel model={schema} />
               </FoldReveal>
             ) : null}
           </Fragment>
