@@ -97,11 +97,13 @@ function FoldedSheet({
   accentColor,
   paperColor,
   index,
+  animate,
 }: {
   readonly sheet: Sheet;
   readonly accentColor: string;
   readonly paperColor: string;
   readonly index: number;
+  readonly animate: boolean;
 }): React.JSX.Element {
   const group = useRef<Group>(null);
   const geometry = useFoldGeometry(0.75);
@@ -113,7 +115,7 @@ function FoldedSheet({
 
   useFrame((state, delta) => {
     const node = group.current;
-    if (!node) return;
+    if (!node || !animate) return;
 
     node.rotation.y += sheet.spin * delta;
     node.rotation.x += sheet.spin * delta * 0.35;
@@ -148,16 +150,19 @@ function FoldedSheet({
 export default function FoldFieldScene({
   accentColor,
   paperColor,
+  animate,
 }: {
   readonly accentColor: string;
   readonly paperColor: string;
+  /** When false the sheets are drawn once and never move again. */
+  readonly animate: boolean;
 }): React.JSX.Element {
   return (
     <Canvas
       camera={{ position: [0, 0, 7], fov: 45 }}
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: true }}
-      frameloop="always"
+      frameloop={animate ? "always" : "demand"}
     >
       <ambientLight intensity={1.1} />
       <directionalLight position={[4, 6, 5]} intensity={1.4} />
@@ -167,6 +172,7 @@ export default function FoldFieldScene({
           key={index}
           sheet={sheet}
           index={index}
+          animate={animate}
           accentColor={accentColor}
           paperColor={paperColor}
         />

@@ -147,12 +147,20 @@
   --crease-shadow: inset 0 1px 1px rgba(28, 23, 18, 0.08);
 }
 
-/* ---------- Reduced motion: collapses to instant, applied globally ------- */
+/* ---------- Reduced motion ----------
+   Three states, like the theme: the OS decides unless the visitor has said
+   otherwise, and an explicit choice wins in either direction. Without the
+   :not() guard, a visitor who asked for motion would still get 0ms here. */
 @media (prefers-reduced-motion: reduce) {
-  :root {
+  :root:not([data-motion="full"]) {
     --motion-duration-fold: 0ms;
     --motion-duration-page: 0ms;
   }
+}
+
+:root[data-motion="reduced"] {
+  --motion-duration-fold: 0ms;
+  --motion-duration-page: 0ms;
 }
 
 /* ---------- Tailwind v4 theme mapping — utilities generated FROM tokens -- */

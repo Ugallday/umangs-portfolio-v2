@@ -49,11 +49,29 @@
   }
 
   /* Headings take the display face. Set here rather than on every component so
-     a heading cannot be added later and quietly come out in the body face. */
+     a heading cannot be added later and quietly come out in the body face.
+
+     The width axis is where the personality lives. At default width Bricolage
+     sits close enough to any other grotesque that swapping the family changed
+     nothing anyone could see; pulled in to 88 it gets the tall, narrow,
+     drawn-with-intent look the headlines were missing. The negative tracking
+     is the necessary partner — condensed type at display size opens up
+     without it. */
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
+    font-variation-settings:
+      "wdth" 88,
+      "opsz" 24;
+    letter-spacing: -0.025em;
+  }
+
+  h1 {
+    font-variation-settings:
+      "wdth" 85,
+      "opsz" 40;
+    letter-spacing: -0.035em;
   }
 
   /* Focus is never suppressed. Only the visual affordance is scoped to
@@ -192,17 +210,28 @@
   /* --duration-page already collapses to 0ms under reduced motion, but the
      infinite ambient loop needs switching off outright. */
   @media (prefers-reduced-motion: reduce) {
-    .page-enter,
-    .ambient-drift {
+    :root:not([data-motion="full"]) .page-enter,
+    :root:not([data-motion="full"]) .ambient-drift {
       animation: none;
     }
 
     /* The headline lands complete (the component skips the run outright) and
        the caret is never painted — no motion, no information lost. */
-    .type-caret::after {
+    :root:not([data-motion="full"]) .type-caret::after {
       animation: none;
       opacity: 0;
     }
+  }
+
+  /* An explicit "off" has to win even where the OS says nothing. */
+  :root[data-motion="reduced"] .page-enter,
+  :root[data-motion="reduced"] .ambient-drift {
+    animation: none;
+  }
+
+  :root[data-motion="reduced"] .type-caret::after {
+    animation: none;
+    opacity: 0;
   }
 
   .sr-only-focusable:not(:focus) {

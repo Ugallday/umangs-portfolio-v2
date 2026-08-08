@@ -8,11 +8,13 @@ import { useReducedMotion } from "@/components/motion/use-reduced-motion";
 /**
  * Mount point for the hero's ambient 3D layer.
  *
- * Three rules keep a decorative canvas from costing anything that matters:
- * it never renders on the server, so it cannot delay the hero's paint; it does
- * not load at all when the visitor prefers reduced motion, since an
- * always-animating field has no still state worth showing; and it is inert to
- * both the pointer and assistive technology.
+ * It never renders on the server, so it cannot delay the hero's paint, and it
+ * is inert to both the pointer and assistive technology.
+ *
+ * Under reduced motion it renders but holds still, rather than disappearing.
+ * Removing it entirely deleted a visible part of the design for anyone whose
+ * OS asks for less motion — which on Windows is just "animations off" — when
+ * what that preference actually asks for is stillness.
  */
 
 const FoldFieldScene = dynamic(() => import("@/components/three/fold-field-scene"), {
@@ -29,23 +31,25 @@ export function FoldField({
   const [colors, setColors] = useState<{ accent: string; paper: string } | null>(null);
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
-
     const styles = getComputedStyle(document.documentElement);
     setColors({
       accent: styles.getPropertyValue("--accent-default").trim() || "#d9a25c",
       paper: styles.getPropertyValue("--text-muted").trim() || "#8f887f",
     });
-  }, [prefersReducedMotion]);
+  }, []);
 
-  if (prefersReducedMotion || !colors) return null;
+  if (!colors) return null;
 
   return (
     <div
       aria-hidden="true"
       className={`pointer-events-none absolute inset-0 -z-10 hidden md:block ${className}`}
     >
-      <FoldFieldScene accentColor={colors.accent} paperColor={colors.paper} />
+      <FoldFieldScene
+        accentColor={colors.accent}
+        paperColor={colors.paper}
+        animate={!prefersReducedMotion}
+      />
     </div>
   );
 }

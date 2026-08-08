@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
+import { MotionToggle } from "@/components/layout/motion-toggle";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { siteConfig } from "@/config/site";
 
@@ -68,6 +69,7 @@ export function SiteHeader(): React.JSX.Element {
             </ul>
           </nav>
 
+          <MotionToggle />
           <ThemeToggle />
 
           <button

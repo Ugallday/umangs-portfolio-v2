@@ -73,6 +73,11 @@ const themeInitScript = `
     var stored = localStorage.getItem("origami-engineer-theme");
     var theme = stored === "light" || stored === "dark" ? stored : "dark";
     document.documentElement.dataset.theme = theme;
+
+    var motion = localStorage.getItem("origami-engineer-motion");
+    if (motion === "full" || motion === "reduced") {
+      document.documentElement.dataset.motion = motion;
+    }
   } catch (e) {}
 })();
 `;

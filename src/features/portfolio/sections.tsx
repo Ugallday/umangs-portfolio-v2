@@ -6,7 +6,6 @@ import { FoldReveal } from "@/components/motion/fold-reveal";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { TypingHeadline } from "@/components/motion/typing-headline";
 import { MarqueeColumn } from "@/components/motion/marquee-columns";
-import { RotatingWords } from "@/components/motion/rotating-words";
 import { FoldField } from "@/components/three/fold-field";
 import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
@@ -29,8 +28,6 @@ import {
   gamingProfile,
   gamingStory,
   heroHeadline,
-  heroRotatingPrefix,
-  heroRotatingWords,
   heroSubheadline,
   hubEntries,
   philosophy,
@@ -370,13 +367,6 @@ export function HeroSection(): React.JSX.Element {
             <span>{siteConfig.location}</span>
           </div>
           <div className="max-w-4xl space-y-8">
-            <FoldReveal>
-              <RotatingWords
-                prefix={heroRotatingPrefix}
-                words={heroRotatingWords}
-                className="text-text-secondary font-serif text-sm sm:text-base"
-              />
-            </FoldReveal>
             <FoldReveal delayMs={40}>
               <TypingHeadline
                 text={heroHeadline}
