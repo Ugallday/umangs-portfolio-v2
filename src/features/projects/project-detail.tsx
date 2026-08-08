@@ -58,18 +58,19 @@ export function ProjectDetail({
       <header className="relative">
         <FoldField className="opacity-40" />
         <FoldReveal>
-          {/* Neither items-end nor items-start. items-end bottom-aligned a short
-              left column and pushed the title down by most of a viewport;
-              items-start fixed that but left the shortfall at the bottom
-              instead — 138px of dead space under the actions on any project
-              whose metadata card outgrows its summary.
+          {/* items-start, and no attempt to line the two columns up at the
+              bottom. The columns hold different content at different lengths,
+              so forcing their ends to meet only moves the slack somewhere:
+              items-end put it above the title and pushed the heading down by
+              most of a viewport, and stretching the left column so its actions
+              sank to the bottom edge punched the slack straight through the
+              middle instead — a ~200px hole between the summary and the
+              buttons on any project whose metadata card outruns its summary.
 
-              The columns now stretch to the row, the left one distributes with
-              flex so its actions settle on the bottom edge, and the card takes
-              self-start so it never stretches past its own content when the
-              left column is the taller of the two. Both ends line up whichever
-              side is longer. */}
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.62fr)]">
+              A short column that simply ends is the normal, unremarkable case.
+              Leave the difference at the bottom where nobody reads it as a
+              hole. */}
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.62fr)] lg:items-start">
             <div className="flex flex-col gap-6">
               <div className="flex flex-wrap items-center gap-3">
                 <Pill>{project.phase}</Pill>
@@ -82,7 +83,7 @@ export function ProjectDetail({
               </h1>
               <p className="text-accent-default text-base leading-7">{project.visual.label}</p>
               <p className="text-text-secondary max-w-3xl text-lg leading-8">{project.summary}</p>
-              <div className="flex flex-wrap gap-3 lg:mt-auto lg:pt-2">
+              <div className="flex flex-wrap gap-3">
                 {project.links.map((link) => (
                   <a
                     key={link.label}
@@ -100,7 +101,7 @@ export function ProjectDetail({
               </div>
             </div>
 
-            <div className="fold-panel rounded-3xl p-6 sm:p-8 lg:self-start">
+            <div className="fold-panel rounded-3xl p-6 sm:p-8">
               <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
                 {project.visual.eyebrow}
               </p>
