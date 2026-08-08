@@ -19,7 +19,12 @@ const FoldFieldScene = dynamic(() => import("@/components/three/fold-field-scene
   ssr: false,
 });
 
-export function FoldField(): React.JSX.Element | null {
+export function FoldField({
+  className = "opacity-70",
+}: {
+  /** Overrides the layer's opacity where it sits behind denser text. */
+  readonly className?: string;
+} = {}): React.JSX.Element | null {
   const prefersReducedMotion = useReducedMotion();
   const [colors, setColors] = useState<{ accent: string; paper: string } | null>(null);
 
@@ -38,7 +43,7 @@ export function FoldField(): React.JSX.Element | null {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -z-10 hidden opacity-70 md:block"
+      className={`pointer-events-none absolute inset-0 -z-10 hidden md:block ${className}`}
     >
       <FoldFieldScene accentColor={colors.accent} paperColor={colors.paper} />
     </div>

@@ -57,9 +57,18 @@ export default async function ProjectPage({
     notFound();
   }
 
+  // Neighbours come from the same ordered list the projects index renders, so
+  // "next" means the next one a visitor would have met there.
+  const projects = await getProjects();
+  const index = projects.findIndex((entry) => entry.slug === slug);
+
   return (
     <SiteShell>
-      <ProjectDetail project={project} />
+      <ProjectDetail
+        project={project}
+        previous={index > 0 ? (projects[index - 1] ?? null) : null}
+        next={index >= 0 ? (projects[index + 1] ?? null) : null}
+      />
     </SiteShell>
   );
 }
