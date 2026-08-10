@@ -11,11 +11,13 @@ const securityHeaders = [
     // this is the static fallback for routes middleware does not touch.
     value: [
       "default-src 'self'",
-      "img-src 'self' res.cloudinary.com data:",
+      "img-src 'self' data:",
       "font-src 'self' data:",
       "connect-src 'self' vitals.vercel-insights.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
+      "object-src 'none'",
+      "form-action 'self'",
     ].join("; "),
   },
 ];
@@ -32,9 +34,9 @@ const nextConfig: NextConfig = {
   // source, comments and all, next to the minified bundle.
   productionBrowserSourceMaps: false,
 
-  images: {
-    remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com" }],
-  },
+  // No `images.remotePatterns`. Every image on the site is imported from
+  // src/assets and optimised at build time; the Cloudinary pattern that used
+  // to sit here authorised a remote host nothing ever loaded from.
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

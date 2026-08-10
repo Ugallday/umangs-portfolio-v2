@@ -23,19 +23,31 @@ Target: WCAG 2.1 AA, verified continuously — not audited once before launch.
   so interactive components have a single value to reference rather than
   each picking their own padding.
 
-## Planned for Phase 4+ (flagged now so it's not forgotten)
+## The 3D layers, as built
 
-- **Origami 3D scene (`features/origami-scene/`):** must have a fully
-  keyboard-operable and screen-reader-safe fallback (the static SVG/image
-  fallback already required by the progressive-enhancement strategy in
-  `docs/architecture/design-system.md` §10 serves this purpose — it is not
-  purely a performance fallback).
+The scene landed as `components/three/fold-field.tsx` and
+`features/projects/schema/`, not the `features/origami-scene/` this document
+originally anticipated. Both are decorative and neither carries information:
+the fold field is `aria-hidden`, `pointer-events-none`, desktop-only and
+never server-rendered; the schema explorer sits alongside a case study that
+reads completely without it. That is what satisfies the progressive-enhancement
+requirement in `docs/architecture/design-system.md` §10 — an interactive layer
+must have a static equivalent carrying the same information, which here is
+"none", because they carry none.
+
+If either ever becomes the only place some fact is stated, it needs a
+keyboard-operable, screen-reader-safe equivalent before that ships.
+
+## Planned, not built (flagged so it is not forgotten)
+
 - **Gallery lightbox:** requires focus trap while open, `Escape` to close,
   arrow-key navigation between images, and returns focus to the trigger
   element on close.
-- **Command palette (Cmd/Ctrl+K):** built on Radix `Dialog` primitives
-  specifically because Radix ships correct focus trapping and ARIA roles
-  out of the box — not custom-built.
+- **Command palette (Cmd/Ctrl+K):** whatever this is built on must ship
+  correct focus trapping and ARIA roles rather than being hand-rolled. This
+  previously specified Radix `Dialog`; Radix and `cmdk` were both uninstalled
+  in the August 2026 dependency cleanup because nothing imported them, so the
+  primitive is an open choice again — but "not custom-built" still stands.
 
 ## Semantic landmarks
 

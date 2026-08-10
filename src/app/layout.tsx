@@ -7,6 +7,8 @@ import { fontVariables } from "@/app/fonts";
 import { Providers } from "@/app/providers";
 import { siteConfig } from "@/config/site";
 import { buildPageMetadata } from "@/core/domain/seo/build-page-metadata";
+import { heroHeadline } from "@/features/portfolio/content";
+import { OG_IMAGE_DIMENSIONS } from "@/features/portfolio/page-metadata";
 import "@/styles/globals.css";
 
 const pageMetadata = buildPageMetadata({
@@ -31,7 +33,11 @@ export const metadata: Metadata = {
     description: pageMetadata.openGraph.description,
     url: pageMetadata.openGraph.url,
     siteName: pageMetadata.openGraph.siteName,
-    images: [...pageMetadata.openGraph.images],
+    images: pageMetadata.openGraph.images.map((url) => ({
+      url,
+      ...OG_IMAGE_DIMENSIONS,
+      alt: `${siteConfig.name} — ${heroHeadline}`,
+    })),
   },
   twitter: {
     card: "summary_large_image",

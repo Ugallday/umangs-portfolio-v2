@@ -14,16 +14,25 @@ export function middleware(request: NextRequest): NextResponse {
   // (Vercel analytics / speed insights) via host-based allowlisting. We
   // avoid `strict-dynamic` because several vendor SDKs inject non-nonce'd
   // <script src=...> tags which would be blocked by strict-dynamic.
+  //
+  // Cloudinary used to be allowlisted here for both scripts and images. No
+  // Cloudinary asset was ever referenced, so the entries only widened the
+  // policy — the script-src one permitted execution from any *.cloudinary.com
+  // subdomain. Removed rather than kept "in case". Re-add both when there is
+  // an actual asset to serve.
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' https://*.vercel-insights.com https://*.vercel.app https://*.vercel.co https://*.vercel.com https://*.cloudinary.com`,
+    `script-src 'self' 'nonce-${nonce}' https://*.vercel-insights.com https://*.vercel.app https://*.vercel.co https://*.vercel.com`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' res.cloudinary.com data:",
+    "img-src 'self' data:",
     "font-src 'self' data:",
     "connect-src 'self' vitals.vercel-insights.com https://vitals.vercel-insights.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "object-src 'none'",
+    // Nothing on the site posts anywhere. Stating it means an injected form
+    // cannot exfiltrate to a third-party endpoint either.
+    "form-action 'self'",
   ].join("; ");
 
   const requestHeaders = new Headers(request.headers);

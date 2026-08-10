@@ -8,7 +8,7 @@
 [![Deployed on Vercel](https://img.shields.io/badge/deployed-vercel-000000?logo=vercel)](https://vercel.com)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**Live:** _domain not yet connected_ <!-- TODO: swap in the real domain once purchased -->
+**Live:** [www.aalokbhandari.com.np](https://www.aalokbhandari.com.np)
 **Author:** [Aalok Bhandari](https://www.linkedin.com/in/alokbndry10/) · [GitHub](https://github.com/aalokbhandari) · [Instagram](https://www.instagram.com/by.aalok/)
 
 ---
@@ -56,18 +56,27 @@ study at `/projects/vat-billing-system`.
 
 Each section is its own route; the homepage is a short hub that links to them.
 
-| Route              | Contents                                               |
-| ------------------ | ------------------------------------------------------ |
-| `/`                | Hero + featured project + hub linking to every section |
-| `/about`           | The story, plus the full timeline                      |
-| `/experience`      | NSA Travels — before/after, role, flagship link        |
-| `/projects`        | All projects, grouped by stage                         |
-| `/projects/[slug]` | Case study, with its architecture/DFD diagram          |
-| `/education`       | Curriculum map, trainings, workshops                   |
-| `/skills`          | Grouped capabilities — no skill bars                   |
-| `/philosophy`      | Working principles                                     |
-| `/contact`         | Contact channels                                       |
-| _404_              | Custom not-found page with section links               |
+| Route              | Contents                                                    |
+| ------------------ | ----------------------------------------------------------- |
+| `/`                | Hero + flagship project + hub linking to every section      |
+| `/now`             | Dated monthly snapshot: building, next, not doing           |
+| `/about`           | The story, plus the full timeline                           |
+| `/background`      | Degree and agency on one timeline; curriculum, trainings    |
+| `/projects`        | All projects, grouped by stage                              |
+| `/projects/[slug]` | Case study, with its architecture/DFD diagram               |
+| `/writing`         | Post index — honest empty state until the first is finished |
+| `/writing/[slug]`  | A post; drafts 404 rather than resolving                    |
+| `/skills`          | Eight defended items plus an explicit learning tier         |
+| `/workflow`        | AI-augmented workflow, the stage model, and the toolkit     |
+| `/gaming`          | Personal; reachable from the footer, not the primary nav    |
+| `/contact`         | Contact channels                                            |
+| _404_              | Custom not-found page with section links                    |
+
+`/experience` and `/education` permanently redirect to `/background`;
+`/philosophy` redirects to `/about`. See `redirects()` in `next.config.ts`.
+
+`app/sitemap.ts` and `app/robots.ts` are generated from `config/site.ts` and
+the MDX collections, so a new route is in the sitemap the day it is added.
 
 A floating WhatsApp button, a light/dark theme toggle, and a mobile disclosure
 menu are present on every route. Route changes animate via `app/template.tsx`.
@@ -105,10 +114,11 @@ Decision history: [`docs/adr/`](docs/adr/)
 | Testing   | Vitest (unit) + Playwright (E2E)                   |
 | CI/CD     | GitHub Actions → Vercel                            |
 
-> **Note:** `package.json` still carries dependencies for features that are not
-> wired up — Resend, React Hook Form, Cloudinary, React Three Fiber, Radix UI,
-> and cmdk are installed but unused in `src/`. They should either be used or
-> removed before this is treated as a finished build.
+> **Note:** the unused dependencies this section used to list — Resend, React
+> Hook Form, cmdk, class-variance-authority and four Radix packages — were
+> removed in the August 2026 cleanup, along with the Cloudinary CSP and image
+> allowlists that authorised a host nothing loaded from. React Three Fiber and
+> `reading-time` were on that list by mistake; both are in use.
 
 ## Folder structure
 

@@ -73,21 +73,6 @@ export const heroProofPoints = [
 ] as const;
 
 /**
- * The hero's cycling line. Deliberately concrete: every entry is a thing that
- * exists in one of the case studies, so the line doubles as a claim a reader
- * can go and check rather than a list of adjectives.
- */
-export const heroRotatingPrefix = "I build";
-
-export const heroRotatingWords = [
-  "double-entry ledgers",
-  "offline-first sync engines",
-  "multi-tenant schemas",
-  "expense trackers that get used",
-  "VAT returns that tie",
-] as const;
-
-/**
  * The /now page.
  *
  * Dated on purpose: an undated "currently" paragraph is indistinguishable from

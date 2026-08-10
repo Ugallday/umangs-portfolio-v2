@@ -20,8 +20,30 @@ describe("buildPageMetadata", () => {
     expect(result.openGraph.url).toBe(result.canonicalUrl);
   });
 
-  it("falls back to the generated /api/og image when none is supplied", () => {
-    expect(buildPageMetadata(base).openGraph.images).toEqual(["https://example.com/api/og"]);
+  /**
+   * Each route's card carries its own title, so a shared case study and a
+   * shared /now no longer produce one identical image.
+   */
+  it("falls back to a generated /api/og image carrying the page title", () => {
+    expect(buildPageMetadata(base).openGraph.images).toEqual([
+      "https://example.com/api/og?title=Projects",
+    ]);
+  });
+
+  /**
+   * The home page is the exception: its title is the long SEO string, which
+   * reads badly at card size, so the route falls back to the hero line.
+   */
+  it("omits the title parameter on the home page", () => {
+    const result = buildPageMetadata({ ...base, path: "/", title: "Aalok Bhandari | Portfolio" });
+    expect(result.openGraph.images).toEqual(["https://example.com/api/og"]);
+  });
+
+  it("encodes a title containing characters that would break the query string", () => {
+    const result = buildPageMetadata({ ...base, title: "Ledgers, sync & correctness" });
+    expect(result.openGraph.images[0]).toBe(
+      "https://example.com/api/og?title=Ledgers%2C+sync+%26+correctness",
+    );
   });
 
   it("prefers an explicit ogImage over the generated fallback", () => {
