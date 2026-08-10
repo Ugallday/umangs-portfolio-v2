@@ -1,7 +1,7 @@
 ---
 slug: vat-billing-system
 title: VAT Billing System
-summary: Double-entry VAT accounting for Nepali travel agencies. It runs offline, syncs to one multi-tenant PostgreSQL database, and imported two years of real books — 29,825 rows — in 420 ms.
+summary: One ledger, many tenants, no internet required. Double-entry VAT accounting for Nepali travel agencies — each client offline-capable, all of them converging on one multi-tenant PostgreSQL database with row-level security enforced at the database rather than in the front end.
 phase: case-study
 period: 2023-present
 role: Sole engineer — architecture, implementation, migration, testing
@@ -17,8 +17,8 @@ techStack:
   - Node.js headless tests
   - SheetJS
 metrics:
-  - value: 420 ms
-    label: to import a 29,825-row day book, roughly 1,050× faster than the version it replaced
+  - value: "29,825"
+    label: rows of real books migrated — trial balance tied exactly, 0 rows skipped
   - value: "150"
     label: headless assertions across three suites, written without a test framework
   - value: "1"
@@ -115,8 +115,8 @@ sections:
     bullets:
       - 7,445 vouchers, 1,084 parties and 8 new accounts created. 0 rows skipped.
       - ₨845,644,371.27 of source debits posted, with the trial balance tying exactly.
-      - 420 ms, against the seven-plus minutes the same work took in v1.
-      - "The gain was architectural: load once into memory, batch the writes, flush once."
+      - Every voucher balanced on write, and the health check re-derived the invariants across the whole database afterwards.
+      - "The rewrite is what made that possible: load once into memory, validate, batch the writes, flush once."
   - id: testing
     heading: 150 assertions, no test framework
     body: >-

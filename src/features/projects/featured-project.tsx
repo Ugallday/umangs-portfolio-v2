@@ -37,15 +37,16 @@ export function FeaturedProjects({
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-4">
           <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
-            Featured work
+            Flagship, and the work under it
           </p>
           <h2 className="text-text-primary max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Two systems that are deployed, not demonstrated.
+            One system a real business keeps its books on.
           </h2>
         </div>
         <p className="text-text-muted max-w-sm text-sm leading-7">
-          One keeps a real business&rsquo;s books. One tracks what a trip actually costs. Both are
-          live, and both let you walk their database in three dimensions.
+          The VAT ledger is the one to read. Travora is the seventh-semester project underneath it —
+          the same row-level-security model at a much smaller scale. Both are live, and both let you
+          walk their database in three dimensions.
         </p>
       </div>
 

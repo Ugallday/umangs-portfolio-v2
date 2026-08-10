@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 
 import { SiteHeader } from "@/components/layout/site-header";
@@ -69,7 +70,18 @@ export function SiteShell({ children }: { readonly children: React.ReactNode }):
           </div>
           <div className="border-border-subtle text-text-muted flex flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs tracking-[0.28em] uppercase">
             <span>Dark-first, type-driven, MDX-backed</span>
-            <span>{siteConfig.location}</span>
+            <nav aria-label="More" className="flex flex-wrap items-center gap-5">
+              {siteConfig.footerNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="hover:text-text-primary transition"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <span>{siteConfig.location}</span>
+            </nav>
           </div>
         </div>
       </footer>

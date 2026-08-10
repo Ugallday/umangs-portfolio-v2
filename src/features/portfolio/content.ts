@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site";
 import type { InstitutionLogoId } from "@/features/portfolio/institution-logos";
 
 export interface TimelineItem {
@@ -55,10 +56,21 @@ export interface ToolkitGroup {
   readonly tools: readonly string[];
 }
 
-export const heroHeadline = "Building Software That Solves Real-World Problems";
+export const heroHeadline = "I build software that has to be correct.";
 
 export const heroSubheadline =
-  "I'm Aalok Bhandari, a BSc CSIT student at Tribhuvan University. Since 2022 I've been rebuilding my family's travel agency in software — the accounting, the records, the backups — while carrying a full course load. I'm drawn to the problems where the software has to be correct, not just finished.";
+  "Accounting, compliance, and operations systems for businesses that can't afford to be wrong.";
+
+/**
+ * The line under the hero. Four things a reader can go and verify rather than
+ * four adjectives — each one is evidenced in the VAT case study.
+ */
+export const heroProofPoints = [
+  "Real books",
+  "Multi-tenant PostgreSQL",
+  "Offline-first",
+  "Nepal",
+] as const;
 
 /**
  * The hero's cycling line. Deliberately concrete: every entry is a thing that
@@ -324,83 +336,50 @@ export const trainings: readonly TrainingCard[] = [
   },
 ] as const;
 
+/**
+ * Eight things, not forty.
+ *
+ * A list of forty communicates less than a list of eight, because the reader
+ * assumes none of the forty are deep. Everything in the first group is
+ * something I would be happy to be questioned on for an hour. The repos for
+ * the rest still exist; they are just no longer presented as capability.
+ */
 export const skillGroups: readonly SkillGroup[] = [
   {
-    title: "Languages",
+    title: "What I build with",
     kind: "tech",
     items: [
-      "JavaScript",
       "TypeScript",
-      "Java",
-      "C",
-      "C++",
-      "C#",
-      "PHP",
-      "SQL",
-      "HTML",
-      "CSS",
-      "Python (basic)",
-    ],
-  },
-  {
-    title: "Frameworks and libraries",
-    kind: "tech",
-    items: [
-      "React",
-      "Next.js",
-      "Vite",
+      "PostgreSQL",
+      "React / Next.js",
       "Node.js",
-      "Express",
-      "Tailwind CSS",
-      "Bootstrap",
-      "ASP.NET",
-      "Radix UI",
-      "Zustand",
-      "Framer Motion",
-      "Three.js",
-      "Recharts",
+      "SQL",
+      "Supabase (RLS)",
+      "IndexedDB (offline sync)",
+      "Git",
     ],
   },
   {
-    title: "Databases and data",
+    title: "Learning properly, not claiming yet",
     kind: "tech",
-    items: ["PostgreSQL", "MySQL", "SQLite", "IndexedDB", "Supabase RLS", "PostgREST"],
-  },
-  {
-    title: "Testing and quality",
-    kind: "tech",
-    items: ["Vitest", "Playwright", "ESLint", "Prettier", "GitHub Actions"],
-  },
-  {
-    title: "Tools",
-    kind: "tech",
-    items: ["Git", "GitHub", "VS Code", "Figma", "Canva", "Postman"],
-  },
-  {
-    title: "Cloud and hosting",
-    kind: "tech",
-    items: ["Supabase", "Firebase", "Vercel", "Netlify"],
+    items: ["Go", "AWS", "OpenTelemetry", "Docker"],
   },
   {
     title: "Concepts",
     kind: "concept",
     items: [
-      "REST APIs",
-      "Authentication",
+      "Double-entry accounting",
       "Row-level security",
       "Offline-first sync",
-      "Double-entry accounting",
-      "MVC",
-      "OOP design",
+      "Multi-tenant data modelling",
       "Database design",
-      "UI/UX design",
-      "Responsive design",
-      "Workflow automation",
-      "Applied AI integration",
-      "Business process optimization",
+      "REST APIs",
     ],
   },
 ] as const;
+
+/** The group the homepage marquee draws from — shipped work only. */
+export const shippedStackTitle = "What I build with";
 
 export interface GameEntry {
   /** Matches a vendored brand glyph, so the card can show the game's mark. */
@@ -615,30 +594,35 @@ export const toolkitGroups: readonly ToolkitGroup[] = [
   },
 ] as const;
 
+/**
+ * Addresses are read from `siteConfig`, never retyped. The site used to carry
+ * a second copy of every URL here, which is exactly how a page ends up
+ * pointing at a LinkedIn profile that no longer exists.
+ */
 export const contactLinks: readonly ContactLink[] = [
   {
     label: "GitHub",
-    href: "https://github.com/aalokbhandari",
+    href: siteConfig.socials.github,
     description: "Coursework, practicals, and personal projects",
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/alokbndry10/",
+    href: siteConfig.socials.linkedin,
     description: "Professional profile and background",
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/by.aalok/",
+    href: siteConfig.socials.instagram,
     description: "The less formal side of what I'm up to",
   },
   {
     label: "WhatsApp",
-    href: "https://wa.me/9779813014395",
+    href: siteConfig.whatsapp.href,
     description: "Fastest way to reach me directly",
   },
   {
     label: "Email",
-    href: "mailto:aalokbhandari.dev@gmail.com",
+    href: `mailto:${siteConfig.socials.email}`,
     description: "Best channel for anything longer than a message",
   },
 ];
@@ -664,22 +648,17 @@ export const hubEntries: readonly HubEntry[] = [
   {
     label: "Projects",
     href: "/projects",
-    blurb: "Two deployed case studies, active concepts, and the coursework behind them.",
+    blurb: "The flagship ledger, the supporting project work, and the coursework behind both.",
   },
   {
     label: "Skills",
     href: "/skills",
-    blurb: "Languages, frameworks, and concepts I can actually apply.",
+    blurb: "Eight things I would be happy to be questioned on, and what I am still learning.",
   },
   {
     label: "Workflow",
     href: "/workflow",
     blurb: "How I use AI as an engineering assistant, and the tools behind each stage.",
-  },
-  {
-    label: "Gaming",
-    href: "/gaming",
-    blurb: "7,000 hours in Dota 2, a Valorant trophy, and why both are here.",
   },
   {
     label: "Contact",
@@ -688,11 +667,16 @@ export const hubEntries: readonly HubEntry[] = [
   },
 ] as const;
 
+/**
+ * Only what there is evidence for. AI and cloud came off this list on purpose:
+ * calling a hosted model is API consumption, and Supabase and Vercel are
+ * platforms that abstract cloud away. Both go back on once there is a measured
+ * accuracy number on a labelled set and infrastructure I provisioned myself.
+ */
 export const currentFocus = [
-  "Artificial intelligence and applied ML",
-  "System design",
-  "Cloud computing",
-  "Software architecture",
-  "Product and UX thinking",
+  "Correctness under concurrent offline sync",
+  "PostgreSQL and multi-tenant data modelling",
+  "System design and software architecture",
+  "Test harnesses and CI for the VAT system",
   "Deepening theoretical CS for US MS CS applications",
 ] as const;

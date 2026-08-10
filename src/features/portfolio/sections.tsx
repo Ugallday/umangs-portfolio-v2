@@ -27,8 +27,10 @@ import {
   gamingProfile,
   gamingStory,
   heroHeadline,
+  heroProofPoints,
   heroSubheadline,
   hubEntries,
+  shippedStackTitle,
   skillGroups,
   stackLead,
   timeline,
@@ -322,6 +324,11 @@ export function HeroSection(): React.JSX.Element {
                 {heroSubheadline}
               </p>
             </FoldReveal>
+            <FoldReveal delayMs={100}>
+              <p className="text-text-muted max-w-2xl text-xs tracking-[0.24em] uppercase">
+                {heroProofPoints.join(" · ")}
+              </p>
+            </FoldReveal>
             <FoldReveal delayMs={120}>
               <div className="flex flex-wrap gap-3">
                 <Link href="/projects" className={actionClass({ size: "md" })}>
@@ -341,7 +348,7 @@ export function HeroSection(): React.JSX.Element {
               </div>
               <div>
                 <p className="text-text-muted">Focus</p>
-                <p className="mt-1">Applied AI, cloud, architecture</p>
+                <p className="mt-1">Correctness, PostgreSQL, systems that run offline</p>
               </div>
               <div>
                 <p className="text-text-muted">Working on</p>
@@ -403,14 +410,17 @@ export function HeroSection(): React.JSX.Element {
  * technology instead of read out three times over in a random order.
  */
 export function StackSection(): React.JSX.Element {
-  const columns = [
-    skillGroups.find((group) => group.title === "Languages")?.items ?? [],
-    skillGroups.find((group) => group.title === "Frameworks and libraries")?.items ?? [],
-    [
-      ...(skillGroups.find((group) => group.title === "Databases and data")?.items ?? []),
-      ...(skillGroups.find((group) => group.title === "Cloud and hosting")?.items ?? []),
-    ],
+  // One list, offset per column. The band used to draw from three separate
+  // groups; now that the stack is eight defended items rather than forty,
+  // there is only one honest list to draw from — so each column starts at a
+  // different point in it instead of the band padding itself out with
+  // technologies I no longer claim.
+  const shipped = skillGroups.find((group) => group.title === shippedStackTitle)?.items ?? [];
+  const rotate = (offset: number): readonly string[] => [
+    ...shipped.slice(offset),
+    ...shipped.slice(0, offset),
   ];
+  const columns = [shipped, rotate(3), rotate(6)];
 
   return (
     <section className="border-border-subtle border-t py-20 sm:py-24">
@@ -542,8 +552,8 @@ export function ProjectsSection({
     <SectionShell
       id="projects"
       eyebrow="Projects"
-      title="Two deployed case studies, forward-looking concepts, and the academic work behind them."
-      description="I've framed these by stage on purpose: shipped case study, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
+      title="One flagship system, the supporting work, and the coursework behind both."
+      description="The VAT ledger is the flagship: a real business keeps its books on it. Everything after it is framed by stage on purpose — supporting project work, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
     >
@@ -575,8 +585,8 @@ export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): 
     <SectionShell
       id="skills"
       eyebrow="Skills"
-      title="Grouped by what they actually let me do."
-      description="No skill bars. No fake percentages. Just the languages, frameworks, databases, tools, cloud systems, and working concepts I can actually apply."
+      title="Eight things, not forty."
+      description="No skill bars, no fake percentages, and no long tail of things I touched once. The first group is what I would be happy to be questioned on for an hour. The second is what I am learning properly and am not claiming yet."
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
     >
