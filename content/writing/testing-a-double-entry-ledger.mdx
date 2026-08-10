@@ -1,0 +1,39 @@
+---
+slug: testing-a-double-entry-ledger
+title: How I test a double-entry ledger for correctness under concurrent offline sync
+summary: Three app instances, an in-memory PostgREST stand-in, and the invariants that have to survive two machines posting to the same books while neither can see the other.
+publishedOn: "2026-08-10"
+topics:
+  - Correctness
+  - Offline-first
+  - PostgreSQL
+sections:
+  - id: outline
+    heading: OUTLINE — replace this file's prose before publishing
+    paragraphs:
+      - This post is a skeleton, not a draft. The headings and the factual scaffolding below are pulled from what the VAT system already does; the prose is deliberately not written, because a post about how carefully you verify your own claims is the last thing that should be ghostwritten. Set `status:published` once it is yours.
+  - id: the-problem
+    heading: Two machines, one set of books, no connection between them
+    paragraphs:
+      - Cover — IndexedDB is the working copy every screen reads; PostgreSQL is the durable copy the machines converge on. State plainly what can go wrong when two offline clients post to the same fiscal year and meet later.
+      - Name the invariants up front so the rest of the post has something to test against — a voucher never saves unbalanced, a tax number sequence never develops holes, and a row can never point across a tenant boundary.
+  - id: the-harness
+    heading: Three app instances against an in-memory PostgREST stand-in
+    paragraphs:
+      - Describe the harness — the core has no DOM dependencies, so it runs headlessly under Node against a small window stand-in, and there is no test framework for the same reason there is no build step.
+      - Explain what the third instance is for — it asserts the other two clients' data is invisible to it, and that it is refused when it forges a tenant id.
+  - id: the-interesting-cases
+    heading: The cases that actually found bugs
+    paragraphs:
+      - Push-before-pull, so the server can never discard an edit that had simply not uploaded yet. Deletes tombstoned rather than dropped. Voucher counters merged by maximum, because skipping a number is harmless and repeating one is not.
+      - The sync-hardening work is the honest story here — a cycle used to send every table together, so one table refused by a policy stranded the whole queue behind it. Say what that looked like and what it cost before it was found.
+  - id: what-is-not-covered
+    heading: What this does not prove
+    paragraphs:
+      - State the limits, as the README already does. Last-write-wins is still the conflict rule; per-record locking is on the roadmap and not built. There are no load or concurrency characteristics yet, which means the point at which this breaks is genuinely unknown.
+status: draft
+---
+
+Skeleton for the first post. `status: draft` keeps it off the site — the
+repository filters drafts out of both the index and the slug route, so the URL
+404s until this is finished and the status is flipped to `published`.

@@ -87,6 +87,48 @@ export const heroRotatingWords = [
   "VAT returns that tie",
 ] as const;
 
+/**
+ * The /now page.
+ *
+ * Dated on purpose: an undated "currently" paragraph is indistinguishable from
+ * an abandoned one. Update `nowUpdated` every time this changes, and if a
+ * month goes by without it changing, that is the signal — not a reason to
+ * quietly leave the old date in place.
+ */
+export const nowUpdated = "10 August 2026";
+
+export const nowLead =
+  "A dated snapshot of what has my attention, rewritten monthly. It exists so a stranger can tell the difference between a portfolio that is being worked on and one that stopped.";
+
+export interface NowEntry {
+  readonly label: string;
+  readonly items: readonly string[];
+}
+
+export const nowEntries: readonly NowEntry[] = [
+  {
+    label: "Building",
+    items: [
+      "A test suite and CI for the VAT ledger, so the correctness claims on this site point at something a stranger can run rather than at my word.",
+      "Bikram Sambat date handling and IRD-format sales and purchase registers — the compliance gap between what the system does and what Nepal's tax year actually expects.",
+    ],
+  },
+  {
+    label: "Next",
+    items: [
+      "Rehearsing and documenting a restore from backup. I am holding a business's books and have never actually executed the restore, which makes it the most urgent item I have.",
+      "Finishing the first written post: how I test a double-entry ledger for correctness under concurrent offline sync.",
+    ],
+  },
+  {
+    label: "Deliberately not doing",
+    items: [
+      "Claiming applied AI or cloud. One call to a hosted model is API consumption, and Supabase and Vercel are platforms that abstract cloud away. Both go back on the site when there is a measured accuracy number on a labelled set and infrastructure I provisioned myself.",
+      "Adding frameworks. The stack is eight things I can defend, and it stays that way until something in it stops being enough.",
+    ],
+  },
+];
+
 export const backgroundLead =
   "The degree and the company ran at the same time, and kept handing things to each other. A database course became the agency's accounting schema; a VAT compliance seminar became the rules the ledger enforces. This page is both tracks on one timeline, because separating them was never honest.";
 
@@ -636,6 +678,11 @@ export interface HubEntry {
 /** The homepage is a hub, so each route gets one line explaining why to open it. */
 export const hubEntries: readonly HubEntry[] = [
   {
+    label: "Now",
+    href: "/now",
+    blurb: `What I'm building this month, and what I'm deliberately not. Dated ${nowUpdated}.`,
+  },
+  {
     label: "About",
     href: "/about",
     blurb: "How a two-person family agency became my first real engineering project.",
@@ -649,6 +696,11 @@ export const hubEntries: readonly HubEntry[] = [
     label: "Projects",
     href: "/projects",
     blurb: "The flagship ledger, the supporting project work, and the coursework behind both.",
+  },
+  {
+    label: "Writing",
+    href: "/writing",
+    blurb: "Things that broke, decisions with trade-offs, and measurements I produced.",
   },
   {
     label: "Skills",

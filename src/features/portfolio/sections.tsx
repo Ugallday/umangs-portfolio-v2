@@ -30,6 +30,9 @@ import {
   heroProofPoints,
   heroSubheadline,
   hubEntries,
+  nowEntries,
+  nowLead,
+  nowUpdated,
   shippedStackTitle,
   skillGroups,
   stackLead,
@@ -491,6 +494,46 @@ export function HubSection(): React.JSX.Element {
         </nav>
       </div>
     </section>
+  );
+}
+
+export function NowSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
+  const sub = cardLevel(headingLevel);
+  return (
+    <SectionShell
+      id="now"
+      eyebrow={`Now · updated ${nowUpdated}`}
+      title="What I'm actually doing this month."
+      description={nowLead}
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
+    >
+      <div className="grid gap-5">
+        {nowEntries.map((entry, index) => {
+          const Heading = sub;
+          return (
+            <FoldReveal key={entry.label} delayMs={index * 40}>
+              <article className="fold-panel rounded-3xl p-5 sm:p-6">
+                <Heading className="text-text-primary text-lg font-semibold tracking-tight">
+                  {entry.label}
+                </Heading>
+                <ul className="text-text-secondary mt-4 grid gap-3 leading-7">
+                  {entry.items.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span
+                        className="bg-accent-default mt-3 h-1.5 w-1.5 shrink-0 rounded-full"
+                        aria-hidden="true"
+                      />
+                      <span className="max-w-3xl">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </FoldReveal>
+          );
+        })}
+      </div>
+    </SectionShell>
   );
 }
 

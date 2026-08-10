@@ -10,9 +10,11 @@ export const siteConfig = {
     twitter: "@alokbndry10",
   },
   nav: [
+    { label: "Now", href: "/now" },
     { label: "About", href: "/about" },
     { label: "Background", href: "/background" },
     { label: "Projects", href: "/projects" },
+    { label: "Writing", href: "/writing" },
     { label: "Skills", href: "/skills" },
     { label: "Workflow", href: "/workflow" },
     { label: "Contact", href: "/contact" },
