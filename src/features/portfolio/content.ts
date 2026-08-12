@@ -198,7 +198,7 @@ export interface ResumeEducationEntry {
 export const resumeTitle = "Software engineer — accounting, compliance, and operations systems";
 
 export const resumeSummary =
-  "I build software that has to be correct. Since 2022 I have been rebuilding my family's travel agency in software while completing a B.Sc. CSIT — replacing paper ledgers and spreadsheets with a multi-tenant, offline-capable double-entry accounting system the business now runs its books on. I am most useful on problems where being wrong is expensive: ledgers, tax compliance, and data that has to reconcile across machines that cannot always see each other.";
+  "Since 2022 I have been rebuilding my family's travel agency in software while completing a B.Sc. CSIT — replacing paper ledgers and spreadsheets with a multi-tenant, offline-capable double-entry accounting system the agency now keeps its books on. The work is mostly ledgers, VAT compliance, and getting data to reconcile across machines that cannot always reach each other.";
 
 export const resumeRoles: readonly ResumeRole[] = [
   {

@@ -1,5 +1,6 @@
-import Link from "next/link";
+import Image from "next/image";
 
+import portraitImage from "@/assets/portrait.png";
 import { siteConfig } from "@/config/site";
 import {
   resumeDownloadNote,
@@ -16,181 +17,187 @@ import { ResumeDownload } from "@/features/portfolio/resume-download";
 /**
  * The CV, as a page.
  *
- * Set to the site's own type and rhythm rather than a generic résumé template,
- * and laid out in a single measure so the print stylesheet can turn it into A4
- * without rearranging anything. Panels and rules do the work that a template's
- * boxes and shading would.
+ * Deliberately NOT set in the site's editorial voice. The rest of the site can
+ * afford letter-spaced small caps, serif date meta and amber accents; a résumé
+ * cannot, because it is read by people scanning a stack of them and by parsers
+ * that want a plain document. So this is the conventional single-column form —
+ * bold uppercase section headings over a rule, dates flush right, real bullets,
+ * tight leading — and the styling stays on the semantic tokens so the print
+ * stylesheet turns it into ink on A4 without a print rule per component.
  */
-function Row({
-  heading,
+
+/** Section heading: bold, uppercase, ruled. The résumé convention, not ours. */
+function SectionHeading({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
+  return (
+    <h2 className="text-text-primary border-border-default mt-7 border-b pb-1.5 text-[0.8125rem] font-bold uppercase">
+      {children}
+    </h2>
+  );
+}
+
+/**
+ * One entry: title flush left, dates flush right on the same baseline, an
+ * optional second line for organisation and place. `gap-x-6` plus `flex-wrap`
+ * means a long title wraps above its dates instead of colliding with them.
+ */
+function Entry({
+  title,
   meta,
+  subtitle,
   children,
 }: {
-  readonly heading: string;
+  readonly title: string;
   readonly meta: string;
-  readonly children: React.ReactNode;
+  readonly subtitle?: string;
+  readonly children?: React.ReactNode;
 }): React.JSX.Element {
   return (
-    <div className="border-border-subtle border-t pt-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h3 className="text-text-primary text-base font-semibold tracking-tight">{heading}</h3>
-        <p className="text-text-muted font-serif text-xs tracking-[0.18em] uppercase">{meta}</p>
+    <div className="mt-4 break-inside-avoid">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6">
+        <h3 className="text-text-primary text-[0.9375rem] font-bold">{title}</h3>
+        <p className="text-text-secondary text-sm whitespace-nowrap">{meta}</p>
       </div>
+      {subtitle ? <p className="text-text-secondary mt-0.5 text-sm italic">{subtitle}</p> : null}
       {children}
     </div>
   );
 }
 
-function Section({
-  title,
-  children,
-}: {
-  readonly title: string;
-  readonly children: React.ReactNode;
-}): React.JSX.Element {
-  return (
-    <section className="mt-10">
-      <h2 className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">{title}</h2>
-      <div className="mt-5 grid gap-5">{children}</div>
-    </section>
-  );
-}
-
 function Bullets({ items }: { readonly items: readonly string[] }): React.JSX.Element {
   return (
-    <ul className="text-text-secondary mt-3 grid gap-2 text-sm leading-7">
+    <ul className="text-text-secondary mt-1.5 list-disc space-y-1 pl-5 text-sm leading-6 marker:text-current">
       {items.map((item) => (
-        <li key={item} className="flex items-start gap-3">
-          <span className="bg-accent-default mt-3 h-1 w-1 shrink-0 rounded-full" aria-hidden />
-          <span>{item}</span>
-        </li>
+        <li key={item}>{item}</li>
       ))}
     </ul>
   );
 }
 
-/**
- * A URL as you would print it on paper: no scheme, no `www.`, no trailing
- * slash. Derived rather than written out, because a CV that spells its own
- * links as literal strings is how the site ends up advertising one LinkedIn
- * and GitHub another — the exact drift this document is meant to settle.
- */
-function displayUrl(href: string): string {
-  return href
-    .replace(/^https?:\/\//, "")
-    .replace(/^www\./, "")
-    .replace(/\/$/, "");
-}
-
 export function Resume(): React.JSX.Element {
+  /**
+   * Display text is derived from the href, never written alongside it — a CV
+   * that spells its own links as literal strings is how a site ends up
+   * advertising one LinkedIn while GitHub advertises another.
+   */
+  const displayUrl = (href: string): string =>
+    href
+      .replace(/^https?:\/\//, "")
+      .replace(/^www\./, "")
+      .replace(/\/$/, "");
+
   const contacts = [
-    { label: "Email", value: siteConfig.socials.email, href: `mailto:${siteConfig.socials.email}` },
-    { label: "WhatsApp", value: `+${siteConfig.whatsapp.number}`, href: siteConfig.whatsapp.href },
-    { label: "Site", value: displayUrl(siteConfig.url), href: siteConfig.url },
-    {
-      label: "GitHub",
-      value: displayUrl(siteConfig.socials.github),
-      href: siteConfig.socials.github,
-    },
-    {
-      label: "LinkedIn",
-      value: displayUrl(siteConfig.socials.linkedin),
-      href: siteConfig.socials.linkedin,
-    },
+    { value: siteConfig.socials.email, href: `mailto:${siteConfig.socials.email}` },
+    { value: `+${siteConfig.whatsapp.number}`, href: siteConfig.whatsapp.href },
+    { value: displayUrl(siteConfig.url), href: siteConfig.url },
+    { value: displayUrl(siteConfig.socials.github), href: siteConfig.socials.github },
+    { value: displayUrl(siteConfig.socials.linkedin), href: siteConfig.socials.linkedin },
   ];
 
   return (
     <article className="mx-auto w-full max-w-3xl">
-      <header>
-        <h1 className="text-text-primary text-4xl font-semibold tracking-tight sm:text-5xl">
-          {siteConfig.name}
-        </h1>
-        <p className="text-accent-default mt-3 text-base leading-7">{resumeTitle}</p>
+      <header className="flex flex-wrap items-start gap-x-7 gap-y-5 sm:flex-nowrap">
+        <Image
+          src={portraitImage}
+          alt="Aalok Bhandari"
+          width={112}
+          height={112}
+          priority
+          className="border-border-default h-28 w-28 shrink-0 rounded-md border object-cover"
+        />
 
-        <ul className="text-text-secondary mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          {contacts.map((contact) => (
-            <li key={contact.label}>
-              <a
-                href={contact.href}
-                target={contact.href.startsWith("http") ? "_blank" : undefined}
-                rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
-                className="hover:text-text-primary transition"
+        <div className="min-w-0 flex-1">
+          <h1 className="text-text-primary text-3xl font-bold tracking-tight uppercase sm:text-4xl">
+            {siteConfig.name}
+          </h1>
+          <p className="text-text-secondary mt-1 text-[0.9375rem]">{resumeTitle}</p>
+
+          {/* One run of contacts separated by rules, the way a résumé header
+              reads — not a list of labelled rows, which wastes the line. */}
+          <ul className="text-text-secondary mt-2.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
+            {contacts.map((contact) => (
+              <li
+                key={contact.value}
+                className="after:text-text-muted after:mx-2.5 after:content-['|'] last:after:content-none"
               >
-                {contact.value}
-              </a>
-            </li>
-          ))}
-          <li className="text-text-muted">{siteConfig.location}</li>
-        </ul>
-
-        <p className="text-text-secondary mt-6 text-base leading-8">{resumeSummary}</p>
-
-        <div className="mt-7 flex flex-wrap items-center gap-4" data-print-hide>
-          <ResumeDownload />
-          <p className="text-text-muted max-w-md text-xs leading-5">{resumeDownloadNote}</p>
+                <a
+                  href={contact.href}
+                  target={contact.href.startsWith("http") ? "_blank" : undefined}
+                  rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
+                  className="hover:text-text-primary transition"
+                >
+                  {contact.value}
+                </a>
+              </li>
+            ))}
+            <li className="text-text-muted">{siteConfig.location}</li>
+          </ul>
         </div>
       </header>
 
-      <Section title="Experience">
-        {resumeRoles.map((role) => (
-          <Row key={`${role.organization}-${role.period}`} heading={role.title} meta={role.period}>
-            <p className="text-text-secondary mt-1 text-sm">
-              {role.organization} · {role.location}
-            </p>
-            <Bullets items={role.bullets} />
-          </Row>
+      <SectionHeading>Summary</SectionHeading>
+      <p className="text-text-secondary mt-3 text-sm leading-6">{resumeSummary}</p>
+
+      <SectionHeading>Experience</SectionHeading>
+      {resumeRoles.map((role) => (
+        <Entry
+          key={`${role.organization}-${role.period}`}
+          title={role.title}
+          meta={role.period}
+          subtitle={`${role.organization}, ${role.location}`}
+        >
+          <Bullets items={role.bullets} />
+        </Entry>
+      ))}
+
+      <SectionHeading>Selected projects</SectionHeading>
+      {resumeProjects.map((project) => (
+        <Entry
+          key={project.slug}
+          title={project.name}
+          meta={project.period}
+          subtitle={`${displayUrl(siteConfig.url)}/projects/${project.slug}`}
+        >
+          <Bullets items={project.bullets} />
+        </Entry>
+      ))}
+
+      <SectionHeading>Education</SectionHeading>
+      {resumeEducation.map((entry) => (
+        <Entry
+          key={entry.qualification}
+          title={entry.qualification}
+          meta={entry.period}
+          subtitle={entry.institution}
+        >
+          <p className="text-text-secondary mt-1.5 text-sm leading-6">{entry.result}</p>
+        </Entry>
+      ))}
+
+      <SectionHeading>Industry training</SectionHeading>
+      <ul className="text-text-secondary mt-3 grid gap-x-8 gap-y-1.5 text-sm leading-6 sm:grid-cols-2">
+        {trainings.map((training) => (
+          <li key={`${training.title}-${training.period}`} className="break-inside-avoid">
+            <span className="text-text-primary font-semibold">{training.title}</span> —{" "}
+            {training.provider}, {training.period}
+          </li>
         ))}
-      </Section>
+      </ul>
 
-      <Section title="Selected projects">
-        {resumeProjects.map((project) => (
-          <Row key={project.slug} heading={project.name} meta={project.period}>
-            <p className="text-text-muted mt-1 text-sm">
-              Case study:{" "}
-              <Link
-                href={`/projects/${project.slug}`}
-                className="text-accent-default hover:text-accent-hover transition"
-              >
-                {displayUrl(siteConfig.url)}/projects/{project.slug}
-              </Link>
-            </p>
-            <Bullets items={project.bullets} />
-          </Row>
+      <SectionHeading>Technical</SectionHeading>
+      <dl className="mt-3 grid gap-y-1.5 text-sm leading-6">
+        {skillGroups.map((group) => (
+          <div key={group.title} className="sm:grid sm:grid-cols-[minmax(0,13rem)_1fr] sm:gap-x-4">
+            <dt className="text-text-primary font-semibold">{group.title}</dt>
+            <dd className="text-text-secondary">{group.items.join(", ")}</dd>
+          </div>
         ))}
-      </Section>
+      </dl>
 
-      <Section title="Education">
-        {resumeEducation.map((entry) => (
-          <Row key={entry.qualification} heading={entry.qualification} meta={entry.period}>
-            <p className="text-text-secondary mt-1 text-sm leading-6">{entry.institution}</p>
-            <p className="text-text-muted mt-1 text-sm leading-6">{entry.result}</p>
-          </Row>
-        ))}
-      </Section>
-
-      <Section title="Industry training">
-        <div className="border-border-subtle grid gap-3 border-t pt-5 sm:grid-cols-2">
-          {trainings.map((training) => (
-            <div key={`${training.title}-${training.period}`}>
-              <p className="text-text-primary text-sm font-medium">{training.title}</p>
-              <p className="text-text-muted mt-1 text-sm leading-6">
-                {training.provider} · {training.period}
-              </p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <Section title="Technical">
-        <div className="border-border-subtle grid gap-4 border-t pt-5">
-          {skillGroups.map((group) => (
-            <div key={group.title} className="grid gap-1 sm:grid-cols-[minmax(0,14rem)_1fr]">
-              <p className="text-text-muted text-sm">{group.title}</p>
-              <p className="text-text-secondary text-sm leading-7">{group.items.join(" · ")}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {/* Last, and hidden on paper: a download button inside a PDF is noise. */}
+      <div className="mt-9 flex flex-wrap items-center gap-4" data-print-hide>
+        <ResumeDownload />
+        <p className="text-text-muted max-w-md text-xs leading-5">{resumeDownloadNote}</p>
+      </div>
     </article>
   );
 }
