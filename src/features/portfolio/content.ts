@@ -264,7 +264,7 @@ export const resumeEducation: readonly ResumeEducationEntry[] = [
 ];
 
 export const resumeDownloadNote =
-  'Opens your browser\'s print dialogue — choose "Save as PDF". The page is laid out for A4, so the file you get is this document, always current, never a stale export sitting in a folder.';
+  "A real A4 PDF, generated from this page's own content when you ask for it — so it is always current, and never a stale export sitting in a folder.";
 
 export const timeline: readonly TimelineItem[] = [
   {

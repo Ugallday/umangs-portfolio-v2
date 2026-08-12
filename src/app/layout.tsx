@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { headers } from "next/headers";
 
 import { fontVariables } from "@/app/fonts";
 import { Providers } from "@/app/providers";
@@ -76,7 +77,29 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}): Promise<React.JSX.Element> {
+  /**
+   * Read, and deliberately discarded — the call itself is the point.
+   *
+   * Next applies the middleware's per-request nonce to its own inline scripts,
+   * the `__next_f.push` chunks that carry the RSC payload. It can only do that
+   * when the route is rendered per request, and reading a request header is
+   * what opts the whole tree out of prerendering. Drop this call and the root
+   * layout is prerendered at build time with no nonce in it, while middleware
+   * still issues a fresh nonce on every response — so the CSP matches none of
+   * the scripts in the document, the browser blocks all of them, and the site
+   * serves a blank page. That is exactly what shipped, and it is invisible in
+   * development, where every render is dynamic anyway.
+   *
+   * This is why the theme script is authorised by hash rather than by nonce
+   * (src/config/theme-init-script.ts) but the call still has to stay.
+   */
+  await headers();
+
   return (
     <html lang="en" suppressHydrationWarning className={fontVariables}>
       <head>
