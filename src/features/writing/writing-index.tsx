@@ -30,7 +30,7 @@ export function WritingIndex({
     <section id="writing">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">Writing</p>
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">Writing</p>
           <h1 className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-4xl">
             Where the claims get shown their working.
           </h1>
@@ -49,7 +49,7 @@ export function WritingIndex({
                     href={`/writing/${post.slug}`}
                     className="fold-panel fold-hover group flex h-full flex-col rounded-3xl p-5 sm:p-6"
                   >
-                    <div className="text-text-muted flex flex-wrap items-center gap-3 text-xs tracking-[0.24em] uppercase">
+                    <div className="text-text-muted flex flex-wrap items-center gap-3 text-xs tracking-[0.08em] uppercase">
                       <time dateTime={post.publishedOn}>{formatPostDate(post.publishedOn)}</time>
                       <span aria-hidden="true">·</span>
                       <span>{post.readingMinutes} min read</span>
@@ -83,7 +83,7 @@ export function WritingIndex({
                   {writingEmptyState.body}
                 </p>
                 <div className="border-border-subtle bg-surface-overlay mt-6 rounded-2xl border p-4 sm:p-5">
-                  <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+                  <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                     {writingEmptyState.nextUpLabel}
                   </p>
                   <p className="text-text-primary mt-2 text-base leading-7 font-medium text-balance">
@@ -99,7 +99,7 @@ export function WritingIndex({
 
           <FoldReveal delayMs={60}>
             <div className="border-border-subtle border-t pt-6">
-              <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                 {writingTopicsIntro}
               </p>
               <ul className="text-text-secondary mt-4 grid gap-2 text-sm leading-7">

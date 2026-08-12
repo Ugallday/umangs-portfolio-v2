@@ -36,7 +36,7 @@ export function FeaturedProjects({
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
             Flagship, and the system it produced
           </p>
           <h2 className="text-text-primary max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
@@ -90,7 +90,7 @@ function FeaturedProjectCard({
           <div className="relative">
             <div className="flex flex-wrap items-center gap-3">
               <Pill>{project.phase}</Pill>
-              <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                 {project.period}
               </p>
               {live ? <LiveChip /> : null}
@@ -143,7 +143,7 @@ function FeaturedProjectCard({
 
 function LiveChip(): React.JSX.Element {
   return (
-    <span className="border-accent-default/40 text-accent-default inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium tracking-[0.18em] uppercase">
+    <span className="border-accent-default/40 text-accent-default inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium tracking-[0.06em] uppercase">
       <span className="relative flex h-1.5 w-1.5">
         <span className="bg-accent-default absolute inline-flex h-full w-full animate-ping rounded-full opacity-70 motion-reduce:hidden" />
         <span className="bg-accent-default relative inline-flex h-1.5 w-1.5 rounded-full" />

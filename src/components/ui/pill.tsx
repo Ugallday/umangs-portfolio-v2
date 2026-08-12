@@ -15,7 +15,7 @@ export function Pill({
   return (
     <span
       className={cn(
-        "border-border-default text-text-secondary inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium",
+        "border-border-default text-text-secondary inline-flex items-center rounded-sm border px-2.5 py-1 text-xs font-medium",
         className,
       )}
     >

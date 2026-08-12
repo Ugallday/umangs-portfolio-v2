@@ -14,7 +14,7 @@ export function PostDetail({ post }: { readonly post: PostEntity }): React.JSX.E
         <FoldField className="opacity-40" />
         <FoldReveal>
           <div className="flex max-w-3xl flex-col gap-6">
-            <div className="text-text-muted flex flex-wrap items-center gap-3 text-xs tracking-[0.24em] uppercase">
+            <div className="text-text-muted flex flex-wrap items-center gap-3 text-xs tracking-[0.08em] uppercase">
               <time dateTime={post.publishedOn}>{formatPostDate(post.publishedOn)}</time>
               <span aria-hidden="true">·</span>
               <span>{post.readingMinutes} min read</span>

@@ -46,7 +46,7 @@ function PaginationLink({
         isNext ? "sm:items-end sm:text-right" : ""
       }`}
     >
-      <span className="text-text-muted text-xs tracking-[0.24em] uppercase">
+      <span className="text-text-muted text-xs tracking-[0.08em] uppercase">
         {isNext ? "Next" : "Previous"}
       </span>
       <span className="text-text-primary mt-3 text-lg font-semibold tracking-tight">

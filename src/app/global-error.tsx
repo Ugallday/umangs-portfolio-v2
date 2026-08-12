@@ -21,7 +21,7 @@ export default function GlobalError({
       <body>
         <main className="mx-auto flex min-h-screen max-w-prose flex-col items-center justify-center gap-5 px-6 text-center">
           <div className="fold-panel rounded-3xl p-8 sm:p-10">
-            <p className="text-text-muted text-xs tracking-[0.3em] uppercase">Global error</p>
+            <p className="text-text-muted text-xs tracking-[0.1em] uppercase">Global error</p>
             <h1 className="text-text-primary mt-4 text-2xl font-semibold tracking-tight">
               The application failed to load.
             </h1>

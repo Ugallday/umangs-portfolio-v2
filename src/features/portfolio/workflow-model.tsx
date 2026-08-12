@@ -25,7 +25,7 @@ export function WorkflowModel({
   return (
     <div className="fold-panel rounded-3xl p-5 sm:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <p className="text-text-muted text-xs tracking-[0.24em] uppercase">The loop</p>
+        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">The loop</p>
         <p className="text-text-muted font-serif text-xs tabular-nums">
           {workflowStages.length} stages
         </p>
@@ -35,11 +35,11 @@ export function WorkflowModel({
       {/* The column headers only make sense once the two halves sit side by
           side, so they are hidden at the width where the layout stacks. */}
       <div className="mt-8 hidden grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-6 md:grid">
-        <p className="text-text-muted text-right text-xs tracking-[0.24em] uppercase">
+        <p className="text-text-muted text-right text-xs tracking-[0.08em] uppercase">
           Drafted with AI
         </p>
         <span className="bg-accent-default h-1.5 w-1.5 rounded-full" aria-hidden="true" />
-        <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Decided by me</p>
+        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Decided by me</p>
       </div>
 
       <ol className="mt-4 grid gap-3">

@@ -12,7 +12,12 @@ import { cn } from "@/core/utils/cn";
 export type ActionVariant = "primary" | "secondary";
 export type ActionSize = "sm" | "md";
 
-const BASE = "inline-flex items-center justify-center rounded-full font-medium transition";
+/**
+ * Squared, not pill. A fully-rounded fill is the default shape of a generated
+ * CTA; at this size the capsule also fights every other edge on the page, all
+ * of which are now rules.
+ */
+const BASE = "inline-flex items-center justify-center rounded-sm font-medium transition";
 
 const VARIANT: Record<ActionVariant, string> = {
   primary: "bg-accent-default text-text-on-accent hover:bg-accent-hover",

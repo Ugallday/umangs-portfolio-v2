@@ -93,8 +93,11 @@ export function Resume(): React.JSX.Element {
     { value: displayUrl(siteConfig.socials.linkedin), href: siteConfig.socials.linkedin },
   ];
 
+  // 48rem is the right measure on screen and the wrong one on A4 — at the 14mm
+  // margin the sheet gives ~182mm of column, and capping it there left the
+  // document as a narrow strip down the middle of the page.
   return (
-    <article className="mx-auto w-full max-w-3xl">
+    <article className="mx-auto w-full max-w-3xl print:max-w-none">
       <header className="flex flex-wrap items-start gap-x-7 gap-y-5 sm:flex-nowrap">
         <Image
           src={portraitImage}
@@ -102,7 +105,11 @@ export function Resume(): React.JSX.Element {
           width={112}
           height={112}
           priority
-          className="border-border-default h-28 w-28 shrink-0 rounded-md border object-cover"
+          /* Hidden in print. It is the only dark mass on an otherwise white
+             sheet, which is what reads as a "dark border" in the saved PDF —
+             and a photograph on a CV is discouraged in the US applications
+             this document is aimed at. It stays on the web page. */
+          className="h-28 w-28 shrink-0 rounded-sm object-cover print:hidden"
         />
 
         <div className="min-w-0 flex-1">

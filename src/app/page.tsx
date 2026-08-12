@@ -6,12 +6,14 @@ import { getProject } from "@/features/projects";
 export const revalidate = 3600;
 
 /**
- * The homepage leads with the flagship, then the engineering artifact inside
- * it. NSA Travels is the story — a working business rebuilt in software — and
- * the VAT ledger is the system that story produced. Travora sits on /projects
- * with the rest of the supporting work rather than competing for the hero.
+ * The two projects the homepage leads with, below the hero, in this order.
+ *
+ * Both are systems rather than clients: the VAT ledger, and Travora. The NSA
+ * Travels case study is the narrative around the ledger and is reachable from
+ * it and from /projects — leading with it here made the homepage tell the same
+ * story twice.
  */
-const FEATURED_SLUGS = ["nsa-travels", "vat-billing-system"] as const;
+const FEATURED_SLUGS = ["vat-billing-system", "travora"] as const;
 
 export default async function HomePage(): Promise<React.JSX.Element> {
   const featured = await Promise.all(FEATURED_SLUGS.map((slug) => getProject(slug)));

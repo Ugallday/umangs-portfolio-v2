@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { headers } from "next/headers";
 
 import { fontVariables } from "@/app/fonts";
 import { Providers } from "@/app/providers";
 import { siteConfig } from "@/config/site";
+import { themeInitScript } from "@/config/theme-init-script";
 import { buildPageMetadata } from "@/core/domain/seo/build-page-metadata";
 import { heroHeadline } from "@/features/portfolio/content";
 import { OG_IMAGE_DIMENSIONS } from "@/features/portfolio/page-metadata";
@@ -71,41 +71,22 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf8f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f1e9" },
+    { media: "(prefers-color-scheme: dark)", color: "#101319" },
   ],
 };
 
-// Runs before hydration to set data-theme synchronously, preventing a
-// flash of the wrong theme. This is the one deliberate exception to
-// "no inline scripts" — justified and scoped to three lines, and covered
-// by the CSP nonce strategy in docs/architecture/security.md.
-const themeInitScript = `
-(function() {
-  try {
-    var stored = localStorage.getItem("origami-engineer-theme");
-    var theme = stored === "light" || stored === "dark" ? stored : "dark";
-    document.documentElement.dataset.theme = theme;
-
-    var motion = localStorage.getItem("origami-engineer-motion");
-    if (motion === "full" || motion === "reduced") {
-      document.documentElement.dataset.motion = motion;
-    }
-  } catch (e) {}
-})();
-`;
-
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}): Promise<React.JSX.Element> {
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
-
+export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning className={fontVariables}>
       <head>
-        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Deliberately carries no nonce. The browser blanks a script's nonce
+            content attribute as soon as it is inserted, so rendering one here
+            guaranteed a hydration mismatch on every load. The CSP authorises
+            this script by hash instead — see src/config/theme-init-script.ts,
+            which explains the trade and is covered by a test that fails if the
+            source and the hash ever drift apart. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
         <a href="#main-content" className="sr-only-focusable">

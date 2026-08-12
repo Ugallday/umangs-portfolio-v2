@@ -21,8 +21,14 @@ const FoldFieldScene = dynamic(() => import("@/components/three/fold-field-scene
   ssr: false,
 });
 
+/**
+ * 0.7 was tuned against a hero that also carried an amber gradient wash, which
+ * lifted the whole area and swallowed the folds. With the wash gone they read
+ * at full strength directly behind the headline, so the default drops to a
+ * level where the layer is texture rather than a competing object.
+ */
 export function FoldField({
-  className = "opacity-70",
+  className = "opacity-30",
 }: {
   /** Overrides the layer's opacity where it sits behind denser text. */
   readonly className?: string;
@@ -33,7 +39,7 @@ export function FoldField({
   useEffect(() => {
     const styles = getComputedStyle(document.documentElement);
     setColors({
-      accent: styles.getPropertyValue("--accent-default").trim() || "#d9a25c",
+      accent: styles.getPropertyValue("--accent-default").trim() || "#c2410c",
       paper: styles.getPropertyValue("--text-muted").trim() || "#8f887f",
     });
   }, []);

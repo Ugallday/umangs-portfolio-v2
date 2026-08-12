@@ -52,7 +52,7 @@ export function ProjectContents({
   return (
     <nav aria-label="Case study contents" className="hidden xl:block">
       <div className="sticky top-24">
-        <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">Contents</p>
+        <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">Contents</p>
         <ol className="mt-5 grid gap-0.5">
           {sections.map((section, index) => {
             const isActive = section.id === activeId;

@@ -20,7 +20,7 @@ import type { SchemaModel, SchemaRelationKind } from "./model";
 const SchemaScene = dynamic(() => import("./schema-scene"), {
   ssr: false,
   loading: () => (
-    <div className="text-text-muted flex h-full w-full items-center justify-center text-xs tracking-[0.24em] uppercase">
+    <div className="text-text-muted flex h-full w-full items-center justify-center text-xs tracking-[0.08em] uppercase">
       Building the model…
     </div>
   ),
@@ -56,7 +56,7 @@ export function SchemaPanel({ model }: { readonly model: SchemaModel }): React.J
   return (
     <section id="schema" className="fold-panel scroll-mt-24 rounded-3xl p-6 sm:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Database schema</p>
+        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Database schema</p>
         <p className="text-text-muted font-serif text-xs">{model.source}</p>
       </div>
 
@@ -99,7 +99,7 @@ export function SchemaPanel({ model }: { readonly model: SchemaModel }): React.J
           <p className="text-text-muted text-sm leading-6">{model.caption}</p>
 
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
               Tables — select one to inspect it
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -136,7 +136,7 @@ export function SchemaPanel({ model }: { readonly model: SchemaModel }): React.J
           <p className="text-text-primary mt-2 text-base leading-7 font-medium">{selected.role}</p>
           <p className="text-text-secondary mt-3 text-sm leading-7">{selected.detail}</p>
 
-          <p className="text-text-muted mt-6 text-xs tracking-[0.24em] uppercase">Columns</p>
+          <p className="text-text-muted mt-6 text-xs tracking-[0.08em] uppercase">Columns</p>
           <ul className="mt-3 grid gap-1.5">
             {selected.columns.map((column) => (
               <li
@@ -146,7 +146,7 @@ export function SchemaPanel({ model }: { readonly model: SchemaModel }): React.J
                 <span className="text-text-primary font-serif text-xs">{column.name}</span>
                 <span className="text-text-muted font-serif text-xs">{column.type}</span>
                 {column.key ? (
-                  <span className="border-border-default text-text-muted rounded-full border px-1.5 text-[10px] tracking-[0.12em] uppercase">
+                  <span className="border-border-default text-text-muted rounded-full border px-1.5 text-[10px] tracking-[0.05em] uppercase">
                     {column.key}
                   </span>
                 ) : null}
@@ -161,7 +161,7 @@ export function SchemaPanel({ model }: { readonly model: SchemaModel }): React.J
 
           {selectedRelations.length > 0 ? (
             <>
-              <p className="text-text-muted mt-6 text-xs tracking-[0.24em] uppercase">
+              <p className="text-text-muted mt-6 text-xs tracking-[0.08em] uppercase">
                 Foreign keys
               </p>
               <ul className="mt-3 grid gap-2">

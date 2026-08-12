@@ -35,7 +35,7 @@ export function GET(request: Request): ImageResponse {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "linear-gradient(140deg, #16130f 0%, #0a0a0b 55%)",
+        background: "linear-gradient(140deg, #1f232b 0%, #101319 55%)",
         padding: "72px 80px",
         fontFamily: "sans-serif",
       }}
@@ -61,14 +61,14 @@ export function GET(request: Request): ImageResponse {
             fontSize: headlineSize(title),
             lineHeight: 1.05,
             letterSpacing: -2,
-            color: "#faf8f5",
+            color: "#f4f1e9",
             maxWidth: 940,
           }}
         >
           {title}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div style={{ width: 64, height: 4, background: "#d9a25c" }} />
+          <div style={{ width: 64, height: 4, background: "#e2794a" }} />
           <div style={{ display: "flex", fontSize: 26, color: "#b8b0a4" }}>
             {heroProofPoints.join(" · ")}
           </div>

@@ -27,12 +27,15 @@ export function TechBadge({
   return (
     <span
       className={cn(
-        "border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary group inline-flex items-center gap-2 rounded-full border py-1 pr-3 pl-1.5 text-xs font-medium transition",
+        "border-border-default text-text-secondary hover:border-border-strong hover:text-text-primary group inline-flex items-center gap-2 rounded-sm border py-1 pr-2.5 pl-1.5 text-xs font-medium transition",
         className,
       )}
       style={glyph ? ({ "--brand": glyph.hex } as React.CSSProperties) : undefined}
     >
-      <span className="bg-surface-overlay text-text-muted inline-flex h-6 w-6 items-center justify-center rounded-full transition group-hover:text-[var(--brand)]">
+      {/* The mark sits directly against the label. It used to be sunk into its
+          own filled circle, which made every badge a capsule containing a
+          second capsule — decoration the mark did not need to read. */}
+      <span className="text-text-muted inline-flex h-5 w-5 items-center justify-center transition group-hover:text-[var(--brand)]">
         {glyph ? (
           <svg
             viewBox="0 0 24 24"

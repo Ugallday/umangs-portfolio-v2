@@ -16,7 +16,7 @@ export function DiagramPanel({ diagram }: { readonly diagram: ProjectDiagram }):
 
   return (
     <figure className="fold-panel rounded-3xl p-6 sm:p-8">
-      <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Diagram</p>
+      <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Diagram</p>
       {/* Diagrams are authored wide; the wrapper scrolls rather than letting
           the page body scroll horizontally on narrow viewports. */}
       <div className="border-border-subtle bg-surface-overlay mt-4 overflow-x-auto rounded-2xl border p-3 sm:p-4">

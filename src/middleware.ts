@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+import { themeInitScriptCspHash } from "@/config/theme-init-script";
+
 /**
  * Generates a per-request nonce and attaches a strict, nonce-based CSP.
  * This is the primary CSP mechanism; the static header in next.config.ts
@@ -22,7 +24,13 @@ export function middleware(request: NextRequest): NextResponse {
   // an actual asset to serve.
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' https://*.vercel-insights.com https://*.vercel.app https://*.vercel.co https://*.vercel.com`,
+    // The theme script is authorised by hash, not by the nonce. It is static,
+    // so a hash pins its exact source rather than merely marking whatever
+    // inline script carries this request's token as trusted — and it lets the
+    // element render with no attribute at all, which is what stops React
+    // reporting a hydration mismatch on the nonce the browser blanks out.
+    // See src/config/theme-init-script.ts.
+    `script-src 'self' 'nonce-${nonce}' '${themeInitScriptCspHash}' https://*.vercel-insights.com https://*.vercel.app https://*.vercel.co https://*.vercel.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "font-src 'self' data:",

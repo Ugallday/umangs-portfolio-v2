@@ -43,7 +43,7 @@ export function BackgroundSection({
     <div className="space-y-20 sm:space-y-24">
       <header className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
             Background
           </p>
           <h1 className="text-text-primary text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
@@ -57,7 +57,7 @@ export function BackgroundSection({
 
           <div className="grid gap-5 sm:grid-cols-2">
             <article className="fold-panel fold-hover rounded-3xl p-5 sm:p-6">
-              <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Before</p>
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Before</p>
               <h2 className="text-text-primary mt-3 text-lg font-semibold tracking-tight">
                 The manual state
               </h2>
@@ -68,7 +68,7 @@ export function BackgroundSection({
               </p>
             </article>
             <article className="fold-panel fold-hover rounded-3xl p-5 sm:p-6">
-              <p className="text-text-muted text-xs tracking-[0.24em] uppercase">After</p>
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">After</p>
               <h2 className="text-text-primary mt-3 text-lg font-semibold tracking-tight">
                 What changed
               </h2>
@@ -86,7 +86,7 @@ export function BackgroundSection({
 
       <section className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
             The record
           </p>
           <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance">
@@ -106,7 +106,7 @@ export function BackgroundSection({
                     <div className="flex items-start gap-4">
                       <div className="bg-accent-default mt-1 h-3 w-3 rounded-full" aria-hidden />
                       <div className="flex-1">
-                        <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+                        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                           {item.year}
                         </p>
                         <h3 className="text-text-primary mt-2 text-lg font-semibold tracking-tight">
@@ -134,9 +134,7 @@ export function BackgroundSection({
 
       <section className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
-            Training
-          </p>
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">Training</p>
           <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance">
             Industry certifications, earned while the systems were being built.
           </h2>
@@ -152,7 +150,7 @@ export function BackgroundSection({
                   <h3 className="text-text-primary text-base font-semibold">{training.title}</h3>
                   <p className="text-text-muted mt-1 text-sm">{training.provider}</p>
                 </div>
-                <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+                <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                   {training.period}
                 </p>
               </div>
@@ -171,7 +169,7 @@ export function BackgroundSection({
 
       <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
         <div className="fold-panel rounded-3xl p-5 sm:p-6">
-          <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+          <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
             What it all fed into
           </p>
           <h2 className="text-text-primary mt-3 text-xl font-semibold tracking-tight">
@@ -191,11 +189,11 @@ export function BackgroundSection({
         </div>
         <div className="border-border-subtle bg-surface-overlay grid gap-5 rounded-3xl border p-5 sm:p-6">
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Current status</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Current status</p>
             <p className="text-text-secondary mt-2 text-sm leading-7">{currentStatusSummary}</p>
           </div>
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
               Academic performance
             </p>
             <p className="text-text-secondary mt-2 text-sm leading-7">
@@ -203,7 +201,7 @@ export function BackgroundSection({
             </p>
           </div>
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Workshops</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Workshops</p>
             <p className="text-text-secondary mt-2 text-sm leading-7">
               UI/UX (2023) · WordPress (2024) · Quality Assurance (2026)
             </p>
@@ -224,7 +222,7 @@ function CurriculumSpine(): React.JSX.Element {
     <section>
       <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
             Course to consequence
           </p>
           <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance">
@@ -242,7 +240,7 @@ function CurriculumSpine(): React.JSX.Element {
                 <li className="grid items-stretch gap-3 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,0.9fr)] lg:gap-x-6">
                   <div className="fold-panel rounded-2xl p-5">
                     <div className="flex items-baseline justify-between gap-3">
-                      <p className="text-text-muted font-serif text-xs tracking-[0.2em] uppercase">
+                      <p className="text-text-muted font-serif text-xs tracking-[0.07em] uppercase">
                         {node.semester}
                       </p>
                       <span className="text-text-muted/60 font-serif text-xs tabular-nums">

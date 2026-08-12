@@ -74,7 +74,7 @@ export function ProjectDetail({
             <div className="flex flex-col gap-6">
               <div className="flex flex-wrap items-center gap-3">
                 <Pill>{project.phase}</Pill>
-                <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+                <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                   {project.period}
                 </p>
               </div>
@@ -102,7 +102,7 @@ export function ProjectDetail({
             </div>
 
             <div className="fold-panel rounded-3xl p-6 sm:p-8">
-              <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                 {project.visual.eyebrow}
               </p>
               <p className="text-text-secondary mt-3 text-sm leading-7">
@@ -139,7 +139,7 @@ export function ProjectDetail({
               </dl>
 
               <div className="border-border-subtle mt-6 border-t pt-6">
-                <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Built with</p>
+                <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Built with</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.techStack.map((item) => (
                     <TechBadge key={item} label={item} />
@@ -172,7 +172,7 @@ export function ProjectDetail({
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+                    <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
                       {sectionLabel(section.id)}
                     </p>
                   </div>

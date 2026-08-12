@@ -52,13 +52,13 @@ export function SiteShell({ children }: { readonly children: React.ReactNode }):
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-10 sm:py-12 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">
             <div className="space-y-4">
-              <p className="text-text-muted text-xs tracking-[0.3em] uppercase">Footer</p>
+              <p className="text-text-muted text-xs tracking-[0.1em] uppercase">Footer</p>
               <p className="text-text-secondary max-w-2xl text-lg leading-8">
                 {footerClosingStatement}
               </p>
             </div>
             <div className="flex flex-col gap-4 lg:items-end">
-              <p className="text-text-muted text-xs tracking-[0.3em] uppercase">Elsewhere</p>
+              <p className="text-text-muted text-xs tracking-[0.1em] uppercase">Elsewhere</p>
               <nav aria-label="Social links" className="flex flex-wrap gap-3">
                 {footerLinks.map(({ label, href, icon }) => (
                   <SocialLink key={label} href={href} label={label}>
@@ -68,7 +68,7 @@ export function SiteShell({ children }: { readonly children: React.ReactNode }):
               </nav>
             </div>
           </div>
-          <div className="border-border-subtle text-text-muted flex flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs tracking-[0.28em] uppercase">
+          <div className="border-border-subtle text-text-muted flex flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs tracking-[0.09em] uppercase">
             <span>Dark-first, type-driven, MDX-backed</span>
             <nav aria-label="More" className="flex flex-wrap items-center gap-5">
               {siteConfig.footerNav.map((item) => (

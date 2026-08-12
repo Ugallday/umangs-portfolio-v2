@@ -87,7 +87,7 @@ function SectionShell({
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
             {eyebrow}
           </p>
           <Heading className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -137,7 +137,7 @@ function FoldCard({
 }): React.JSX.Element {
   return (
     <article className="fold-panel fold-hover rounded-3xl p-5 sm:p-6">
-      {meta ? <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{meta}</p> : null}
+      {meta ? <p className="text-text-muted text-xs tracking-[0.08em] uppercase">{meta}</p> : null}
       <Heading className="text-text-primary mt-3 text-lg font-semibold tracking-tight">
         {title}
       </Heading>
@@ -158,14 +158,14 @@ function ProjectCard({
     <article className="fold-panel fold-hover flex h-full flex-col rounded-3xl p-5 sm:p-6">
       <div className="flex items-center justify-between gap-4">
         <Pill>{project.phase}</Pill>
-        <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{project.period}</p>
+        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">{project.period}</p>
       </div>
       <Heading className="text-text-primary mt-4 text-xl font-semibold tracking-tight">
         {project.title}
       </Heading>
       <p className="text-text-secondary mt-3 text-sm leading-7">{project.summary}</p>
       <div className="border-border-subtle bg-surface-overlay mt-5 rounded-2xl border p-4">
-        <p className="text-text-muted text-xs tracking-[0.22em] uppercase">
+        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
           {project.visual.eyebrow}
         </p>
         <p className="text-text-primary mt-2 text-sm font-medium">{project.visual.label}</p>
@@ -211,7 +211,7 @@ function TimelineCard({
         <div className="flex items-start gap-4">
           <div className="bg-accent-default mt-1 h-3 w-3 rounded-full" aria-hidden="true" />
           <div className="flex-1">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{item.year}</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">{item.year}</p>
             <Heading className="text-text-primary mt-2 text-lg font-semibold tracking-tight">
               {item.title}
             </Heading>
@@ -296,13 +296,10 @@ const heroSocials = [
 export function HeroSection(): React.JSX.Element {
   return (
     <section className="border-border-subtle relative overflow-hidden border-b">
-      {/* Inset so the drift never exposes an unpainted edge. */}
-      <div
-        aria-hidden="true"
-        className="ambient-drift absolute -inset-[6%] -z-20 bg-[radial-gradient(circle_at_top_left,rgba(217,162,92,0.16),transparent_26%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_24%)]"
-      />
-      {/* Sits between the gradient wash and the content, so the folds read as
-          depth behind the hero rather than as objects competing with it. */}
+      {/* The amber corner glow that used to drift here is gone. It lit nothing,
+          nothing was aligned to it, and a coloured wash bleeding out of the top
+          corner of a dark hero is the most recognisable ambient cliché there
+          is. The folds below carry the depth on their own. */}
       <FoldField />
       {/* items-center, not items-end: bottom-aligning two columns of different
           heights left the shorter one hanging off the baseline. Centring them
@@ -311,7 +308,7 @@ export function HeroSection(): React.JSX.Element {
         <div className="flex flex-col justify-between gap-10 pt-6 pb-8 xl:pt-12 xl:pb-14">
           {/* A meta row, not a banner — a second <header> here muddies the
               landmark structure alongside the real site header. */}
-          <div className="text-text-muted flex items-center justify-between gap-4 text-xs tracking-[0.3em] uppercase">
+          <div className="text-text-muted flex items-center justify-between gap-4 text-xs tracking-[0.1em] uppercase">
             <span>{siteConfig.shortName}</span>
             <span>{siteConfig.location}</span>
           </div>
@@ -328,7 +325,7 @@ export function HeroSection(): React.JSX.Element {
               </p>
             </FoldReveal>
             <FoldReveal delayMs={100}>
-              <p className="text-text-muted max-w-2xl text-xs tracking-[0.24em] uppercase">
+              <p className="text-text-muted max-w-2xl text-xs tracking-[0.08em] uppercase">
                 {heroProofPoints.join(" · ")}
               </p>
             </FoldReveal>
@@ -362,18 +359,17 @@ export function HeroSection(): React.JSX.Element {
         </div>
 
         <FoldReveal delayMs={80} className="xl:pt-12 xl:pb-14">
-          <aside className="fold-panel relative overflow-hidden rounded-3xl p-6 sm:p-8">
-            <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(217,162,92,0.14),transparent_28%)]" />
+          <aside className="fold-panel relative overflow-hidden rounded-lg p-6 sm:p-8">
+            {/* The name and location used to head this card too, which put the
+                name on screen three times above the fold — the wordmark, the
+                hero byline, and here — and the location twice. The byline in
+                the left column carries both; a card sitting directly under a
+                photograph of the person does not need to caption him again. */}
             <div className="relative space-y-6">
-              <div className="flex items-center justify-between gap-4">
-                <p className="text-text-muted text-xs tracking-[0.3em] uppercase">
-                  {siteConfig.name}
-                </p>
-                <span className="border-border-default text-text-muted rounded-full border px-3 py-1 text-xs">
-                  {siteConfig.location}
-                </span>
-              </div>
-              <div className="border-border-subtle relative aspect-[4/5] overflow-hidden rounded-3xl border bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_50%_30%,rgba(217,162,92,0.18),transparent_30%),linear-gradient(180deg,#1b1c20,#0b0b0c)] shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+              {/* Flat mount. The portrait had a tinted glow behind it and a deep
+                  drop shadow under it — furniture around a photograph that is
+                  perfectly capable of holding the corner by itself. */}
+              <div className="border-border-subtle bg-surface-overlay relative aspect-[4/5] overflow-hidden rounded-sm border">
                 <Image
                   src={portraitImage}
                   alt="Aalok Bhandari portrait"
@@ -389,7 +385,7 @@ export function HeroSection(): React.JSX.Element {
                     key={label}
                     className="border-border-subtle bg-surface-overlay flex items-center justify-between gap-3 rounded-2xl border p-4"
                   >
-                    <p className="text-text-muted text-xs tracking-[0.24em] uppercase">{label}</p>
+                    <p className="text-text-muted text-xs tracking-[0.08em] uppercase">{label}</p>
                     <SocialLink href={href} label={label} className={socialGlowClass}>
                       {icon}
                     </SocialLink>
@@ -429,7 +425,7 @@ export function StackSection(): React.JSX.Element {
     <section className="border-border-subtle border-t py-20 sm:py-24">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
             The stack
           </p>
           <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
@@ -464,7 +460,7 @@ export function HubSection(): React.JSX.Element {
     <section className="border-border-subtle border-t py-20 sm:py-24">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
+          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
             Where to go
           </p>
           <h2 className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -559,18 +555,18 @@ export function AboutSection({ headingLevel, standalone }: SectionProps = {}): R
       </div>
       <FoldReveal delayMs={90}>
         <div className="mt-8">
-          <p className="text-text-muted mb-4 text-xs tracking-[0.24em] uppercase">Timeline</p>
+          <p className="text-text-muted mb-4 text-xs tracking-[0.08em] uppercase">Timeline</p>
           <TimelineList as={sub} />
         </div>
       </FoldReveal>
       <FoldReveal delayMs={100}>
         <div className="border-border-subtle bg-surface-overlay mt-6 grid gap-4 rounded-3xl border p-5 sm:grid-cols-2 sm:p-6">
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Current status</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Current status</p>
             <p className="text-text-secondary mt-2 text-sm leading-7">{currentStatusSummary}</p>
           </div>
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
               Academic performance
             </p>
             <p className="text-text-secondary mt-2 text-sm leading-7">
@@ -606,7 +602,7 @@ export function ProjectsSection({
         ))}
       </div>
       <div className="border-border-subtle bg-surface-overlay mt-8 rounded-3xl border p-5 sm:p-6">
-        <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Academic practicals</p>
+        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Academic practicals</p>
         <p className="text-text-secondary mt-3 max-w-2xl text-sm leading-7">
           I keep course practicals and lab work in the same portfolio because they show the same
           pattern I use everywhere: find the problem, structure the system, and make the workflow
@@ -693,7 +689,7 @@ export function AiWorkflowSection({
       </FoldReveal>
       <FoldReveal delayMs={90}>
         <div className="mt-8">
-          <p className="text-text-muted mb-4 text-xs tracking-[0.24em] uppercase">
+          <p className="text-text-muted mb-4 text-xs tracking-[0.08em] uppercase">
             Where I apply it
           </p>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
@@ -706,13 +702,13 @@ export function AiWorkflowSection({
       <FoldReveal delayMs={100}>
         <div className="border-border-subtle bg-surface-overlay mt-6 grid gap-4 rounded-3xl border p-5 sm:grid-cols-2 sm:p-6">
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
               What AI accelerates
             </p>
             <p className="text-text-secondary mt-2 text-sm leading-7">{aiAcceleratesSummary}</p>
           </div>
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">What stays mine</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">What stays mine</p>
             <p className="text-text-secondary mt-2 text-sm leading-7">
               {engineeringJudgmentSummary}
             </p>
@@ -775,7 +771,7 @@ export function GamingSection({ headingLevel, standalone }: SectionProps = {}): 
               <p className="text-accent-default mt-4 text-3xl font-semibold tracking-tight tabular-nums">
                 {game.figure}
               </p>
-              <p className="text-text-muted mt-1 text-xs tracking-[0.2em] uppercase">
+              <p className="text-text-muted mt-1 text-xs tracking-[0.07em] uppercase">
                 {game.figureLabel}
               </p>
               <p className="text-text-secondary mt-5 text-sm leading-7">{game.body}</p>
@@ -823,7 +819,7 @@ export function ContactSection({ headingLevel, standalone }: SectionProps = {}):
       <FoldReveal>
         <div className="fold-panel mb-5 flex flex-wrap items-center justify-between gap-5 rounded-3xl p-5 sm:p-6">
           <div>
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Résumé</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Résumé</p>
             <p className="text-text-primary mt-2 text-lg leading-7 font-medium">
               The one-page version, if that is what you need.
             </p>
@@ -839,7 +835,7 @@ export function ContactSection({ headingLevel, standalone }: SectionProps = {}):
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
         <div className="fold-panel rounded-3xl p-5 sm:p-6">
-          <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Contact links</p>
+          <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Contact links</p>
           <div className="mt-5 grid gap-3">
             {contactLinks.map((link) => (
               <a
@@ -860,11 +856,11 @@ export function ContactSection({ headingLevel, standalone }: SectionProps = {}):
         </div>
         <div className="grid gap-4">
           <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Closing statement</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Closing statement</p>
             <p className="text-text-secondary mt-3 text-lg leading-8">{footerClosingStatement}</p>
           </div>
           <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">What I'm building</p>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">What I'm building</p>
             <ul className="text-text-secondary mt-4 grid gap-2 text-sm leading-7">
               {currentFocus.map((item) => (
                 <li key={item} className="flex items-start gap-3">

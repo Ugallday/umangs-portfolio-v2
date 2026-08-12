@@ -45,7 +45,7 @@ export function VatBillingArchitecture(): React.JSX.Element {
       </defs>
 
       {/* ---------- above the crease: one client's installation ---------- */}
-      <text x="40" y="34" className="fill-accent-default text-[13px] tracking-[0.22em] uppercase">
+      <text x="40" y="34" className="fill-accent-default text-[13px] tracking-[0.08em] uppercase">
         In the browser
       </text>
       <text x="880" y="34" textAnchor="end" className="fill-text-muted text-[13px]">
@@ -83,7 +83,7 @@ export function VatBillingArchitecture(): React.JSX.Element {
         strokeWidth="1.5"
       />
 
-      <text x="72" y="88" className="fill-text-muted text-[12px] tracking-[0.2em] uppercase">
+      <text x="72" y="88" className="fill-text-muted text-[12px] tracking-[0.07em] uppercase">
         One installation
       </text>
 
@@ -139,7 +139,7 @@ export function VatBillingArchitecture(): React.JSX.Element {
         className="fill-surface-overlay stroke-border-strong"
         strokeWidth="1.5"
       />
-      <text x="712" y="88" className="fill-text-muted text-[12px] tracking-[0.2em] uppercase">
+      <text x="712" y="88" className="fill-text-muted text-[12px] tracking-[0.07em] uppercase">
         Local copy
       </text>
       <text x="712" y="120" className="fill-text-primary font-serif text-[14px]">
@@ -187,7 +187,7 @@ export function VatBillingArchitecture(): React.JSX.Element {
         x="460"
         y="280"
         textAnchor="middle"
-        className="fill-text-secondary text-[11.5px] tracking-[0.2em] uppercase"
+        className="fill-text-secondary text-[11.5px] tracking-[0.07em] uppercase"
       >
         Sync boundary
       </text>
@@ -226,7 +226,7 @@ export function VatBillingArchitecture(): React.JSX.Element {
       </text>
 
       {/* ---------- below the crease: the shared database ---------- */}
-      <text x="40" y="302" className="fill-accent-default text-[13px] tracking-[0.22em] uppercase">
+      <text x="40" y="302" className="fill-accent-default text-[13px] tracking-[0.08em] uppercase">
         In PostgreSQL
       </text>
       <text x="880" y="302" textAnchor="end" className="fill-text-muted text-[13px]">

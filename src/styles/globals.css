@@ -18,15 +18,19 @@
     color-scheme: light;
   }
 
+  /**
+   * Flat stock. The two radial washes that used to sit here — an amber glow in
+   * one corner, a white one in the other — are the ambient-gradient-behind-
+   * everything move that every generated dark landing page makes, and they were
+   * doing no work: nothing on the page was lit by them or aligned to them.
+   * The grain below is the only thing modulating the ground now, which is the
+   * texture the site is actually named for.
+   */
   body {
     background-color: var(--surface-base);
     color: var(--text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(circle at top left, rgba(217, 162, 92, 0.08), transparent 24%),
-      radial-gradient(circle at top right, rgba(255, 255, 255, 0.04), transparent 18%);
-    background-attachment: fixed;
   }
 
   /* Paper grain. The site is named after folded paper and had none of its
@@ -95,28 +99,40 @@
     box-shadow: var(--crease-shadow);
   }
 
+  /**
+   * The one panel surface.
+   *
+   * Was a gradient fill with a drop shadow and a 24px radius — a card that
+   * floats. Stacked forty times down a page that is the house look of every
+   * generated site, and it flattens the hierarchy completely: a hero, a case
+   * study and a list of logos all arrive as the same glossy rectangle.
+   *
+   * Now it is flat stock with a rule. Separation comes from the border and the
+   * whitespace around it, which is how printed matter has always done it, and
+   * it leaves elevation genuinely meaningful for the few things that do
+   * overlay the page.
+   */
   .fold-panel {
     border: 1px solid var(--border-subtle);
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--surface-raised) 96%, white 4%),
-      var(--surface-raised)
-    );
+    background: var(--surface-raised);
     box-shadow: var(--elevation-1-shadow);
   }
 
+  /**
+   * Hover reads on the rule, not on the geometry. The old lift tilted the card
+   * on the X axis and slid it upward — motion that says "card" more loudly than
+   * anything else on the page, and that no printed reference for this design
+   * would ever produce.
+   */
   .fold-hover {
     transition:
-      transform var(--duration-fold) var(--ease-fold),
       border-color var(--duration-fold) var(--ease-fold),
-      box-shadow var(--duration-fold) var(--ease-fold);
-    transform-origin: top center;
+      background-color var(--duration-fold) var(--ease-fold);
   }
 
   .fold-hover:hover {
-    transform: translateY(-2px) rotateX(2deg);
-    border-color: var(--border-default);
-    box-shadow: var(--elevation-2-shadow);
+    border-color: var(--border-strong);
+    background: color-mix(in srgb, var(--surface-raised) 92%, var(--paper-50) 8%);
   }
 
   /* Page transition. Driven by app/template.tsx, which React remounts on every
@@ -135,23 +151,6 @@
 
   .page-enter {
     animation: page-enter var(--duration-page) var(--ease-fold) both;
-  }
-
-  /* The single ambient effect in the hero — a slow drift on the existing
-     gradient wash. Deliberately not stacked with parallax or particles. */
-  @keyframes ambient-drift {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0);
-    }
-    50% {
-      transform: translate3d(1.5%, -1%, 0);
-    }
-  }
-
-  .ambient-drift {
-    animation: ambient-drift 22s ease-in-out infinite;
-    will-change: transform;
   }
 
   /* Hero headline caret. The reveal itself is driven from JS (see
@@ -208,10 +207,9 @@
   }
 
   /* --duration-page already collapses to 0ms under reduced motion, but the
-     infinite ambient loop needs switching off outright. */
+     page-enter animation needs switching off outright. */
   @media (prefers-reduced-motion: reduce) {
-    :root:not([data-motion="full"]) .page-enter,
-    :root:not([data-motion="full"]) .ambient-drift {
+    :root:not([data-motion="full"]) .page-enter {
       animation: none;
     }
 
@@ -224,8 +222,7 @@
   }
 
   /* An explicit "off" has to win even where the OS says nothing. */
-  :root[data-motion="reduced"] .page-enter,
-  :root[data-motion="reduced"] .ambient-drift {
+  :root[data-motion="reduced"] .page-enter {
     animation: none;
   }
 
@@ -265,6 +262,15 @@
   :root,
   :root[data-theme="dark"],
   :root[data-theme="light"] {
+    /* The token overrides below were never the whole story. `color-scheme`
+       is declared per theme in the base layer and was not reset here, so a
+       reader who had toggled to dark still printed with a dark colour scheme
+       stamped on the root. The page-box margin area — the band between the
+       paper edge and the content, which no element paints — is drawn from the
+       UA canvas, and under `color-scheme: dark` that canvas is dark. Hence a
+       dark border around an otherwise white PDF, appearing or not depending
+       on which theme was selected when the reader hit print. */
+    color-scheme: light;
     --surface-base: #ffffff;
     --surface-raised: #ffffff;
     --surface-overlay: #ffffff;
@@ -275,26 +281,49 @@
     --text-secondary: #1f1d1a;
     --text-muted: #55504a;
     /* Darkened from the screen amber, which prints as illegible pale yellow. */
-    --accent-default: #8a5a1a;
-    --accent-hover: #8a5a1a;
-    --accent-muted: #8a5a1a;
+    --accent-default: #9a3412;
+    --accent-hover: #9a3412;
+    --accent-muted: #9a3412;
     --paper-texture-opacity: 0;
   }
 
+  /**
+   * The date and title along the top of a saved PDF, and the URL and "1/3"
+   * along the bottom, are drawn by the browser itself into the page margin
+   * box. They are not content, no selector reaches them, and no CSS property
+   * disables them — the only control is the "Headers and footers" checkbox in
+   * the print dialogue, which is the reader's to set, not the site's.
+   *
+   * Collapsing this margin to zero is the usual workaround, on the theory that
+   * the browser then has nowhere to draw them. It was tried here and did not
+   * work, while costing every page after the first its top margin — @page
+   * margin applies per sheet, whereas padding on the content only opens up at
+   * the start and end of the flow. Reverted deliberately; do not re-apply it
+   * without testing a real saved PDF, which is the only thing that settles it.
+   */
   @page {
     size: A4;
     margin: 14mm;
   }
 
+  /**
+   * `print-color-adjust: exact` is the second half of the fix. Chrome's print
+   * dialogue ships with "Background graphics" switched OFF, and with it off the
+   * browser discards background painting entirely — including this white fill.
+   * The sheet then falls back to the UA canvas, which is the dark one again.
+   * Declaring the ground as exact tells the browser this fill is not decoration
+   * it may drop, so the page is white with the checkbox in either position.
+   */
   html,
   body {
-    background: #ffffff;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   /* Site chrome is navigation, not content. A PDF has no use for a sticky
      header, a floating WhatsApp button, or a footer full of social icons. */
-  [data-print-hide],
-  .ambient-drift {
+  [data-print-hide] {
     display: none;
   }
 

@@ -15,8 +15,14 @@ const PADDING: Record<PanelPadding, string> = {
   lg: "p-6 sm:p-8",
 };
 
-/** Outer panels; nested surfaces inside a panel step down to `rounded-2xl`. */
-export const PANEL_RADIUS = "rounded-3xl";
+/**
+ * Outer panels; nested surfaces inside a panel step down to `rounded-2xl`.
+ *
+ * Both steps are near-square now (see the radius scale in tokens.css). The
+ * step is kept so the relationship survives if the scale is ever reopened,
+ * but at these values a panel edge reads as a cut, not as a fillet.
+ */
+export const PANEL_RADIUS = "rounded-lg";
 
 export function panelClass({
   padding = "md",

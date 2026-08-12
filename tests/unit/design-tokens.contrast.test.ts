@@ -10,23 +10,23 @@ import { contrastRatio, WCAG_AA_BODY_TEXT_MINIMUM } from "@/core/utils/color-con
  * is exactly the point.
  */
 const lightTheme = {
-  surfaceBase: "#faf8f5",
-  surfaceRaised: "#ffffff",
-  textPrimary: "#16130f",
-  textSecondary: "#4a443c",
-  textMuted: "#726a60",
-  accentDefault: "#8a5c14",
-  textOnAccent: "#faf8f5",
+  surfaceBase: "#f4f1e9",
+  surfaceRaised: "#fffefa",
+  textPrimary: "#1a1613",
+  textSecondary: "#464039",
+  textMuted: "#6a635a",
+  accentDefault: "#9a3412",
+  textOnAccent: "#fffefa",
 };
 
 const darkTheme = {
-  surfaceBase: "#0a0a0b",
-  surfaceRaised: "#111113",
-  textPrimary: "#f2f2f0",
-  textSecondary: "#cac6be",
-  textMuted: "#8f887f",
-  accentDefault: "#d9a25c",
-  textOnAccent: "#0a0a0b",
+  surfaceBase: "#101319",
+  surfaceRaised: "#171b23",
+  textPrimary: "#edeae3",
+  textSecondary: "#c4c0b7",
+  textMuted: "#8e8a82",
+  accentDefault: "#e2794a",
+  textOnAccent: "#101319",
 };
 
 describe("design token color contrast (WCAG AA)", () => {

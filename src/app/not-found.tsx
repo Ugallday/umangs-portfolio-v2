@@ -9,7 +9,7 @@ export default function NotFound(): React.JSX.Element {
     <SiteShell>
       <div className="mx-auto flex w-full max-w-7xl flex-col items-start gap-10 px-6 py-24 lg:px-8 lg:py-32">
         <div className="max-w-2xl space-y-6">
-          <p className="text-text-muted text-xs tracking-[0.32em] uppercase">404</p>
+          <p className="text-text-muted text-xs tracking-[0.1em] uppercase">404</p>
           <h1 className="text-text-primary text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
             This fold doesn&apos;t exist.
           </h1>
@@ -22,7 +22,7 @@ export default function NotFound(): React.JSX.Element {
           </Link>
         </div>
         <nav aria-label="Site sections" className="w-full">
-          <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Or jump to</p>
+          <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Or jump to</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {siteConfig.nav.map((item) => (
               <Link

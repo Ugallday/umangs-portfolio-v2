@@ -10,7 +10,7 @@ export function TravoraArchitecture(): React.JSX.Element {
   return (
     <svg viewBox="0 0 920 520" role="img" aria-hidden="true" className="h-auto w-full" fill="none">
       {/* ---------- client ---------- */}
-      <text x="40" y="34" className="fill-accent-default text-[13px] tracking-[0.22em] uppercase">
+      <text x="40" y="34" className="fill-accent-default text-[13px] tracking-[0.08em] uppercase">
         In the browser
       </text>
       <text x="880" y="34" textAnchor="end" className="fill-text-muted text-[13px]">
@@ -107,7 +107,7 @@ export function TravoraArchitecture(): React.JSX.Element {
       </text>
 
       {/* ---------- data ---------- */}
-      <text x="40" y="336" className="fill-accent-default text-[13px] tracking-[0.22em] uppercase">
+      <text x="40" y="336" className="fill-accent-default text-[13px] tracking-[0.08em] uppercase">
         In PostgreSQL
       </text>
       <text x="880" y="336" textAnchor="end" className="fill-text-muted text-[13px]">
