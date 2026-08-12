@@ -1,8 +1,11 @@
 export const siteConfig = {
   name: "Aalok Bhandari",
   shortName: "Aalok Bhandari",
+  // Mirrors the hero: introduces the person, not the portfolio. Kept concrete
+  // enough to be worth indexing — a search snippet made of adjectives is a
+  // wasted snippet — but the domain argument belongs to the case studies.
   description:
-    "Aalok Bhandari builds software that has to be correct — accounting, compliance, and operations systems for businesses that can't afford to be wrong. Double-entry ledgers, multi-tenant PostgreSQL, and offline-first sync, built in Nepal and running in production.",
+    "Aalok Bhandari is a software engineer in Nepal. Backend-leaning full-stack work — databases, APIs, and the unglamorous parts that decide whether a system survives real users. TypeScript, PostgreSQL, and Node, with case studies on systems running in production.",
   url: "https://www.aalokbhandari.com.np",
   location: "Nepal",
   // No X/Twitter handle. There is no active account, and advertising one as

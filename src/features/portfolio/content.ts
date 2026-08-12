@@ -56,21 +56,23 @@ export interface ToolkitGroup {
   readonly tools: readonly string[];
 }
 
-export const heroHeadline = "I build software that has to be correct.";
+/**
+ * The hero introduces the person, not the portfolio.
+ *
+ * The previous pair — "software that has to be correct" over "businesses that
+ * can't afford to be wrong" — stated one idea twice, and both halves were
+ * claims *about* the work rather than a description *of* it. It also led with
+ * the domain, which put accounting and travel in front of a reader before they
+ * knew who they were reading. The case studies make the domain argument on
+ * their own pages; the hero's job is to say what I do.
+ */
+export const heroHeadline = "I build software end to end.";
 
 export const heroSubheadline =
-  "Accounting, compliance, and operations systems for businesses that can't afford to be wrong.";
+  "Backend-leaning full-stack — databases, APIs, and the unglamorous parts that decide whether a system survives real users.";
 
-/**
- * The line under the hero. Four things a reader can go and verify rather than
- * four adjectives — each one is evidenced in the VAT case study.
- */
-export const heroProofPoints = [
-  "Real books",
-  "Multi-tenant PostgreSQL",
-  "Offline-first",
-  "Nepal",
-] as const;
+/** The line under the hero: what I work in, not adjectives about how well. */
+export const heroProofPoints = ["TypeScript", "PostgreSQL", "Node", "Nepal"] as const;
 
 /**
  * The /now page.
