@@ -37,16 +37,16 @@ export function FeaturedProjects({
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-4">
           <p className="text-text-muted text-xs font-medium tracking-[0.32em] uppercase">
-            Flagship, and the work under it
+            Flagship, and the system it produced
           </p>
           <h2 className="text-text-primary max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            One system a real business keeps its books on.
+            One business, rebuilt in software while it kept trading.
           </h2>
         </div>
         <p className="text-text-muted max-w-sm text-sm leading-7">
-          The VAT ledger is the one to read. Travora is the seventh-semester project underneath it —
-          the same row-level-security model at a much smaller scale. Both are live, and both let you
-          walk their database in three dimensions.
+          NSA Travels is the flagship: four years inside a working travel agency, replacing paper
+          with systems people actually kept using. The VAT ledger below it is the engineering
+          artifact that came out of that — live, multi-tenant, and walkable in three dimensions.
         </p>
       </div>
 

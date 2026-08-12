@@ -595,8 +595,8 @@ export function ProjectsSection({
     <SectionShell
       id="projects"
       eyebrow="Projects"
-      title="One flagship system, the supporting work, and the coursework behind both."
-      description="The VAT ledger is the flagship: a real business keeps its books on it. Everything after it is framed by stage on purpose — supporting project work, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
+      title="One flagship, the case studies under it, and the coursework behind both."
+      description="NSA Travels is the flagship — the family travel agency I spent four years rebuilding in software. Everything below it is labelled by stage on purpose: supporting case study, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
     >
@@ -817,6 +817,26 @@ export function ContactSection({ headingLevel, standalone }: SectionProps = {}):
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
     >
+      {/* Above the channels on purpose. Someone who has scrolled to /contact
+          is deciding whether to act; the CV is the thing they most often want
+          in hand before they do. */}
+      <FoldReveal>
+        <div className="fold-panel mb-5 flex flex-wrap items-center justify-between gap-5 rounded-3xl p-5 sm:p-6">
+          <div>
+            <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Résumé</p>
+            <p className="text-text-primary mt-2 text-lg leading-7 font-medium">
+              The one-page version, if that is what you need.
+            </p>
+            <p className="text-text-secondary mt-1 text-sm leading-6">
+              Experience, selected projects, education and training — downloadable as a PDF.
+            </p>
+          </div>
+          <Link href="/resume" className={actionClass({ size: "md" })}>
+            View the résumé
+          </Link>
+        </div>
+      </FoldReveal>
+
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
         <div className="fold-panel rounded-3xl p-5 sm:p-6">
           <p className="text-text-muted text-xs tracking-[0.24em] uppercase">Contact links</p>

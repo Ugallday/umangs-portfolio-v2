@@ -39,9 +39,16 @@ export const metadata: Metadata = {
       alt: `${siteConfig.name} — ${heroHeadline}`,
     })),
   },
+  /**
+   * No `creator` — there is no X account to attribute this to.
+   *
+   * The card tags themselves stay: `summary_large_image` is the preview format
+   * Slack, Discord and several other clients read to decide whether to render
+   * the share image large, and dropping it would quietly downgrade the card
+   * everywhere, not only on X. These tags name no account.
+   */
   twitter: {
     card: "summary_large_image",
-    creator: siteConfig.author.twitter,
     title: pageMetadata.title,
     description: pageMetadata.description,
   },

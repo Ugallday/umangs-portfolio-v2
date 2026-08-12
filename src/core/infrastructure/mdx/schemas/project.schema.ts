@@ -32,7 +32,7 @@ export const projectFrontmatterSchema = z.object({
   slug: z.string().min(1),
   title: z.string().min(1),
   summary: z.string().min(1).max(280),
-  phase: z.enum(["case-study", "in-progress", "concept", "academic"]),
+  phase: z.enum(["flagship", "case-study", "in-progress", "concept", "academic"]),
   period: z.string().min(1),
   role: z.string().min(1),
   organization: z.string().min(1),

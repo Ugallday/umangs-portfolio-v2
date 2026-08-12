@@ -22,7 +22,13 @@ export interface ProjectVisual {
   readonly description: string;
 }
 
-export type ProjectPhase = "case-study" | "in-progress" | "concept" | "academic";
+/**
+ * `flagship` is deliberately singular in practice: exactly one project holds
+ * it. The site's positioning is one flagship plus supporting work, and three
+ * projects sharing a `case-study` label contradicted that on the index page
+ * while the homepage claimed otherwise.
+ */
+export type ProjectPhase = "flagship" | "case-study" | "in-progress" | "concept" | "academic";
 
 export interface ProjectEntity {
   readonly slug: string;

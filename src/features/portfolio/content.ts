@@ -138,10 +138,17 @@ export const coreStory = [
 /** Institution names are load-bearing on a portfolio — kept in one place. */
 export const education = {
   bachelor: {
-    degree: "BSc CSIT",
+    degree: "B.Sc. CSIT",
     college: "Madan Bhandari Memorial College",
     affiliation: "Tribhuvan University",
-    detail: "8th semester, 2022 batch",
+    /**
+     * The programme's span, not a semester number. A semester count is stale
+     * within months of being written and was — the site claimed "8th semester"
+     * well past the point that was true. A date range stays accurate on its
+     * own, and states that the degree is in progress without implying it is
+     * finished.
+     */
+    detail: "2022-2027",
   },
   higherSecondary: {
     degree: "+2 in Computer Science and Physics",
@@ -149,10 +156,113 @@ export const education = {
   },
 } as const;
 
-export const currentStatusSummary = `${education.bachelor.degree}, ${education.bachelor.detail}, ${education.bachelor.college}, affiliated with ${education.bachelor.affiliation}.`;
+export const currentStatusSummary = `${education.bachelor.degree} · ${education.bachelor.detail} — ${education.bachelor.college}, affiliated with ${education.bachelor.affiliation}. In progress.`;
 
 export const academicPerformanceSummary =
   "I've been a consistent A-range performer, with an aggregate of roughly 3.30-3.56 GPA across semesters.";
+
+/* ------------------------------------------------------------------ résumé */
+
+export interface ResumeRole {
+  readonly title: string;
+  readonly organization: string;
+  readonly period: string;
+  readonly location: string;
+  readonly bullets: readonly string[];
+}
+
+export interface ResumeProject {
+  readonly name: string;
+  readonly slug: string;
+  readonly period: string;
+  readonly bullets: readonly string[];
+}
+
+export interface ResumeEducationEntry {
+  readonly qualification: string;
+  readonly institution: string;
+  readonly period: string;
+  readonly result: string;
+}
+
+/**
+ * The CV.
+ *
+ * Written out rather than assembled from `timeline` and the MDX case studies,
+ * because a CV is a different document with a different job: every line has to
+ * be a claim with a number or an outcome attached, and the narrative phrasing
+ * that works on /about reads as padding on a résumé. The facts are the same
+ * ones the case studies carry — where a figure appears here it appears in a
+ * case study too.
+ */
+export const resumeTitle = "Software engineer — accounting, compliance, and operations systems";
+
+export const resumeSummary =
+  "I build software that has to be correct. Since 2022 I have been rebuilding my family's travel agency in software while completing a B.Sc. CSIT — replacing paper ledgers and spreadsheets with a multi-tenant, offline-capable double-entry accounting system the business now runs its books on. I am most useful on problems where being wrong is expensive: ledgers, tax compliance, and data that has to reconcile across machines that cannot always see each other.";
+
+export const resumeRoles: readonly ResumeRole[] = [
+  {
+    title: "Technology lead and operations support",
+    organization: "Nepal South Asia International Travels & Tours Pvt. Ltd.",
+    period: "2022 - present",
+    location: "Kathmandu, Nepal",
+    bullets: [
+      "Replaced Excel and paper bookkeeping with a custom double-entry VAT accounting system that the agency now keeps its books on.",
+      "Migrated 29,825 rows of real trading history — two years of the day book — with the trial balance tying exactly and zero rows skipped.",
+      "Built cloud storage and backup for company documents, replacing a single fragile copy of every record the business had.",
+      "Built the customer and B2B client database used to track corporate accounts and repeat travellers.",
+      "Built and maintain the company website, and provided technical support during the move toward IATA accreditation.",
+      "Worked across Sabre, Travelport and Galileo day to day, which is where the domain knowledge behind the accounting rules came from.",
+    ],
+  },
+];
+
+export const resumeProjects: readonly ResumeProject[] = [
+  {
+    name: "VAT Billing System",
+    slug: "vat-billing-system",
+    period: "2023 - present",
+    bullets: [
+      "Multi-tenant double-entry VAT accounting for Nepali travel agencies. One deployment serves every client, isolated by PostgreSQL row-level security keyed to the tenant id in the caller's signed token rather than to anything the browser can edit.",
+      "Offline-first: IndexedDB is the working copy every screen reads, PostgreSQL is the durable copy clients converge on. A sync cycle pushes before it pulls, so the server cannot discard an edit that had simply not uploaded yet.",
+      "An unbalanced voucher cannot be saved — post() sums both sides and throws past half a paisa, and no code path into the ledger skips the check.",
+      "150 headless assertions across three suites, written without a test framework so they keep running on a machine with nothing installed. The sync suite runs three app instances against an in-memory PostgREST stand-in.",
+    ],
+  },
+  {
+    name: "Travora",
+    slug: "travora",
+    period: "2025 - 2026",
+    bullets: [
+      "Travel expense tracker built as a seventh-semester project: five PostgreSQL tables, every one behind row-level security keyed to the signed-in user rather than filtered in the front end.",
+      "Receipts are read in the browser with Tesseract.js OCR, and each expense stores the amount paid, the NPR equivalent, and the rate between them.",
+    ],
+  },
+];
+
+export const resumeEducation: readonly ResumeEducationEntry[] = [
+  {
+    qualification: `${education.bachelor.degree} (Computer Science and Information Technology)`,
+    institution: `${education.bachelor.college}, affiliated with ${education.bachelor.affiliation}`,
+    period: education.bachelor.detail,
+    result: "In progress — aggregate 3.30-3.56 GPA across semesters",
+  },
+  {
+    qualification: education.higherSecondary.degree,
+    institution: education.higherSecondary.college,
+    period: "2020 - 2022",
+    result: "Class XI GPA 3.70, Class XII GPA 3.55. IT Club Secretary.",
+  },
+  {
+    qualification: "SEE (School Education Examination)",
+    institution: "Siddhartha Banasthali School",
+    period: "2020",
+    result: "GPA 3.95",
+  },
+];
+
+export const resumeDownloadNote =
+  'Opens your browser\'s print dialogue — choose "Save as PDF". The page is laid out for A4, so the file you get is this document, always current, never a stale export sitting in a folder.';
 
 export const timeline: readonly TimelineItem[] = [
   {
@@ -214,9 +324,9 @@ export const timeline: readonly TimelineItem[] = [
     body: "I added Galileo to the GDS stack I can work in, alongside Sabre and Travelport.",
   },
   {
-    year: "2023-2026",
-    title: "University workshops and final-year work",
-    body: "UI/UX, WordPress, and Quality Assurance workshops; Advanced Java, Data Warehousing and Data Mining, Software Project Management, Advanced Database, and final-year project work.",
+    year: "2023-present",
+    title: "University workshops and project work",
+    body: "UI/UX, WordPress, and Quality Assurance workshops; Advanced Java, Data Warehousing and Data Mining, Software Project Management, Advanced Database, and semester project work.",
     logo: "mbmc",
   },
 ] as const;
@@ -680,7 +790,8 @@ export const hubEntries: readonly HubEntry[] = [
   {
     label: "Projects",
     href: "/projects",
-    blurb: "The flagship ledger, the supporting project work, and the coursework behind both.",
+    blurb:
+      "The flagship agency rebuild, the case studies under it, and the coursework behind both.",
   },
   {
     label: "Writing",
@@ -696,6 +807,11 @@ export const hubEntries: readonly HubEntry[] = [
     label: "Workflow",
     href: "/workflow",
     blurb: "How I use AI as an engineering assistant, and the tools behind each stage.",
+  },
+  {
+    label: "Résumé",
+    href: "/resume",
+    blurb: "The one-page version — experience, projects, education. Downloadable as a PDF.",
   },
   {
     label: "Contact",

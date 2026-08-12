@@ -14,14 +14,19 @@ export const metadata: Metadata = buildSectionMetadata({
   path: "/background",
 });
 
-/** The project the page closes on: what the whole background produced. */
-const FLAGSHIP_SLUG = "vat-billing-system";
+/**
+ * The project the page closes on. Not the flagship — the flagship is NSA
+ * Travels, and this page is already about the agency, so closing on it would
+ * be circular. It closes on the engineering artifact the degree and the
+ * agency jointly produced.
+ */
+const CLOSING_PROJECT_SLUG = "vat-billing-system";
 
 export default async function BackgroundPage(): Promise<React.JSX.Element> {
-  const project = await getProject(FLAGSHIP_SLUG);
+  const project = await getProject(CLOSING_PROJECT_SLUG);
 
   if (!project) {
-    throw new Error(`"${FLAGSHIP_SLUG}" is required to render the background page.`);
+    throw new Error(`"${CLOSING_PROJECT_SLUG}" is required to render the background page.`);
   }
 
   return (

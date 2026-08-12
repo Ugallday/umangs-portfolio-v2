@@ -33,6 +33,7 @@ export function WhatsAppButton(): React.JSX.Element {
       target="_blank"
       rel="noreferrer"
       aria-label="Message Aalok on WhatsApp"
+      data-print-hide
       className="border-border-default bg-surface-overlay text-text-primary hover:border-border-strong fixed right-5 bottom-5 z-50 inline-flex h-13 w-13 items-center justify-center rounded-full border shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl transition hover:scale-105 sm:right-7 sm:bottom-7"
       style={{
         // Keeps the button above the iOS home indicator / Android gesture bar.

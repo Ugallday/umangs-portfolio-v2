@@ -43,7 +43,10 @@ export function SiteHeader(): React.JSX.Element {
   }
 
   return (
-    <header className="border-border-subtle sticky top-0 z-40 border-b bg-[color:var(--surface-base)]/82 backdrop-blur-xl">
+    <header
+      data-print-hide
+      className="border-border-subtle sticky top-0 z-40 border-b bg-[color:var(--surface-base)]/82 backdrop-blur-xl"
+    >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-8">
         <Link
           href="/"

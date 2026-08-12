@@ -246,3 +246,75 @@
     border: 0;
   }
 }
+
+/**
+ * Print.
+ *
+ * Scoped almost entirely to re-pointing the semantic tokens, which is the
+ * payoff the two-tier system in tokens.css exists for: components consume
+ * --surface-* and --text-*, so putting print values behind those names turns
+ * the whole dark-first site into ink-on-paper without a single component
+ * knowing it is being printed. The alternative — a print override per
+ * component — is the thing the indirection was adopted to avoid.
+ *
+ * Both explicit themes are listed alongside :root because a reader who has
+ * toggled to dark has data-theme="dark" stamped on the root element, and that
+ * selector would otherwise win and print a black page.
+ */
+@media print {
+  :root,
+  :root[data-theme="dark"],
+  :root[data-theme="light"] {
+    --surface-base: #ffffff;
+    --surface-raised: #ffffff;
+    --surface-overlay: #ffffff;
+    --border-subtle: #d4d0c8;
+    --border-default: #b8b3a9;
+    --border-strong: #8f887f;
+    --text-primary: #000000;
+    --text-secondary: #1f1d1a;
+    --text-muted: #55504a;
+    /* Darkened from the screen amber, which prints as illegible pale yellow. */
+    --accent-default: #8a5a1a;
+    --accent-hover: #8a5a1a;
+    --accent-muted: #8a5a1a;
+    --paper-texture-opacity: 0;
+  }
+
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #ffffff;
+  }
+
+  /* Site chrome is navigation, not content. A PDF has no use for a sticky
+     header, a floating WhatsApp button, or a footer full of social icons. */
+  [data-print-hide],
+  .ambient-drift {
+    display: none;
+  }
+
+  /* Panels are a screen affordance; on paper the border alone is enough. */
+  .fold-panel,
+  .fold-hover {
+    box-shadow: none;
+    background: transparent;
+  }
+
+  /* A heading stranded at the foot of a page, or a bullet split across two,
+     is the usual way a print stylesheet gives itself away. */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  li,
+  section > div {
+    break-inside: avoid;
+  }
+}

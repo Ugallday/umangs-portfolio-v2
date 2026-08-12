@@ -48,7 +48,7 @@ export function SiteShell({ children }: { readonly children: React.ReactNode }):
     <div className="min-h-screen">
       <SiteHeader />
       <main id="main-content">{children}</main>
-      <footer className="border-border-subtle border-t">
+      <footer data-print-hide className="border-border-subtle border-t">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-10 sm:py-12 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)]">
             <div className="space-y-4">

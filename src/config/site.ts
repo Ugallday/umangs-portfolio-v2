@@ -5,9 +5,11 @@ export const siteConfig = {
     "Aalok Bhandari builds software that has to be correct — accounting, compliance, and operations systems for businesses that can't afford to be wrong. Double-entry ledgers, multi-tenant PostgreSQL, and offline-first sync, built in Nepal and running in production.",
   url: "https://www.aalokbhandari.com.np",
   location: "Nepal",
+  // No X/Twitter handle. There is no active account, and advertising one as
+  // `twitter:creator` on every page attributed the site to something nobody
+  // maintains. Deliberately not replaced with another network.
   author: {
     name: "Aalok Bhandari",
-    twitter: "@alokbndry10",
   },
   nav: [
     { label: "Now", href: "/now" },
@@ -17,6 +19,9 @@ export const siteConfig = {
     { label: "Writing", href: "/writing" },
     { label: "Skills", href: "/skills" },
     { label: "Workflow", href: "/workflow" },
+    // Deliberately adjacent to Contact: the two things a recruiter or an
+    // admissions reader goes looking for are the CV and a way to reach me.
+    { label: "Résumé", href: "/resume" },
     { label: "Contact", href: "/contact" },
   ],
   /**

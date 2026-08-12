@@ -5,8 +5,13 @@ import { getProject } from "@/features/projects";
 
 export const revalidate = 3600;
 
-/** The projects the homepage leads with, below the hero, in this order. */
-const FEATURED_SLUGS = ["vat-billing-system", "travora"] as const;
+/**
+ * The homepage leads with the flagship, then the engineering artifact inside
+ * it. NSA Travels is the story — a working business rebuilt in software — and
+ * the VAT ledger is the system that story produced. Travora sits on /projects
+ * with the rest of the supporting work rather than competing for the hero.
+ */
+const FEATURED_SLUGS = ["nsa-travels", "vat-billing-system"] as const;
 
 export default async function HomePage(): Promise<React.JSX.Element> {
   const featured = await Promise.all(FEATURED_SLUGS.map((slug) => getProject(slug)));

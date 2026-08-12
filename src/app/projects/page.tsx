@@ -10,7 +10,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = buildSectionMetadata({
   title: "Projects",
   description:
-    "The VAT Billing System — multi-tenant, offline-capable double-entry accounting — alongside the supporting project work, active concepts, and academic practicals, grouped by stage.",
+    "NSA Travels, the flagship — a family travel agency rebuilt in software — alongside the VAT Billing System and Travora case studies, active concepts, and academic practicals, labelled by stage.",
   path: "/projects",
 });
 
