@@ -14,6 +14,7 @@ const securityHeaders = [
       "img-src 'self' data:",
       "font-src 'self' data:",
       "connect-src 'self' vitals.vercel-insights.com",
+      "frame-src https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "object-src 'none'",

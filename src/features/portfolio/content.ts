@@ -82,7 +82,7 @@ export const heroProofPoints = ["TypeScript", "PostgreSQL", "Node", "Nepal"] as 
  * month goes by without it changing, that is the signal — not a reason to
  * quietly leave the old date in place.
  */
-export const nowUpdated = "10 August 2026";
+export const nowUpdated = "23 August 2026";
 
 export const nowLead =
   "A dated snapshot of what has my attention, rewritten monthly. It exists so a stranger can tell the difference between a portfolio that is being worked on and one that stopped.";
@@ -93,6 +93,13 @@ export interface NowEntry {
 }
 
 export const nowEntries: readonly NowEntry[] = [
+  {
+    label: "Just shipped",
+    items: [
+      "NiryatHub, for Hackfest 2026 at MBM Campus with team 4 NF — a producer speaks one sentence about a consignment and the prototype carries it to a filed invoice. The trade figures are seeded; the compliance rules and border coordinates are not, and every figure on screen says which it is.",
+      "SipSetu, a week earlier at the same campus — a Skill Passport for returnee migrant workers, where evidence is graded across five tiers and the job match is a sum the worker can read rather than a score handed down.",
+    ],
+  },
   {
     label: "Building",
     items: [
@@ -232,12 +239,33 @@ export const resumeProjects: readonly ResumeProject[] = [
     ],
   },
   {
+    name: "NiryatHub",
+    slug: "niryat-hub",
+    period: "August 2026",
+    bullets: [
+      "Export-market decision tool built for Hackfest 2026 at MBM Campus with team 4 NF: a producer describes a consignment in one spoken sentence and the app scores ten destination markets, matches importers, assembles the destination's compliance checklist, plans and costs the corridor, and raises the commercial invoice.",
+      "Scores from seven weighted components normalised against fixed anchors, so adding an eleventh market cannot move the first ten, and a missing figure ranks last as insufficient data rather than averaging to the middle as a zero.",
+      "48 costed logistics legs across 24 nodes, priced to the buyer rather than to the border — an exit multiplier per crossing is what stops the optimiser sending everything through Kathmandu airport.",
+      "Two Claude routes return prose only: each composes deterministic text first, and no key, a refusal or a timeout all land on that same text, labelled on screen. 62 tests, and all trade figures are seeded and tagged as such.",
+    ],
+  },
+  {
     name: "Travora",
     slug: "travora",
     period: "2025 - 2026",
     bullets: [
       "Travel expense tracker built as a seventh-semester project: five PostgreSQL tables, every one behind row-level security keyed to the signed-in user rather than filtered in the front end.",
       "Receipts are read in the browser with Tesseract.js OCR, and each expense stores the amount paid, the NPR equivalent, and the rate between them.",
+    ],
+  },
+  {
+    name: "SipSetu",
+    slug: "sipsetu",
+    period: "August 2026",
+    bullets: [
+      "Employment identity and matching prototype for Nepal's returnee migrant workers, built for the MBMC Hackfest: spoken overseas work history becomes a structured Skill Passport, and every claim on it carries one of five evidence tiers rather than a single verified badge.",
+      "Matching is a transparent weighted sum of seven factors totalling 100, with skills and occupation carrying 45 between them, and every card opens into the breakdown — the language model normalises the input and has no part in the ranking.",
+      "Bilingual Nepali and English across the landing page, navigation, screen headers and primary actions, on a 44-entry taxonomy carrying English, Romanized Nepali and Devanagari aliases; the offline extractor is the default path, so no API key is required.",
     ],
   },
 ];
@@ -324,6 +352,12 @@ export const timeline: readonly TimelineItem[] = [
     year: "2024",
     title: "Galileo GDS training",
     body: "I added Galileo to the GDS stack I can work in, alongside Sabre and Travelport.",
+  },
+  {
+    year: "Aug 2026",
+    title: "Hackfest at MBM Campus — SipSetu, then NiryatHub",
+    body: "Two prototypes in a fortnight, both aimed at a Nepali economic problem that is really an information problem. SipSetu turns a returnee migrant worker's spoken overseas history into a graded Skill Passport and an explainable job match. NiryatHub, built with team 4 NF, takes a producer from a spoken description of a consignment to a filed commercial invoice.",
+    logo: "mbmc",
   },
   {
     year: "2023-present",

@@ -9,6 +9,7 @@ import type { ProjectEntity, ProjectLink } from "@/core/domain/entities/project.
 import { DiagramPanel } from "@/features/projects/diagram-panel";
 import { getProjectDiagram } from "@/features/projects/diagrams";
 import { ProjectMetrics } from "@/features/projects/project-metrics";
+import { VideoPanel } from "@/features/projects/video-panel";
 
 /**
  * The homepage's deep slot.
@@ -37,16 +38,16 @@ export function FeaturedProjects({
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-4">
           <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
-            Flagship, and the system it produced
+            Three systems, and what each one had to get right
           </p>
           <h2 className="text-text-primary max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            One business, rebuilt in software while it kept trading.
+            Money, compliance, and goods that have to cross a border.
           </h2>
         </div>
         <p className="text-text-muted max-w-sm text-sm leading-7">
-          NSA Travels is the flagship: four years inside a working travel agency, replacing paper
-          with systems people actually kept using. The VAT ledger below it is the engineering
-          artifact that came out of that — live, multi-tenant, and walkable in three dimensions.
+          NiryatHub takes a Nepali producer from a spoken sentence to a filed invoice — there is a
+          walkthrough to play. Under it, the VAT ledger a travel agency keeps its books on, and
+          Travora, where the hard part was making a correct record cheap enough to bother entering.
         </p>
       </div>
 
@@ -131,6 +132,12 @@ function FeaturedProjectCard({
           </div>
         </article>
       </FoldReveal>
+
+      {project.video ? (
+        <FoldReveal delayMs={index * 60 + 40}>
+          <VideoPanel video={project.video} />
+        </FoldReveal>
+      ) : null}
 
       {diagram ? (
         <FoldReveal delayMs={index * 60 + 60}>

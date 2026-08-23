@@ -6,14 +6,18 @@ import { getProject } from "@/features/projects";
 export const revalidate = 3600;
 
 /**
- * The two projects the homepage leads with, below the hero, in this order.
+ * The three projects the homepage leads with, below the hero, in this order.
  *
- * Both are systems rather than clients: the VAT ledger, and Travora. The NSA
- * Travels case study is the narrative around the ledger and is reachable from
- * it and from /projects — leading with it here made the homepage tell the same
- * story twice.
+ * NiryatHub is first because it is the newest and the only one with something
+ * to watch — a stranger who plays the walkthrough understands what I build
+ * faster than any paragraph manages. The VAT ledger and Travora follow it as
+ * the work with years behind it rather than a weekend.
+ *
+ * The NSA Travels case study is the narrative around the ledger and is
+ * reachable from it and from /projects — leading with it here made the
+ * homepage tell the same story twice.
  */
-const FEATURED_SLUGS = ["vat-billing-system", "travora"] as const;
+const FEATURED_SLUGS = ["niryat-hub", "vat-billing-system", "travora"] as const;
 
 export default async function HomePage(): Promise<React.JSX.Element> {
   const featured = await Promise.all(FEATURED_SLUGS.map((slug) => getProject(slug)));

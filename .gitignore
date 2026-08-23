@@ -12,3 +12,8 @@ test-results/
 # CSVs and scripts, reinstallable with `npx ui-ux-pro-max-cli init --ai claude`.
 # Only the skills directory, so project settings stay committable.
 .claude/skills/
+
+# Local demo recordings. The NiryatHub walkthrough is 349MB — far past
+# GitHub's 100MB file limit, and it is served from YouTube rather than
+# from this repo. See content/projects/niryat-hub.mdx.
+*.mp4

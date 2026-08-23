@@ -1,0 +1,121 @@
+---
+slug: sipsetu
+title: SipSetu
+summary: A bilingual employment identity network for Nepal's returnee migrant workers. Spoken overseas work history becomes a graded Skill Passport, and matching to local jobs is a transparent weighted sum a worker can read line by line rather than a score handed down.
+phase: case-study
+period: August 2026
+role: Sole developer — taxonomy, schema, matching engine, bilingual front end
+organization: MBMC Hackfest 2026
+techStack:
+  - Next.js 16
+  - React 19
+  - TypeScript
+  - SQLite (node:sqlite)
+  - Tailwind CSS v4
+  - Claude API
+  - Web Speech API
+metrics:
+  - value: "5"
+    label: evidence tiers instead of one verified badge — self-declared, document, reference, skill-test, platform history
+  - value: "7"
+    label: scoring factors summing to 100, with skills and occupation carrying 45 of them
+  - value: "44"
+    label: taxonomy entries carrying English, Romanized Nepali and Devanagari aliases, because that is how returnees describe their work
+  - value: "6"
+    label: occupation groups, chosen to match the FEIMS categories that account for roughly 29% of new approvals
+links:
+  - label: Open the live prototype
+    href: https://sipsetu.aalokbhandari.com.np/
+  - label: Source on GitHub
+    href: https://github.com/aalokbhandari/Sipsetu
+visual:
+  eyebrow: MBMC Hackfest 2026
+  label: Skills earned abroad. Opportunities at home.
+  description: Nepal does not have a skill-less returnee problem. It has a skill translation, verification and discovery problem — and each of those three is a different piece of software.
+sections:
+  - id: hook
+    heading: The signal a returnee electrician sends is not the one hiring reads
+    body: >-
+      A white-collar worker signals employability with degree, title and CV. A returnee electrician signals it with country, years, tools and evidence. Every hiring surface in the country is built to read the first and discard the second, so five years of panel wiring in Qatar arrives home as an unverifiable sentence. SipSetu makes that second signal structured, portable and gradeable.
+    bullets:
+      - Onboarding is a spoken sentence in Nepali, Romanized Nepali or English.
+      - What comes out is a Skill Passport — occupation, years, country, tools, each with a tier of proof.
+      - Matching is explainable to the worker, not only to the employer.
+      - Mobile-first, because the phone in the returnee's hand is the whole device budget.
+  - id: problem
+    heading: One verified badge is the trust failure, not the fix
+    body: >-
+      Collapsing five very different kinds of proof into a single tick is exactly the failure the product exists to correct. A self-declaration and a completed job on the platform are not the same claim, and an employer who cannot tell them apart will discount both. So evidence is always a tier, and the tier is always on screen.
+    bullets:
+      - Tier 0 self-declared, 1 document verified, 2 reference verified, 3 skill-test verified, 4 platform work history.
+      - Trust compounds — completing a job promotes that job's required skills to tier 4 automatically.
+      - The worker can see which of their claims is weak, and what would strengthen it.
+      - Skill overlap is weighted by tier, so proof changes the score rather than decorating it.
+  - id: what-was-built
+    heading: One loop, built end to end
+    body: >-
+      Next.js 16 on React 19 and TypeScript, with SQLite through Node's own built-in driver — no native compilation and no build toolchain to install, which matters on a Windows laptop the night before a demo. Six tables, six API surfaces, three screens, and nothing mocked.
+    bullets:
+      - Worker — voice or text onboarding, the passport, matched jobs, one-tap apply with no CV.
+      - Employer — structured posting with a mandatory wage range, ranked candidates, and a hire pipeline.
+      - Impact — the north-star metric, the evidence-tier curve, and a deterministic demo reset.
+      - The database creates and seeds itself on first request. There is no setup step to forget on stage.
+  - id: matching
+    heading: The score is a sum, and the worker can read it
+    body: >-
+      The model normalises language. It does not decide who gets a job. Matching is a transparent weighted sum where every point traces to a stated fact, and any card will open into the full breakdown. Skills and occupation carry 45 of 100 between them, so a worker with no relevant trade skills cannot outrank a genuine trade match on proximity and availability alone.
+    bullets:
+      - Skill overlap 30, occupation fit 15, location and mobility 15, wage compatibility 12.
+      - Availability 10, verification and reliability 10, relevant experience 8.
+      - Cross-trade roles still surface — returnees do take them — they simply rank below.
+      - Every card carries a "why this matched" breakdown, which is the difference between a tool and an oracle.
+  - id: ai
+    heading: Where the model sits, and where it does not
+    body: >-
+      Claude turns a spoken sentence into structured skills. That is a translation problem, and it is the one thing here a model is genuinely better at than a rule. Everything downstream of that is deterministic — and an offline taxonomy matcher covering English, Romanized Nepali and Devanagari runs as an automatic fallback, so venue wifi cannot break the demo.
+    bullets:
+      - The app is fully functional with no API key. The offline matcher is the default path, not a degraded one.
+      - Aliases were written for how people type on a phone, not for how a dictionary spells it.
+      - Nothing about the ranking is model-decided. Extraction is upstream of scoring, and stays there.
+      - The Web Speech API is progressive enhancement — a browser without it falls back to typing.
+  - id: language
+    heading: Bilingual where it counts, and honest about where it does not
+    body: >-
+      A first-run dialog asks for नेपाली or English before anything else, the way a public portal does, and the choice persists and stays switchable everywhere. The landing page, all navigation, every screen header and every primary action are fully bilingual. The deep help text inside the passport builder is still English, and that is stated rather than papered over.
+    bullets:
+      - The Nepali here was written for a demo and has not been reviewed by a native speaker.
+      - Unreviewed machine-quality Nepali in the flow a worker is completing would be worse than English.
+      - Adding a key to the dictionary makes the missing translations type errors at their call sites.
+      - Serif headings and a grotesque body in both scripts, so switching language changes the script and not the voice.
+  - id: outcome
+    heading: Synthetic people, sourced figures
+    body: >-
+      Every worker and employer record is synthetic and labelled as demo data in the interface. The proportions are not invented — occupation volumes are modelled on the FY2023/24 FEIMS tables and the 11.3% female share matches the FY2024/25 DoFE permit split. The figures cited on screen carry their own caveats, because most of the widely repeated ones are quietly wrong.
+    bullets:
+      - 839,266 foreign-employment approvals FY2024/25 are authorisations, not unique emigrants.
+      - 538,605 airport return movements FY2023/24 are movements, not people permanently home.
+      - The 28% documented-skills figure is subnational and from 2021 — evidence of a mechanism, not a national rate.
+      - The 2017/18 returnee-unemployment figure was deliberately left out for being too old to present as current.
+  - id: reflection
+    heading: What it cost to refuse the easy version
+    body: >-
+      The fast build was one verified badge and a percentage. It would have demoed identically and been worth nothing, because the entire problem is that nobody trusts an unexplained claim about a returnee's skills. Five tiers and a readable score are more work in a hackathon and they are the product; everything else is a job board.
+    bullets:
+      - Grade the evidence rather than assert it. A tick that means five things means nothing.
+      - Let the model translate language and keep it away from the ranking.
+      - Prove one loop end to end rather than half-building ten features.
+      - Style it like civic infrastructure, then say on every screen that it is not an official service.
+  - id: whats-next
+    heading: Deliberately out of scope
+    body: >-
+      Payroll, lending, insurance, a full learning platform, blockchain credentialing and counselling are all absent on purpose. The prototype proves one loop — experience, evidence, passport, match, reputation — and the honest next step is the verification side, which is institutional work rather than code.
+    bullets:
+      - Real document and reference verification, which needs a counterparty rather than a schema.
+      - Nepali reviewed by a native speaker before the deep help text is translated.
+      - Shram Sansar, the government's 2025 jobs platform, treated as a partner rather than a competitor.
+      - Nothing here depends on government integration, and that was a design constraint rather than an oversight.
+order: 5
+status: published
+---
+
+SipSetu was built for the MBMC Hackfest in August 2026. It is a prototype: every worker and employer record is synthetic, and the interface says so.

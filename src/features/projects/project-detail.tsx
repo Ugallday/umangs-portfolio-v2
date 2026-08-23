@@ -15,6 +15,7 @@ import { ProjectPagination } from "@/features/projects/project-pagination";
 import { getSchemaModel } from "@/features/projects/schema/model";
 import { SchemaPanel } from "@/features/projects/schema/schema-panel";
 import { sectionLabel } from "@/features/projects/section-label";
+import { VideoPanel } from "@/features/projects/video-panel";
 
 /**
  * The diagram belongs next to "what was built", but the shorter academic
@@ -36,6 +37,15 @@ function schemaAnchorId(project: ProjectEntity): string | undefined {
   return (preferred ?? project.sections.find((section) => section.id === "what-was-built"))?.id;
 }
 
+/**
+ * A walkthrough belongs at the top of the argument rather than the bottom.
+ * It sits under the project's first section — the overview — so a reader who
+ * would rather watch than read finds it before the thirteen panels below.
+ */
+function videoAnchorId(project: ProjectEntity): string | undefined {
+  return project.sections[0]?.id;
+}
+
 export function ProjectDetail({
   project,
   previous = null,
@@ -49,6 +59,7 @@ export function ProjectDetail({
   const anchorId = diagramAnchorId(project);
   const schema = getSchemaModel(project.slug);
   const schemaAnchor = schemaAnchorId(project);
+  const videoAnchor = videoAnchorId(project);
   const externalLinks = project.links.filter((link) => link.href.startsWith("http"));
 
   return (
@@ -200,6 +211,11 @@ export function ProjectDetail({
                   ) : null}
                 </section>
               </FoldReveal>
+              {section.id === videoAnchor && project.video ? (
+                <FoldReveal delayMs={index * 50 + 30}>
+                  <VideoPanel video={project.video} />
+                </FoldReveal>
+              ) : null}
               {section.id === anchorId && diagram ? (
                 <FoldReveal delayMs={index * 50 + 40}>
                   <DiagramPanel diagram={diagram} />

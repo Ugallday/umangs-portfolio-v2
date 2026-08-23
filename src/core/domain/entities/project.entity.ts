@@ -16,6 +16,14 @@ export interface ProjectMetric {
   readonly label: string;
 }
 
+/** A recorded walkthrough. Optional — most projects have nothing to play. */
+export interface ProjectVideo {
+  readonly youtubeId: string;
+  readonly title: string;
+  readonly caption: string;
+  readonly aspect: "16:9" | "4:3";
+}
+
 export interface ProjectVisual {
   readonly eyebrow: string;
   readonly label: string;
@@ -42,6 +50,7 @@ export interface ProjectEntity {
   readonly metrics: readonly ProjectMetric[];
   readonly links: readonly ProjectLink[];
   readonly visual: ProjectVisual;
+  readonly video?: ProjectVideo;
   readonly sections: readonly ProjectSection[];
   readonly order: number;
   readonly status: "draft" | "published";

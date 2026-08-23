@@ -592,7 +592,7 @@ export function ProjectsSection({
       id="projects"
       eyebrow="Projects"
       title="One flagship, the case studies under it, and the coursework behind both."
-      description="NSA Travels is the flagship — the family travel agency I spent four years rebuilding in software. Everything below it is labelled by stage on purpose: supporting case study, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
+      description="NSA Travels is the flagship — the family travel agency I spent four years rebuilding in software. Under it sit four case studies: the ledger it runs on, Travora, and the two hackathon prototypes, NiryatHub and SipSetu. Everything is labelled by stage on purpose — supporting case study, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
     >

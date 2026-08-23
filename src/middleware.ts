@@ -35,6 +35,12 @@ export function middleware(request: NextRequest): NextResponse {
     "img-src 'self' data:",
     "font-src 'self' data:",
     "connect-src 'self' vitals.vercel-insights.com https://vitals.vercel-insights.com",
+    // The only third party the site frames: a project's recorded walkthrough,
+    // and only after a visitor presses play. youtube-nocookie.com rather than
+    // youtube.com so no advertising cookie is set on a page that was merely
+    // read. Framing is one-way — `frame-ancestors 'none'` below still refuses
+    // to let anyone frame this site.
+    "frame-src https://www.youtube-nocookie.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "object-src 'none'",
