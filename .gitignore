@@ -17,3 +17,4 @@ test-results/
 # GitHub's 100MB file limit, and it is served from YouTube rather than
 # from this repo. See content/projects/niryat-hub.mdx.
 *.mp4
+.claude/settings.local.json
