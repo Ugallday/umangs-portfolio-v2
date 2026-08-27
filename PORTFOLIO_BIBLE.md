@@ -8,17 +8,17 @@ files as what's currently live, not always perfectly in sync with this doc.
 
 ## 1. Identity
 
-| Field | Value |
-|---|---|
-| Name | Umang Gupta |
-| Origin | Nepal |
-| Based in | Ogden, Utah, US (Weber State University) |
-| Status | Final-year Computer Science student, Data Analytics minor - Weber State University |
-| Graduating | December 2026, GPA 3.87 |
-| Site | umanggupta.com.np |
-| GitHub | github.com/Ugallday |
-| LinkedIn | linkedin.com/in/ug-umang-gupta |
-| Email | umanggupta.ug2004@gmail.com |
+| Field      | Value                                                                              |
+| ---------- | ---------------------------------------------------------------------------------- |
+| Name       | Umang Gupta                                                                        |
+| Origin     | Nepal                                                                              |
+| Based in   | Ogden, Utah, US (Weber State University)                                           |
+| Status     | Final-year Computer Science student, Data Analytics minor - Weber State University |
+| Graduating | December 2026, GPA 3.87                                                            |
+| Site       | umanggupta.com.np                                                                  |
+| GitHub     | github.com/Ugallday                                                                |
+| LinkedIn   | linkedin.com/in/ug-umang-gupta                                                     |
+| Email      | umanggupta.ug2004@gmail.com                                                        |
 
 **Central message:** the full arc - hands-on production data work now,
 research alongside it, and a funded grad-school track next.
