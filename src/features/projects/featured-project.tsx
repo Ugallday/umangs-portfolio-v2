@@ -32,7 +32,6 @@ export function FeaturedProjects({
       id="featured"
       className="border-border-subtle relative scroll-mt-24 border-t py-20 sm:py-24"
     >
-
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-4">
           <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">

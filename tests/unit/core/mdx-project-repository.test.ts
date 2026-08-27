@@ -27,8 +27,8 @@ describe("MdxProjectRepository", () => {
   });
 
   it("finds a project by slug", async () => {
-    const project = await repository.findBySlug("vat-billing-system");
-    expect(project?.slug).toBe("vat-billing-system");
+    const project = await repository.findBySlug("uta-fleet-availability-warehouse");
+    expect(project?.slug).toBe("uta-fleet-availability-warehouse");
   });
 
   /**

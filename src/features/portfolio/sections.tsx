@@ -33,7 +33,6 @@ import {
 } from "@/features/portfolio/content";
 import portraitImage from "@/assets/portrait.png";
 import { actionClass } from "@/components/ui/action";
-import { BrandMark } from "@/components/ui/brand-mark";
 import { InstitutionLogo } from "@/components/ui/institution-logo";
 import { institutionLogos } from "@/features/portfolio/institution-logos";
 import { FoldToggle } from "@/components/ui/fold-toggle";

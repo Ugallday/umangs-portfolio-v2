@@ -382,7 +382,6 @@ export const workflowModelCloser =
 
 export const trainings: readonly TrainingCard[] = [];
 
-
 export const skillGroups: readonly SkillGroup[] = [
   {
     title: "What I build with",
@@ -523,7 +522,8 @@ export const hubEntries: readonly HubEntry[] = [
   {
     label: "Projects",
     href: "/projects",
-    blurb: "The UTA data warehouse, EV fleet automation, ObfuScope research, and personal projects.",
+    blurb:
+      "The UTA data warehouse, EV fleet automation, ObfuScope research, and personal projects.",
   },
   {
     label: "Skills",

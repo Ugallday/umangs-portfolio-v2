@@ -13,7 +13,11 @@ export const revalidate = 3600;
  * automation and ObfuScope follow as the two projects that round out the
  * range - infrastructure automation and applied ML research.
  */
-const FEATURED_SLUGS = ["uta-fleet-availability-warehouse", "ev-fleet-automation", "obfuscope"] as const;
+const FEATURED_SLUGS = [
+  "uta-fleet-availability-warehouse",
+  "ev-fleet-automation",
+  "obfuscope",
+] as const;
 
 export default async function HomePage(): Promise<React.JSX.Element> {
   const featured = await Promise.all(FEATURED_SLUGS.map((slug) => getProject(slug)));

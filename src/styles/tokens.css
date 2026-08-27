@@ -198,7 +198,7 @@
      same name (see src/app/fonts.ts). These are the fallback stacks used
      until that variable is available (e.g. during initial SSR paint). */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-sans-serif, system-ui,
-    sans-serif;
+  --font-display:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
