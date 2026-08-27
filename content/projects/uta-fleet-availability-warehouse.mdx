@@ -1,0 +1,91 @@
+---
+slug: uta-fleet-availability-warehouse
+title: UTA Fleet Availability Data Warehouse
+summary: A star-schema data warehouse for a live transit fleet - SSIS handling ETL, Power BI and DAX turning it into an operational dashboard staff actually use.
+phase: flagship
+period: 2026 - present
+role: Data Analysis and Research Intern
+organization: Utah Transit Authority
+techStack:
+  - SQL Server
+  - SSIS
+  - Power BI
+  - DAX
+  - Lucidchart
+  - Visual Studio
+metrics:
+  - value: Star schema
+    label: dimensional model designed from scratch for fleet availability reporting
+  - value: "2"
+    label: core staging procedures rewritten to fix fan-out and gaps-and-islands bugs
+  - value: Live
+    label: multi-page dashboard used by UTA staff for day-to-day fleet decisions
+links: []
+visual:
+  eyebrow: Data Analysis and Research Intern - Utah Transit Authority
+  label: A number people actually use to plan the next shift
+  description: A production data warehouse behind a fleet availability dashboard, built from source systems that were never designed to talk to each other.
+sections:
+  - id: hook
+    heading: A dashboard people check every day
+    body: >-
+      UTA runs an active bus fleet, and knowing which vehicles are actually available - not scheduled, not nominally in service, but available right now - is a question operations staff ask constantly. This is the data warehouse and dashboard built to answer it.
+    bullets:
+      - Star-schema warehouse in SQL Server, purpose-built for fleet availability reporting.
+      - SSIS handles extract-transform-load from the source systems.
+      - Power BI dashboard with DAX measures is the surface staff actually use.
+  - id: problem
+    heading: The source data wasn't built for this question
+    body: >-
+      Fleet data lived across systems that track maintenance, scheduling, and vehicle status separately, each with its own grain and its own quirks - including a non-standard 28-hour operational clock that complicates ordinary datetime math the moment a shift crosses midnight.
+    bullets:
+      - Datetime fields store seconds-since-midnight, with values that can exceed 86,400 on a late shift.
+      - Dimension joins produced fan-out bugs that silently inflated counts if left unchecked.
+      - A scheduled job existed but had never actually been wired to run the staging procedure feeding the dashboard - an ETL gap that had gone unnoticed.
+  - id: what-was-built
+    heading: What I built
+    body: >-
+      The warehouse itself, the ETL feeding it, and the reporting layer on top - designed, debugged, and iterated against real production and staging databases rather than a sample dataset.
+    bullets:
+      - Designed the star schema in Lucidchart before building it out in SQL Server.
+      - Built SSIS ETL pipelines in Visual Studio to move and transform source data.
+      - Wrote and debugged core staging stored procedures, including fact and maintenance-duration staging.
+      - Built a multi-page Power BI dashboard against the finished warehouse.
+  - id: debugging
+    heading: The bugs that mattered
+    body: >-
+      Most of the real engineering here was diagnosis, not construction - tracing a wrong number back through the pipeline to the actual join, grain, or scheduling problem causing it.
+    bullets:
+      - Fixed dimension-join fan-out by restructuring queries to deduplicate at the correct grain.
+      - Built gaps-and-islands deduplication logic using LAG and running-sum patterns for maintenance duration data.
+      - Found and fixed the missing SQL Agent job wiring that had left a staging procedure never actually executing.
+      - Resolved an SSIS metadata mismatch after widening a comments column to accommodate longer text.
+  - id: dax
+    heading: Measures that agree with the raw SQL
+    body: >-
+      A DAX measure is only useful if it means what it claims. Every measure here was checked against a raw SQL baseline before it shipped to the dashboard.
+    bullets:
+      - Used SUMX with VAR for correct row context in per-vehicle calculations.
+      - Used ADDCOLUMNS and SUMMARIZE for per-vehicle aggregation, and ALL() to handle slicer overrides correctly.
+      - Validated DISTINCTCOUNT measures against SQL COUNT(DISTINCT) baselines before trusting them.
+      - Used LOOKUPVALUE where RELATED failed across the model's relationships.
+  - id: outcome
+    heading: What it's used for
+    body: >-
+      The dashboard is live and in use for day-to-day fleet availability decisions at UTA - not a proof of concept, a system operations staff actually open.
+    bullets:
+      - Multi-page dashboard covering fleet-wide and per-vehicle availability.
+      - Built to extend - the EV fleet automation project feeds the same warehouse.
+      - Documented stored procedures and DAX patterns, so the next person debugging them starts from something.
+  - id: whats-next
+    heading: What comes next
+    body: >-
+      This warehouse is the foundation the EV fleet automation work builds on, and it continues to grow as UTA's fleet - and its data needs - grow.
+    bullets:
+      - Extending coverage as the electric bus fleet expands.
+      - Continued dashboard iteration based on how operations staff actually use it.
+order: 1
+status: published
+---
+
+Built during a Data Analysis and Research internship at the Utah Transit Authority - a production data warehouse and dashboard, not a coursework exercise.

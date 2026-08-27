@@ -1,0 +1,81 @@
+---
+slug: ev-fleet-automation
+title: EV Fleet Automation
+summary: Python automation that logs into two separate vendor dashboards, pulls electric-bus and charger data, and loads it into the fleet warehouse on a schedule - no manual export, ever.
+phase: case-study
+period: 2026
+role: Data Analysis and Research Intern
+organization: Utah Transit Authority
+techStack:
+  - Python
+  - Playwright
+  - SQL Server
+  - SendGrid
+  - Windows Task Scheduler
+metrics:
+  - value: "2"
+    label: vendor platforms automated - Viriciti and ABB - with different login flows and export formats
+  - value: Scheduled
+    label: runs automatically via Windows Task Scheduler, no manual export step
+  - value: Unpivoted
+    label: wide-format vendor exports transformed into long format for the warehouse
+links: []
+visual:
+  eyebrow: Data Analysis and Research Intern - Utah Transit Authority
+  label: Two vendor dashboards, one warehouse, zero manual exports
+  description: An automation pipeline that treats a browser as the integration layer when a vendor doesn't offer a real API.
+sections:
+  - id: hook
+    heading: When there's no API, the browser is the integration
+    body: >-
+      As UTA rolls out electric buses and chargers, the vendor platforms tracking their data - Viriciti for bus-side charging, ABB for the chargers themselves - don't expose a usable API. Getting their data into the fleet warehouse meant automating the export a human would otherwise do by hand every month.
+    bullets:
+      - Built on Python and Playwright to drive an actual browser session.
+      - Started with Viriciti electric-bus charging data, then extended the same pattern to ABB chargers.
+      - Both feed the same SQL Server warehouse the fleet availability dashboard runs on.
+  - id: problem
+    heading: Two vendors, two logins, two data shapes
+    body: >-
+      Viriciti and ABB don't just differ in what data they hold - they differ in how you even get to it. Viriciti's export is a direct download after a standard login. ABB sits behind SSO, and its session history has real limits on how much you can pull in one view.
+    bullets:
+      - ABB uses SSO (Azure AD), not a plain username and password - the login flow has to redirect through an organizational identity provider.
+      - ABB's charge-session history caps at 90 days per view and 3,000 sessions per export, so pulling a full history means multiple passes.
+      - The two vendors' CSV exports don't share a column schema, so each needed its own parsing and mapping logic into the warehouse's table structure.
+  - id: what-was-built
+    heading: What I built
+    body: >-
+      A Python and Playwright automation for each vendor, sharing a common pattern - log in, navigate to the right report, export, transform, and load - with the specifics adapted to what each platform actually requires.
+    bullets:
+      - Playwright scripts that log in, navigate the vendor's UI, and trigger the correct export.
+      - Session-state persistence so the automation doesn't need to fully re-authenticate on every run.
+      - SQL Server as the landing point, with the two vendors' data unified into a consistent schema.
+      - Scheduled via Windows Task Scheduler, so the whole thing runs unattended.
+  - id: viriciti
+    heading: Viriciti - the first automation
+    body: >-
+      The Viriciti pipeline logs into the dashboard, downloads the monthly EV charging CSV, and emails it via the SendGrid REST API - chosen over SMTP after an organizational Outlook restriction ruled that out. The data itself needed reshaping before it was useful.
+    bullets:
+      - Wide-format data (one column per vehicle) unpivoted into long format - date, vehicle, kWh - for the warehouse.
+      - SendGrid handles delivery instead of SMTP, working around an organizational email restriction.
+      - Scheduled to run monthly, matching the vendor's own reporting cadence.
+  - id: abb
+    heading: ABB - the harder integration
+    body: >-
+      ABB's platform is a genuinely different problem: SSO login, a session-history UI with hard limits, and a CSV schema that doesn't line up with the warehouse table it needs to land in.
+    bullets:
+      - Built the SSO login flow using Playwright, including the redirect through the organization's identity provider.
+      - Designed a gap-fill loading pattern - each run queries the warehouse for the latest loaded date and pulls only what's missing, rather than a fixed backward-looking window.
+      - Mapped ABB's CSV columns onto the warehouse's session-level schema, splitting combined start and stop timestamp fields into the separate date, time, and datetime columns the table expects.
+      - Confirmed exact selectors and interaction flow (date pickers, an icon-only search button, a format dropdown) via Playwright codegen against the real site.
+  - id: outcome
+    heading: What it feeds
+    body: >-
+      Both pipelines land in the same fleet warehouse behind the Power BI dashboard, extending its coverage from the diesel fleet to the electric fleet without anyone needing to manually export a CSV again.
+    bullets:
+      - Electric bus and charger data now updates on the same schedule as the rest of the warehouse.
+      - No manual export step remains in the loop for either vendor.
+order: 2
+status: published
+---
+
+Two vendor platforms, two very different login flows, one warehouse - built to remove a recurring manual export from the loop entirely.

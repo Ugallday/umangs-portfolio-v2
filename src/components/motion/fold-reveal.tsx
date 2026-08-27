@@ -52,13 +52,10 @@ export function FoldReveal({
       className={className}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible
-          ? "translateY(0) rotateX(0deg) scaleY(1)"
-          : "translateY(16px) rotateX(12deg) scaleY(0.96)",
-        transformOrigin: "top center",
+        transform: isVisible ? "translateY(0)" : "translateY(12px)",
         transition: prefersReducedMotion
           ? undefined
-          : "opacity 420ms var(--ease-fold), transform 420ms var(--ease-fold)",
+          : "opacity 500ms var(--ease-fold), transform 500ms var(--ease-fold)",
         willChange: prefersReducedMotion ? undefined : "opacity, transform",
       }}
     >

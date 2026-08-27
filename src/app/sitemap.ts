@@ -22,9 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...[...siteConfig.nav, ...siteConfig.footerNav].map((item) => ({
       url: absolute(item.href),
       lastModified: now,
-      // /now says on its face that it is rewritten monthly, so it is the one
-      // route worth telling a crawler to come back for.
-      changeFrequency: (item.href === "/now" ? "weekly" : "monthly") as "weekly" | "monthly",
+      changeFrequency: "monthly" as const,
       priority: item.href === "/projects" ? 0.9 : 0.7,
     })),
     ...projects.map((project) => ({

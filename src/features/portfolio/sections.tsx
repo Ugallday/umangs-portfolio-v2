@@ -4,9 +4,7 @@ import { Github, Linkedin } from "lucide-react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
-import { TypingHeadline } from "@/components/motion/typing-headline";
 import { MarqueeColumn } from "@/components/motion/marquee-columns";
-import { FoldField } from "@/components/three/fold-field";
 import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import {
@@ -21,18 +19,10 @@ import {
   currentStatusSummary,
   engineeringJudgmentSummary,
   footerClosingStatement,
-  games,
-  gamingCloser,
-  gamingLead,
-  gamingProfile,
-  gamingStory,
   heroHeadline,
   heroProofPoints,
   heroSubheadline,
   hubEntries,
-  nowEntries,
-  nowLead,
-  nowUpdated,
   shippedStackTitle,
   skillGroups,
   stackLead,
@@ -216,12 +206,10 @@ function TimelineCard({
               {item.title}
             </Heading>
           </div>
-          {item.logo ? (
-            <InstitutionLogo
-              src={institutionLogos[item.logo].src}
-              alt={institutionLogos[item.logo].alt}
-            />
-          ) : null}
+          {(() => {
+            const logo = item.logo ? institutionLogos[item.logo] : undefined;
+            return logo ? <InstitutionLogo src={logo.src} alt={logo.alt} /> : null;
+          })()}
           <FoldToggle />
         </div>
       </summary>
@@ -296,11 +284,8 @@ const heroSocials = [
 export function HeroSection(): React.JSX.Element {
   return (
     <section className="border-border-subtle relative overflow-hidden border-b">
-      {/* The amber corner glow that used to drift here is gone. It lit nothing,
-          nothing was aligned to it, and a coloured wash bleeding out of the top
-          corner of a dark hero is the most recognisable ambient cliché there
-          is. The folds below carry the depth on their own. */}
-      <FoldField />
+      {/* Flat ground, no ambient 3D layer — depth comes from typography and
+          whitespace, not a decorative background object. */}
       {/* items-center, not items-end: bottom-aligning two columns of different
           heights left the shorter one hanging off the baseline. Centring them
           balances the pair without touching either column's own spacing. */}
@@ -314,10 +299,9 @@ export function HeroSection(): React.JSX.Element {
           </div>
           <div className="max-w-4xl space-y-8">
             <FoldReveal delayMs={40}>
-              <TypingHeadline
-                text={heroHeadline}
-                className="text-text-primary max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.75rem] xl:leading-[0.95]"
-              />
+              <h1 className="text-text-primary max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.75rem] xl:leading-[0.95]">
+                {heroHeadline}
+              </h1>
             </FoldReveal>
             <FoldReveal delayMs={80}>
               <p className="text-text-secondary max-w-2xl text-lg leading-8 sm:text-xl">
@@ -372,7 +356,7 @@ export function HeroSection(): React.JSX.Element {
               <div className="border-border-subtle bg-surface-overlay relative aspect-[4/5] overflow-hidden rounded-sm border">
                 <Image
                   src={portraitImage}
-                  alt="Aalok Bhandari portrait"
+                  alt="Umang Gupta portrait"
                   fill
                   priority
                   sizes="(min-width: 1280px) 34vw, 90vw"
@@ -490,46 +474,6 @@ export function HubSection(): React.JSX.Element {
         </nav>
       </div>
     </section>
-  );
-}
-
-export function NowSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
-  const sub = cardLevel(headingLevel);
-  return (
-    <SectionShell
-      id="now"
-      eyebrow={`Now · updated ${nowUpdated}`}
-      title="What I'm actually doing this month."
-      description={nowLead}
-      {...(headingLevel ? { headingLevel } : {})}
-      {...(standalone ? { standalone } : {})}
-    >
-      <div className="grid gap-5">
-        {nowEntries.map((entry, index) => {
-          const Heading = sub;
-          return (
-            <FoldReveal key={entry.label} delayMs={index * 40}>
-              <article className="fold-panel rounded-3xl p-5 sm:p-6">
-                <Heading className="text-text-primary text-lg font-semibold tracking-tight">
-                  {entry.label}
-                </Heading>
-                <ul className="text-text-secondary mt-4 grid gap-3 leading-7">
-                  {entry.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span
-                        className="bg-accent-default mt-3 h-1.5 w-1.5 shrink-0 rounded-full"
-                        aria-hidden="true"
-                      />
-                      <span className="max-w-3xl">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </FoldReveal>
-          );
-        })}
-      </div>
-    </SectionShell>
   );
 }
 
@@ -735,70 +679,6 @@ export function ToolkitSection({ headingLevel, standalone }: SectionProps = {}):
           <ToolkitCard key={group.title} group={group} as={sub} />
         ))}
       </div>
-    </SectionShell>
-  );
-}
-
-export function GamingSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
-  const CardHeading = cardLevel(headingLevel);
-  return (
-    <SectionShell
-      id="gaming"
-      eyebrow="Gaming"
-      title="The other system I have spent thousands of hours reading."
-      description={gamingLead}
-      {...(headingLevel ? { headingLevel } : {})}
-      {...(standalone ? { standalone } : {})}
-    >
-      <div className="grid gap-5">
-        {gamingStory.map((paragraph) => (
-          <FoldReveal key={paragraph}>
-            <p className="text-text-secondary max-w-3xl text-base leading-8 sm:text-lg">
-              {paragraph}
-            </p>
-          </FoldReveal>
-        ))}
-      </div>
-
-      <div className="grid gap-5 lg:grid-cols-3">
-        {games.map((game, index) => (
-          <FoldReveal key={game.name} delayMs={index * 60}>
-            <article className="fold-panel fold-hover group flex h-full flex-col rounded-3xl p-5 sm:p-6">
-              <BrandMark label={game.name} />
-              <CardHeading className="text-text-primary mt-5 text-lg font-semibold tracking-tight">
-                {game.name}
-              </CardHeading>
-              <p className="text-accent-default mt-4 text-3xl font-semibold tracking-tight tabular-nums">
-                {game.figure}
-              </p>
-              <p className="text-text-muted mt-1 text-xs tracking-[0.07em] uppercase">
-                {game.figureLabel}
-              </p>
-              <p className="text-text-secondary mt-5 text-sm leading-7">{game.body}</p>
-            </article>
-          </FoldReveal>
-        ))}
-      </div>
-
-      <FoldReveal delayMs={100}>
-        <div className="border-border-subtle flex flex-wrap items-center justify-between gap-6 border-t pt-6">
-          <p className="text-text-muted max-w-xl text-sm leading-7">{gamingCloser}</p>
-          <a
-            href={gamingProfile.href}
-            target="_blank"
-            rel="noreferrer"
-            className="fold-panel fold-hover group flex items-center gap-4 rounded-2xl p-4 pr-6"
-          >
-            <BrandMark label={gamingProfile.label} />
-            <span>
-              <span className="text-text-primary block text-sm font-medium">
-                {gamingProfile.label}
-              </span>
-              <span className="text-text-muted block text-xs leading-5">{gamingProfile.note}</span>
-            </span>
-          </a>
-        </div>
-      </FoldReveal>
     </SectionShell>
   );
 }

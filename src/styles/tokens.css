@@ -1,118 +1,91 @@
 /**
- * Design token source of truth for The Origami Engineer.
+ * Design token source of truth.
  *
  * Two-tier system:
- *   1. Primitives (--paper-*, --ink-*, --accent-*) — raw values, NEVER
- *      referenced directly by components.
- *   2. Semantic tokens (--surface-*, --text-*, --border-*, etc.) — what
+ *   1. Primitives (--gray-*, --accent-*) - raw values, NEVER referenced
+ *      directly by components.
+ *   2. Semantic tokens (--surface-*, --text-*, --border-*, etc.) - what
  *      components actually consume. This indirection is what makes the
  *      dark/light theme swap a token-file change instead of a component
- *      rewrite (see docs/architecture/design-system.md).
+ *      rewrite.
+ *
+ * Palette direction: clean, neutral, restrained - true grayscale rather than
+ * a warm or tinted ramp, a single accent color, and generous soft corners.
+ * Depth comes from typography and whitespace, not texture or shadow.
  */
 
 :root {
-  /* ---------- Primitives: paper ----------
-     The scale runs from actual paper stock at the light end to an ink-blue
-     black at the dark end. It used to be a neutral warm grey ramp bottoming
-     out at #0a0a0b — the same near-black every dark portfolio ships, and a
-     colour with no point of view. The dark end now carries a blue cast, the
-     way process black does when it is laid over cyan. */
-  --paper-50: #f4f1e9;
-  --paper-100: #e8e3d7;
-  --paper-200: #d3ccbd;
-  --paper-300: #b4ab99;
-  --paper-400: #8e8a82;
-  --paper-500: #6a635a;
-  --paper-600: #464039;
-  --paper-700: #2b2f38;
-  --paper-800: #1f232b;
-  --paper-900: #171b23;
-  --paper-950: #101319;
-
-  /* ---------- Primitives: ink (text) ---------- */
-  --ink-50: #101319;
-  --ink-400: #8e8a82;
-  --ink-600: #c4c0b7;
-  --ink-800: #e8e3d7;
-  --ink-950: #edeae3;
+  /* ---------- Primitives: neutral gray ---------- */
+  --gray-50: #fafafa;
+  --gray-100: #f2f2f4;
+  --gray-200: #e4e4e8;
+  --gray-300: #cbcbd1;
+  --gray-400: #9a9aa2;
+  --gray-500: #737380;
+  --gray-600: #52525e;
+  --gray-700: #34343d;
+  --gray-800: #222228;
+  --gray-900: #131316;
+  --gray-950: #09090b;
 
   /* ---------- Primitives: accent ----------
-     Oxblood — a printer's second colour, the one a press runs alongside black
-     when it only has budget for two. Replaces the amber, which is the accent
-     a generated "premium dark" palette reaches for by default. The light and
-     dark themes take different steps off this ramp; both clear AA in each
-     direction (see tests/unit/design-tokens.contrast.test.ts). */
-  --accent-400: #e2794a;
-  --accent-500: #c2410c;
-  --accent-600: #9a3412;
+     A clean, single system-blue accent - used sparingly, for links and
+     primary actions only. */
+  --accent-400: #4f9dff;
+  --accent-500: #0071e3;
+  --accent-600: #0058b0;
 
   /* ---------- Semantic: surface / border / text ----------
      Dark-first: these are the values a first-time visitor gets, and they are
      what renders before the theme script runs and for anyone without JS.
-     [data-theme="light"] below is the toggled alternative.
-
-     Rules carry the layout, so they have to be legible on their own — the old
-     borders were near-invisible, which is precisely why every group needed a
-     filled, shadowed box to read as a group at all. */
-  --surface-base: var(--paper-950);
-  --surface-raised: var(--paper-900);
-  --surface-overlay: var(--paper-800);
-  --border-subtle: #2a2f3a;
-  --border-default: #3b414e;
-  --border-strong: #5a616f;
-  --text-primary: var(--ink-950);
-  --text-secondary: var(--ink-600);
-  --text-muted: var(--ink-400);
-  --text-on-accent: var(--paper-950);
+     [data-theme="light"] below is the toggled alternative. */
+  --surface-base: var(--gray-950);
+  --surface-raised: var(--gray-900);
+  --surface-overlay: var(--gray-800);
+  --border-subtle: #202024;
+  --border-default: #2c2c32;
+  --border-strong: #46464e;
+  --text-primary: #f5f5f7;
+  --text-secondary: var(--gray-400);
+  --text-muted: var(--gray-500);
+  --text-on-accent: #ffffff;
   --accent-default: var(--accent-400);
-  --accent-hover: #ef8f60;
-  --accent-muted: rgba(226, 121, 74, 0.16);
+  --accent-hover: #7ab6ff;
+  --accent-muted: rgba(79, 157, 255, 0.14);
   --focus-ring-color: var(--accent-400);
 
-  /* ---------- Paper material system (the origami-specific tokens) ---------- */
-  --paper-weight-light: 1px;
-  --paper-weight-regular: 1.5px;
-  --paper-weight-heavy: 2px;
-  --paper-texture-opacity: 0.045;
-  /* Grayscale fractal noise, inlined. An external texture would be a network
-     request the content security policy refuses; feTurbulence costs nothing
-     and tiles seamlessly via stitchTiles. */
-  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
-  --fold-angle-subtle: 2deg;
-  --fold-angle-default: 6deg;
-  --fold-angle-dramatic: 14deg;
-  --crease-width: 1px;
-  --crease-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+  /* ---------- Flat, textureless ground ---------- */
+  --paper-texture-opacity: 0;
+  --paper-grain: none;
+  --crease-shadow: none;
 
   /* ---------- Elevation ----------
-     Printed matter does not float. Elevation-1 is now nothing at all — content
-     panels earn their separation from a rule and from whitespace, not from a
-     drop shadow. Only genuinely-overlaying chrome (menus, sheets, the sticky
-     header once it detaches) still gets elevation-2. */
+     Minimal, mostly none - separation comes from a hairline border and
+     whitespace, not a drop shadow. Elevation-2 is reserved for chrome that
+     genuinely overlays the page (menus, sheets, a detached sticky header). */
   --elevation-0-shadow: none;
   --elevation-1-shadow: none;
-  --elevation-2-shadow: 0 12px 32px rgba(0, 0, 0, 0.44);
+  --elevation-2-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 
-  /* ---------- Motion ---------- */
+  /* ---------- Motion ----------
+     Smooth and restrained - a single easing curve used everywhere, no
+     dramatic tilt or spring. */
   --motion-duration-instant: 100ms;
   --motion-duration-fold: 350ms;
-  --motion-duration-page: 500ms;
-  --motion-ease-fold: cubic-bezier(0.16, 1, 0.3, 1);
-  --motion-ease-crease: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-duration-page: 450ms;
+  --motion-ease-fold: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-crease: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* ---------- Blur / glass (used only for overlays, never base surfaces) --- */
-  --blur-overlay: 12px;
-  --glass-tint: rgba(16, 16, 18, 0.72);
+  --blur-overlay: 20px;
+  --glass-tint: rgba(9, 9, 11, 0.72);
 
   /* ---------- Radius ----------
-     Collapsed hard. Large soft corners on every surface are the single loudest
-     tell of a generated layout, and they fight the name of the site: folded
-     paper has creases, not fillets. Everything structural is now near-square;
-     --radius-full survives only for things that are genuinely circular
-     (avatars, the icon buttons), never for buttons or tags. */
-  --radius-sm: 2px;
-  --radius-md: 3px;
-  --radius-lg: 4px;
+     Soft and generous - the clearest visual signal of the minimal direction.
+     Cards, panels and buttons all round the same way. */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
   /* ---------- Grid ---------- */
@@ -125,62 +98,54 @@
   --min-tap-target: 44px;
 }
 
-/* ---------- Dark theme ----------
-   Ink-blue black rather than neutral near-black, and the accent steps up the
-   oxblood ramp to the value that clears AA on a dark ground. */
+/* ---------- Dark theme ---------- */
 [data-theme="dark"] {
-  --surface-base: var(--paper-950);
-  --surface-raised: var(--paper-900);
-  --surface-overlay: var(--paper-800);
-  --border-subtle: #2a2f3a;
-  --border-default: #3b414e;
-  --border-strong: #5a616f;
-  --text-primary: var(--ink-950);
-  --text-secondary: var(--ink-600);
-  --text-muted: var(--ink-400);
-  --text-on-accent: var(--paper-950);
+  --surface-base: var(--gray-950);
+  --surface-raised: var(--gray-900);
+  --surface-overlay: var(--gray-800);
+  --border-subtle: #202024;
+  --border-default: #2c2c32;
+  --border-strong: #46464e;
+  --text-primary: #f5f5f7;
+  --text-secondary: var(--gray-400);
+  --text-muted: var(--gray-500);
+  --text-on-accent: #ffffff;
   --accent-default: var(--accent-400);
-  --accent-hover: #ef8f60;
-  --accent-muted: rgba(226, 121, 74, 0.16);
+  --accent-hover: #7ab6ff;
+  --accent-muted: rgba(79, 157, 255, 0.14);
   --focus-ring-color: var(--accent-400);
-  --paper-texture-opacity: 0.045;
-  --glass-tint: rgba(16, 19, 25, 0.72);
+  --paper-texture-opacity: 0;
+  --glass-tint: rgba(9, 9, 11, 0.72);
   --elevation-1-shadow: none;
-  --elevation-2-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-  --crease-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  --elevation-2-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --crease-shadow: none;
 }
 
 /* Light is what :root already carries; this block exists so an explicit
-   "light" choice still wins over a dark-themed ancestor, and so the two themes
-   stay legible side by side in one file. */
+   "light" choice still wins over a dark-themed ancestor. */
 [data-theme="light"] {
-  --surface-base: var(--paper-50);
-  --surface-raised: #fffefa;
-  --surface-overlay: var(--paper-100);
-  --border-subtle: #ddd6c7;
-  --border-default: #c6bda9;
-  --border-strong: #9a917f;
-  --text-primary: #1a1613;
-  --text-secondary: var(--paper-600);
-  --text-muted: var(--paper-500);
-  --text-on-accent: #fffefa;
-  --accent-default: var(--accent-600);
-  --accent-hover: var(--accent-500);
-  --accent-muted: rgba(154, 52, 18, 0.14);
-  --focus-ring-color: var(--accent-600);
-  /* Dark grain on a light ground reads much heavier than light grain on a
-     dark one, so light mode gets roughly half the strength. */
-  --paper-texture-opacity: 0.022;
-  --glass-tint: rgba(244, 241, 233, 0.78);
+  --surface-base: #ffffff;
+  --surface-raised: var(--gray-50);
+  --surface-overlay: var(--gray-100);
+  --border-subtle: #e4e4e8;
+  --border-default: #d3d3d9;
+  --border-strong: #aeaeb8;
+  --text-primary: #1d1d1f;
+  --text-secondary: var(--gray-600);
+  --text-muted: var(--gray-500);
+  --text-on-accent: #ffffff;
+  --accent-default: var(--accent-500);
+  --accent-hover: var(--accent-600);
+  --accent-muted: rgba(0, 113, 227, 0.1);
+  --focus-ring-color: var(--accent-500);
+  --paper-texture-opacity: 0;
+  --glass-tint: rgba(255, 255, 255, 0.78);
   --elevation-1-shadow: none;
-  --elevation-2-shadow: 0 12px 32px rgba(40, 32, 24, 0.14);
-  --crease-shadow: inset 0 1px 1px rgba(28, 23, 18, 0.06);
+  --elevation-2-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+  --crease-shadow: none;
 }
 
-/* ---------- Reduced motion ----------
-   Three states, like the theme: the OS decides unless the visitor has said
-   otherwise, and an explicit choice wins in either direction. Without the
-   :not() guard, a visitor who asked for motion would still get 0ms here. */
+/* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   :root:not([data-motion="full"]) {
     --motion-duration-fold: 0ms;
@@ -193,7 +158,7 @@
   --motion-duration-page: 0ms;
 }
 
-/* ---------- Tailwind v4 theme mapping — utilities generated FROM tokens -- */
+/* ---------- Tailwind v4 theme mapping - utilities generated FROM tokens -- */
 @theme inline {
   --color-surface-base: var(--surface-base);
   --color-surface-raised: var(--surface-raised);
@@ -215,13 +180,11 @@
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
-  /* Tailwind's own large-radius steps, redefined at source. `rounded-3xl` and
-     `rounded-2xl` are used on ~55 surfaces across the app; overriding the scale
-     here retunes all of them at once and keeps the utility names meaningful,
-     rather than leaving a component to say "3xl" and mean 4px. */
-  --radius-xl: 4px;
-  --radius-2xl: 4px;
-  --radius-3xl: 5px;
+  /* Soft, generous corners across the board - the clearest visual signal of
+     the minimal direction. */
+  --radius-xl: 18px;
+  --radius-2xl: 22px;
+  --radius-3xl: 28px;
 
   --ease-fold: var(--motion-ease-fold);
   --ease-crease: var(--motion-ease-crease);
@@ -234,7 +197,8 @@
   /* Actual family values are injected by next/font via CSS variables of the
      same name (see src/app/fonts.ts). These are the fallback stacks used
      until that variable is available (e.g. during initial SSR paint). */
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-display: ui-sans-serif, system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-sans-serif, system-ui,
+    sans-serif;
   --font-serif: ui-monospace, SFMono-Regular, Menlo, monospace;
 }

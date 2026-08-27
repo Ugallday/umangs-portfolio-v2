@@ -1,0 +1,80 @@
+---
+slug: obfuscope
+title: ObfuScope
+summary: A research paper on fingerprinting which obfuscation toolchain produced a malware sample, not just detecting that obfuscation happened - submitted to ACM Transactions on Privacy and Security.
+phase: case-study
+period: 2026
+role: Research collaborator
+organization: Weber State University
+techStack:
+  - Python
+  - scikit-learn
+  - HTCondor / DAGMan
+  - Open Science Pool
+metrics:
+  - value: "0.993"
+    label: macro-F1 score, best model (Extra-Trees classifier), grouped cross-validation
+  - value: "0.988"
+    label: AUROC on the open-set novelty protocol (leave-one-obfuscation-out)
+  - value: "4,121"
+    label: obfuscated artifacts analyzed, drawn from 102 malware samples across 90 families
+  - value: "61"
+    label: static features engineered across seven families
+links: []
+visual:
+  eyebrow: Research collaboration - Weber State University
+  label: Which obfuscator, not just that it's obfuscated
+  description: Applied ML research asking a more specific question than most malware-obfuscation work does - and testing it against obfuscation types the model never saw during training.
+sections:
+  - id: hook
+    heading: A more specific question than "is this obfuscated"
+    body: >-
+      Most work on obfuscated malware asks whether a sample has been obfuscated at all. ObfuScope asks a narrower, more useful question - given an obfuscated sample, can you fingerprint which specific obfuscation toolchain produced it? Different tools leave different structural fingerprints, and that fingerprint is itself a signal worth extracting.
+    bullets:
+      - Built with a Weber State CS professor as a research collaboration.
+      - Focus is toolchain attribution, not malware detection itself.
+      - Submitted to ACM Transactions on Privacy and Security (TOPS) in 2026.
+  - id: data
+    heading: The dataset
+    body: >-
+      The analysis draws on a substantial and diverse set of obfuscated artifacts, spanning many distinct malware families and multiple obfuscation approaches - important for a model that has to generalize across obfuscators it wasn't trained on.
+    bullets:
+      - 4,121 obfuscated C artifacts drawn from 102 malware samples.
+      - Samples span 90 distinct malware families and 11 transformation families (obfuscation types).
+      - Diversity across both malware family and obfuscation type was deliberate - a model that only works within one family isn't actually solving the attribution problem.
+  - id: features
+    heading: A 61-feature static feature space
+    body: >-
+      Rather than relying on a single signal, the feature space spans seven distinct families of structural and statistical characteristics extracted directly from the obfuscated binaries.
+    bullets:
+      - Lexical, entropy, control-flow, literal, operator, API, and obfuscation-indicator feature families.
+      - 61 features total, engineered specifically to capture how different obfuscation toolchains alter a binary's structure.
+      - Static analysis only - no execution or dynamic instrumentation required.
+  - id: evaluation
+    heading: Three evaluation protocols, not one
+    body: >-
+      A model that performs well under one evaluation scheme can still be overfit to the specific families or obfuscators it was trained on. Three separate protocols test that directly, including an open-set scenario the model has never seen anything like.
+    bullets:
+      - Grouped cross-validation as the baseline evaluation.
+      - Leave-malware-families-out, to test generalization across malware families the model wasn't trained on.
+      - Leave-one-obfuscation-out (open-set), testing whether the model can recognize a genuinely novel obfuscation type as novel, rather than misclassifying it as one it knows.
+  - id: results
+    heading: Results
+    body: >-
+      An Extra-Trees classifier was the best-performing model across the evaluation suite, with strong results even under the hardest, open-set condition.
+    bullets:
+      - Extra-Trees classifier achieved 0.993 macro-F1 across grouped cross-validation.
+      - 0.988 AUROC on the open-set novelty protocol - meaningfully strong performance at recognizing an obfuscation type the model never trained on.
+      - Experiments run on HTCondor/DAGMan across the Open Science Pool's high-throughput computing infrastructure.
+  - id: reflection
+    heading: What this adds to the data work
+    body: >-
+      This is the applied-ML and evaluation-design side of the work the SQL and BI projects don't touch - feature engineering, protocol design, and testing whether a result actually generalizes rather than just fits the data in front of it.
+    bullets:
+      - Direct experience designing evaluation protocols meant to catch overfitting, not just report an accuracy number.
+      - Feature engineering across structural and statistical domains, applied to a real security problem.
+order: 3
+status: published
+---
+
+Research collaboration with a Weber State CS professor - fingerprinting obfuscation toolchains, submitted to ACM Transactions on Privacy and Security.

@@ -173,7 +173,6 @@ function Entry({
 export function ResumeDocument(): React.JSX.Element {
   const contacts = [
     { value: siteConfig.socials.email, href: `mailto:${siteConfig.socials.email}` },
-    { value: `+${siteConfig.whatsapp.number}`, href: siteConfig.whatsapp.href },
     { value: displayUrl(siteConfig.url), href: siteConfig.url },
     { value: displayUrl(siteConfig.socials.github), href: siteConfig.socials.github },
     { value: displayUrl(siteConfig.socials.linkedin), href: siteConfig.socials.linkedin },

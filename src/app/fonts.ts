@@ -1,41 +1,27 @@
-import { Bricolage_Grotesque, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Mono, Inter } from "next/font/google";
 
 /**
- * Three faces, three jobs.
+ * Two faces, two jobs - Inter for both headings and body, IBM Plex Mono for
+ * tabular figures and identifiers.
  *
- * This replaced Geist and Geist Mono, which are the framework's own defaults —
- * a portfolio that ships them is telling you it never made a type decision.
+ * Inter is a clean, neutral grotesque close in spirit to the system sans
+ * (San Francisco) that drives an Apple-style minimal look: no drawn or
+ * "engineered" personality, just legible type that gets out of the way.
+ * Weight alone (600-700 for headings, 400-500 for body) carries the
+ * hierarchy, rather than a second family or a condensed width axis.
  *
- * Bricolage Grotesque carries the headings. It has genuine width and weight
- * variation and a slightly engineered, drawn quality that suits a site named
- * after folded paper, without tipping into a novelty face.
- *
- * IBM Plex Sans sets the body. It was drawn for a technical identity, it stays
- * readable at long measure, and it is warm enough to sit on the paper-toned
- * palette. IBM Plex Mono comes with it, so identifiers, figures and schema
- * column names share the body face's proportions instead of clashing with it.
- *
- * All three are self-hosted by next/font at build time. Nothing is fetched at
- * runtime, which the site's content security policy would refuse anyway.
+ * Self-hosted by next/font at build time - nothing is fetched at runtime.
  */
-export const fontSans = IBM_Plex_Sans({
+export const fontSans = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });
 
-/**
- * The width and optical-size axes are requested explicitly. next/font ships
- * only `wght` from a variable family unless the others are named, and without
- * `wdth` the headings came out at default width — close enough to the old
- * Geist that the change did not read as a decision at all. Headings set
- * `wdth` to a semi-condensed value in globals.css, which is where the
- * character actually comes from.
- */
-export const fontDisplay = Bricolage_Grotesque({
+export const fontDisplay = Inter({
   subsets: ["latin"],
-  axes: ["opsz", "wdth"],
+  weight: ["600", "700", "800"],
   variable: "--font-display",
   display: "swap",
 });

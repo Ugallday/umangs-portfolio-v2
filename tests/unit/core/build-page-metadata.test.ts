@@ -35,7 +35,7 @@ describe("buildPageMetadata", () => {
    * reads badly at card size, so the route falls back to the hero line.
    */
   it("omits the title parameter on the home page", () => {
-    const result = buildPageMetadata({ ...base, path: "/", title: "Aalok Bhandari | Portfolio" });
+    const result = buildPageMetadata({ ...base, path: "/", title: "Umang Gupta | Portfolio" });
     expect(result.openGraph.images).toEqual(["https://example.com/api/og"]);
   });
 

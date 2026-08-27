@@ -113,12 +113,10 @@ export function BackgroundSection({
                           {item.title}
                         </h3>
                       </div>
-                      {item.logo ? (
-                        <InstitutionLogo
-                          src={institutionLogos[item.logo].src}
-                          alt={institutionLogos[item.logo].alt}
-                        />
-                      ) : null}
+                      {(() => {
+                        const logo = item.logo ? institutionLogos[item.logo] : undefined;
+                        return logo ? <InstitutionLogo src={logo.src} alt={logo.alt} /> : null;
+                      })()}
                       <FoldToggle />
                     </div>
                   </summary>

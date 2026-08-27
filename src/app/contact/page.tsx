@@ -6,7 +6,7 @@ import { buildSectionMetadata } from "@/features/portfolio/page-metadata";
 
 export const metadata: Metadata = buildSectionMetadata({
   title: "Contact",
-  description: "Get in touch about systems, travel technology, or applied product work in Nepal.",
+  description: "Get in touch about data analytics, BI reporting, or applied ML research.",
   path: "/contact",
 });
 

@@ -10,7 +10,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = buildSectionMetadata({
   title: "Projects",
   description:
-    "NSA Travels, the flagship — a family travel agency rebuilt in software — alongside the VAT Billing System, NiryatHub, Travora and SipSetu case studies, active concepts, and academic practicals, labelled by stage.",
+    "The UTA fleet availability data warehouse, EV fleet automation, ObfuScope research, and personal data projects, labelled by stage.",
   path: "/projects",
 });
 

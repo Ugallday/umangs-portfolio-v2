@@ -1,15 +1,14 @@
-# The Origami Engineer
+# Umang Gupta — Portfolio
 
-> An engineering portfolio platform — not a brochure. Every section is built
-> to teach something: how the system is architected, why each decision was
-> made, and what was learned building it.
+> A data-focused engineering portfolio — not a brochure. Every section is
+> built to teach something: how the systems were architected, why each
+> decision was made, and what was learned building it.
 
-[![CI](https://github.com/aalokbhandari/origami-engineer/actions/workflows/ci.yml/badge.svg)](https://github.com/aalokbhandari/origami-engineer/actions/workflows/ci.yml)
 [![Deployed on Vercel](https://img.shields.io/badge/deployed-vercel-000000?logo=vercel)](https://vercel.com)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**Live:** [www.aalokbhandari.com.np](https://www.aalokbhandari.com.np)
-**Author:** [Aalok Bhandari](https://www.linkedin.com/in/alokbndry10/) · [GitHub](https://github.com/aalokbhandari) · [Instagram](https://www.instagram.com/by.aalok/)
+**Live:** [www.umanggupta.com.np](https://www.umanggupta.com.np)
+**Author:** [Umang Gupta](https://www.linkedin.com/in/ug-umang-gupta) · [GitHub](https://github.com/Ugallday)
 
 ---
 
@@ -20,21 +19,18 @@ software: a layered, framework-independent core; typed content pipelines
 instead of hardcoded pages; lint-enforced architectural boundaries; and
 accessibility asserted by tests rather than by claim.
 
-The visual language — **The Origami Engineer** — treats every surface as
-folded paper: elevation comes from stacked layers, not floating shadows;
-motion is always a fold, crease, or unfold, never a generic fade or slide.
+Clean, minimal visual language — restrained, no unnecessary motion or
+ornamentation. Elevation comes from typography and spacing, not decoration.
 
-The copy is written in first person throughout. The flagship case study
-documents the digital transformation of **Nepal South Asia International
-Travels & Tours**, my family's travel agency: replacing Excel/paper
-bookkeeping with a custom accounting system, adding cloud backup and a
-structured customer/B2B database, and building the company's public website.
-
-The key engineering project inside that story is the
-[**VAT Billing System**](https://github.com/aalokbhandari/vat-billing-system) —
-a multi-tenant, offline-first double-entry accounting system that the agency
-runs its books on. It leads the homepage below the hero and has its own case
-study at `/projects/vat-billing-system`.
+The copy is written in first person throughout. The flagship case study is
+the **UTA Fleet Availability Data Warehouse**, built during a Data Analysis
+and Research internship at the Utah Transit Authority: a star-schema data
+warehouse with SSIS handling ETL and Power BI/DAX powering the operational
+dashboard. Alongside it sit an **EV fleet automation** pipeline (Python and
+Playwright pulling electric-bus and charger data from two vendor platforms),
+**ObfuScope** — a research paper on fingerprinting malware obfuscation
+toolchains, submitted to ACM Transactions on Privacy and Security — and a set
+of personal data projects.
 
 ## Features
 
@@ -148,8 +144,8 @@ tests/
 ## Development
 
 ```bash
-git clone https://github.com/aalokbhandari/origami-engineer.git
-cd origami-engineer
+git clone https://github.com/Ugallday/umangs-portfolio-v2.git
+cd umangs-portfolio-v2
 npm install
 cp .env.example .env.local
 npm run dev
@@ -171,9 +167,8 @@ enforced by commitlint on a Husky `commit-msg` hook. See
 These are referenced by planned work and not yet in the repo:
 
 - `public/resume.pdf` — for the Download Resume button
-- `public/logos/nsa-travels-logo.svg` — NSA Travels credibility mark
-- `public/certificates/` — certificate and achievement images
-- Company website / accounting app / Travora screenshots
+- Dashboard/report screenshots (UTA fleet availability dashboard, EV
+  automation output) and any personal-project screenshots, where sharable
 
 The Open Graph card is generated at `/api/og`, so it needs no exported asset.
 

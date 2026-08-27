@@ -1,25 +1,20 @@
 export const siteConfig = {
-  name: "Aalok Bhandari",
-  shortName: "Aalok Bhandari",
-  // Mirrors the hero: introduces the person, not the portfolio. Kept concrete
-  // enough to be worth indexing — a search snippet made of adjectives is a
-  // wasted snippet — but the domain argument belongs to the case studies.
+  name: "Umang Gupta",
+  shortName: "Umang Gupta",
+  // Mirrors the hero: introduces the person, not the portfolio. Concrete
+  // enough to be worth indexing, but the domain argument belongs to the
+  // case studies.
   description:
-    "Aalok Bhandari is a software engineer in Nepal. Backend-leaning full-stack work — databases, APIs, and the unglamorous parts that decide whether a system survives real users. TypeScript, PostgreSQL, and Node, with case studies on systems running in production.",
-  url: "https://www.aalokbhandari.com.np",
-  location: "Nepal",
-  // No X/Twitter handle. There is no active account, and advertising one as
-  // `twitter:creator` on every page attributed the site to something nobody
-  // maintains. Deliberately not replaced with another network.
+    "Umang Gupta is a data analyst and final-year Computer Science student at Weber State University. Data warehousing, ETL, and BI reporting for real production systems - SQL Server, SSIS, Power BI, and Python - plus applied ML research, heading into a funded MS in Data Science or Computer Science.",
+  url: "https://www.umanggupta.com.np",
+  location: "Utah, US",
   author: {
-    name: "Aalok Bhandari",
+    name: "Umang Gupta",
   },
   nav: [
-    { label: "Now", href: "/now" },
     { label: "About", href: "/about" },
     { label: "Background", href: "/background" },
     { label: "Projects", href: "/projects" },
-    { label: "Writing", href: "/writing" },
     { label: "Skills", href: "/skills" },
     { label: "Workflow", href: "/workflow" },
     // Deliberately adjacent to Contact: the two things a recruiter or an
@@ -27,21 +22,11 @@ export const siteConfig = {
     { label: "Résumé", href: "/resume" },
     { label: "Contact", href: "/contact" },
   ],
-  /**
-   * Reachable, but not presented alongside the case studies. /gaming is a
-   * personal page; giving it a top-level slot next to the work costs more with
-   * admissions committees and employers than it earns.
-   */
-  footerNav: [{ label: "Gaming", href: "/gaming" }],
+  footerNav: [] as { label: string; href: string }[],
   socials: {
-    github: "https://github.com/aalokbhandari",
-    linkedin: "https://www.linkedin.com/in/alokbndry10/",
-    instagram: "https://www.instagram.com/by.aalok/",
-    email: "aalokbhandari.dev@gmail.com",
-  },
-  whatsapp: {
-    number: "9779813014395",
-    href: "https://wa.me/9779813014395",
+    github: "https://github.com/Ugallday",
+    linkedin: "https://www.linkedin.com/in/ug-umang-gupta",
+    email: "umanggupta.ug2004@gmail.com",
   },
 } as const;
 

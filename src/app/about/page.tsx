@@ -7,7 +7,7 @@ import { buildSectionMetadata } from "@/features/portfolio/page-metadata";
 export const metadata: Metadata = buildSectionMetadata({
   title: "About",
   description:
-    "How a two-person family travel agency became my first real engineering project, and the timeline that followed.",
+    "From Nepal to Weber State University, and how two analyst roles at a university and a transit agency ran alongside the degree.",
   path: "/about",
 });
 

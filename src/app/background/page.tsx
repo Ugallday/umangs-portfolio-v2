@@ -10,7 +10,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = buildSectionMetadata({
   title: "Background",
   description:
-    "A BSc CSIT degree and four years inside a working travel agency, run at the same time — mapped semester by semester to the systems each one fed.",
+    "A Computer Science degree at Weber State and two analyst roles run alongside it, mapped on one timeline to the work each one fed.",
   path: "/background",
 });
 

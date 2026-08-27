@@ -7,7 +7,7 @@ import { buildSectionMetadata } from "@/features/portfolio/page-metadata";
 export const metadata: Metadata = buildSectionMetadata({
   title: "Skills",
   description:
-    "Eight technologies I would be happy to be questioned on for an hour, what I am learning properly and not claiming yet, and the concepts behind both.",
+    "The data warehousing, ETL, and BI stack I use day to day at UTA and Weber State, what I'm still learning, and the concepts behind both.",
   path: "/skills",
 });
 

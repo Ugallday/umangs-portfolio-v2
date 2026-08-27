@@ -13,7 +13,7 @@ import { OG_IMAGE_DIMENSIONS } from "@/features/portfolio/page-metadata";
 import "@/styles/globals.css";
 
 const pageMetadata = buildPageMetadata({
-  title: `${siteConfig.name} | Software Engineering Portfolio`,
+  title: `${siteConfig.name} | Data Analytics Portfolio`,
   description: siteConfig.description,
   path: "/",
   siteUrl: siteConfig.url,

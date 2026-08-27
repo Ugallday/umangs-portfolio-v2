@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
-import { FoldField } from "@/components/three/fold-field";
 import { actionClass } from "@/components/ui/action";
 import { Pill } from "@/components/ui/pill";
 import { TechBadge } from "@/components/ui/tech-badge";
@@ -33,7 +32,6 @@ export function FeaturedProjects({
       id="featured"
       className="border-border-subtle relative scroll-mt-24 border-t py-20 sm:py-24"
     >
-      <FoldField className="opacity-25" />
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-4">

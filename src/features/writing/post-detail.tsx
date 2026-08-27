@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
-import { FoldField } from "@/components/three/fold-field";
 import { actionClass } from "@/components/ui/action";
 import { Pill } from "@/components/ui/pill";
 import type { PostEntity } from "@/core/domain/entities/post.entity";
@@ -11,7 +10,6 @@ export function PostDetail({ post }: { readonly post: PostEntity }): React.JSX.E
   return (
     <article className="mx-auto w-full max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
       <header className="relative">
-        <FoldField className="opacity-40" />
         <FoldReveal>
           <div className="flex max-w-3xl flex-col gap-6">
             <div className="text-text-muted flex flex-wrap items-center gap-3 text-xs tracking-[0.08em] uppercase">

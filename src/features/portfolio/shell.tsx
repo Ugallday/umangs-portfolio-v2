@@ -1,10 +1,8 @@
 import Link from "next/link";
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 import { SiteHeader } from "@/components/layout/site-header";
-import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { SocialLink } from "@/components/ui/social-link";
-import { WhatsAppGlyph } from "@/components/ui/whatsapp-glyph";
 import { footerClosingStatement } from "@/features/portfolio/content";
 import { siteConfig } from "@/config/site";
 
@@ -25,16 +23,6 @@ const footerLinks = [
     label: "LinkedIn",
     href: siteConfig.socials.linkedin,
     icon: <Linkedin className={ICON} aria-hidden="true" />,
-  },
-  {
-    label: "Instagram",
-    href: siteConfig.socials.instagram,
-    icon: <Instagram className={ICON} aria-hidden="true" />,
-  },
-  {
-    label: "WhatsApp",
-    href: siteConfig.whatsapp.href,
-    icon: <WhatsAppGlyph className={ICON} />,
   },
   {
     label: "Email",
@@ -85,7 +73,6 @@ export function SiteShell({ children }: { readonly children: React.ReactNode }):
           </div>
         </div>
       </footer>
-      <WhatsAppButton />
     </div>
   );
 }

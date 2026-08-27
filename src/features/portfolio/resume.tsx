@@ -87,7 +87,6 @@ export function Resume(): React.JSX.Element {
 
   const contacts = [
     { value: siteConfig.socials.email, href: `mailto:${siteConfig.socials.email}` },
-    { value: `+${siteConfig.whatsapp.number}`, href: siteConfig.whatsapp.href },
     { value: displayUrl(siteConfig.url), href: siteConfig.url },
     { value: displayUrl(siteConfig.socials.github), href: siteConfig.socials.github },
     { value: displayUrl(siteConfig.socials.linkedin), href: siteConfig.socials.linkedin },
@@ -101,7 +100,7 @@ export function Resume(): React.JSX.Element {
       <header className="flex flex-wrap items-start gap-x-7 gap-y-5 sm:flex-nowrap">
         <Image
           src={portraitImage}
-          alt="Aalok Bhandari"
+          alt="Umang Gupta"
           width={112}
           height={112}
           priority

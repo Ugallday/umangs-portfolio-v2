@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
-import { FoldField } from "@/components/three/fold-field";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import { DiagramPanel } from "@/features/projects/diagram-panel";
 import { getProjectDiagram } from "@/features/projects/diagrams";
@@ -67,7 +66,6 @@ export function ProjectDetail({
       {/* `relative` so the ambient layer is bounded by the hero rather than
           drifting behind the body copy further down. */}
       <header className="relative">
-        <FoldField className="opacity-40" />
         <FoldReveal>
           {/* items-start, and no attempt to line the two columns up at the
               bottom. The columns hold different content at different lengths,

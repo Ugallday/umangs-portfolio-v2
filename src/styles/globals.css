@@ -19,12 +19,8 @@
   }
 
   /**
-   * Flat stock. The two radial washes that used to sit here — an amber glow in
-   * one corner, a white one in the other — are the ambient-gradient-behind-
-   * everything move that every generated dark landing page makes, and they were
-   * doing no work: nothing on the page was lit by them or aligned to them.
-   * The grain below is the only thing modulating the ground now, which is the
-   * texture the site is actually named for.
+   * Flat ground. No grain, no ambient gradient wash - just a solid surface
+   * color, the way a clean minimal interface should look.
    */
   body {
     background-color: var(--surface-base);
@@ -33,49 +29,17 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Paper grain. The site is named after folded paper and had none of its
-     texture — every surface was a flat fill. This is the --paper-texture-opacity
-     token finally doing the job it was declared for.
-
-     A body background layer cannot carry its own opacity, so the grain is a
-     fixed pseudo-element instead. body's background propagates to the canvas,
-     which leaves a negative z-index child painting above that fill and below
-     all content — the same trick the hero's 3D layer relies on. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: var(--paper-texture-opacity);
-    background-image: var(--paper-grain);
-    background-size: 180px 180px;
-  }
-
   /* Headings take the display face. Set here rather than on every component so
-     a heading cannot be added later and quietly come out in the body face.
-
-     The width axis is where the personality lives. At default width Bricolage
-     sits close enough to any other grotesque that swapping the family changed
-     nothing anyone could see; pulled in to 88 it gets the tall, narrow,
-     drawn-with-intent look the headlines were missing. The negative tracking
-     is the necessary partner — condensed type at display size opens up
-     without it. */
+     a heading cannot be added later and quietly come out in the body face. */
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
-    font-variation-settings:
-      "wdth" 88,
-      "opsz" 24;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
   }
 
   h1 {
-    font-variation-settings:
-      "wdth" 85,
-      "opsz" 40;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.025em;
   }
 
   /* Focus is never suppressed. Only the visual affordance is scoped to
@@ -132,7 +96,7 @@
 
   .fold-hover:hover {
     border-color: var(--border-strong);
-    background: color-mix(in srgb, var(--surface-raised) 92%, var(--paper-50) 8%);
+    background: color-mix(in srgb, var(--surface-raised) 92%, var(--gray-50) 8%);
   }
 
   /* Page transition. Driven by app/template.tsx, which React remounts on every

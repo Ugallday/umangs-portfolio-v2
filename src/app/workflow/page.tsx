@@ -7,7 +7,7 @@ import { buildSectionMetadata } from "@/features/portfolio/page-metadata";
 export const metadata: Metadata = buildSectionMetadata({
   title: "Workflow",
   description:
-    "How I use AI as an engineering assistant across research, architecture, prototyping, refactoring, testing, and review — and the tools behind each stage of the workflow.",
+    "How I move from a stakeholder's question to a validated number, and where AI tools fit versus where the judgment call stays mine.",
   path: "/workflow",
 });
 

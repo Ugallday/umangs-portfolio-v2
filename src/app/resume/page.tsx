@@ -7,7 +7,7 @@ import { SectionPage } from "@/features/portfolio/section-page";
 export const metadata: Metadata = buildSectionMetadata({
   title: "Résumé",
   description:
-    "Aalok Bhandari's CV — four years rebuilding a working travel agency in software, a multi-tenant offline-first accounting system, and a B.Sc. CSIT in progress.",
+    "Umang Gupta's CV — data warehousing and BI reporting at the Utah Transit Authority and Weber State, applied ML research, and a Computer Science degree finishing December 2026.",
   path: "/resume",
 });
 
