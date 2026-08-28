@@ -17,7 +17,7 @@ files as what's currently live, not always perfectly in sync with this doc.
 | Graduating | December 2026, GPA 3.87                                                            |
 | Site       | umanggupta.com.np                                                                  |
 | GitHub     | github.com/Ugallday                                                                |
-| LinkedIn   | linkedin.com/in/ug-umang-gupta                                                     |
+| LinkedIn   | linkedin.com/in/umangupta1                                                         |
 | Email      | umanggupta.ug2004@gmail.com                                                        |
 
 **Central message:** the full arc - hands-on production data work now,

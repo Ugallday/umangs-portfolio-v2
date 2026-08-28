@@ -534,8 +534,8 @@ export function ProjectsSection({
     <SectionShell
       id="projects"
       eyebrow="Projects"
-      title="One flagship, the case studies under it, and the coursework behind both."
-      description="NSA Travels is the flagship — the family travel agency I spent four years rebuilding in software. Under it sit four case studies: the ledger it runs on, Travora, and the two hackathon prototypes, NiryatHub and SipSetu. Everything is labelled by stage on purpose — supporting case study, in-progress concept, future concept, and practical coursework. I'm not presenting anything as more finished than it is."
+      title="One flagship, the projects under it, and the research alongside both."
+      description="The UTA fleet availability data warehouse is the flagship - a star schema and Power BI dashboard staff at the Utah Transit Authority actually use day to day. Under it sit the EV fleet automation that feeds it, ObfuScope, the applied ML research on malware obfuscation, and personal projects built outside of coursework or an internship. I'm not presenting anything as more finished than it is."
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
     >

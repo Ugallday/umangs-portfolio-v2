@@ -1,0 +1,43 @@
+---
+slug: movie-recommendation-engine
+title: Movie Recommendation Engine
+summary: A recommendation engine over 9,000+ movie titles, combining KNN with NLP-based content similarity so a suggestion accounts for both what similar users liked and what a film is actually about.
+phase: academic
+period: "2024"
+role: Sole developer
+organization: Personal project
+techStack:
+  - Python
+  - pandas
+  - scikit-learn
+metrics:
+  - value: "9,000+"
+    label: movie titles in the dataset
+  - value: KNN + NLP
+    label: combined similarity approach
+links: []
+visual:
+  eyebrow: Personal project
+  label: Two kinds of similarity, combined
+  description: A recommendation engine that accounts for both what similar users liked and what a film is actually about.
+sections:
+  - id: hook
+    heading: Two ways to be similar
+    body: >-
+      Most simple recommenders lean on one signal - either "people who liked this also liked that" or "these movies share a genre and description." This engine combines both, over a dataset of more than 9,000 movie titles.
+    bullets:
+      - KNN for collaborative-style similarity between titles.
+      - NLP-based content similarity to capture thematic and descriptive closeness between films.
+      - Dataset of 9,000+ titles, cleaned and processed before modeling.
+  - id: approach
+    heading: How it works
+    body: >-
+      The two similarity signals are computed separately and combined, rather than picking one approach and hoping it covers every case a recommender actually needs to handle.
+    bullets:
+      - KNN captures patterns in how titles cluster together based on user rating behavior.
+      - NLP-based content similarity works directly from each film's description and metadata, catching thematic closeness that rating patterns alone would miss.
+order: 4
+status: published
+---
+
+A personal project combining collaborative and content-based recommendation approaches over a 9,000+ title dataset.

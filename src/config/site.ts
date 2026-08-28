@@ -25,7 +25,7 @@ export const siteConfig = {
   footerNav: [] as { label: string; href: string }[],
   socials: {
     github: "https://github.com/Ugallday",
-    linkedin: "https://www.linkedin.com/in/ug-umang-gupta",
+    linkedin: "https://www.linkedin.com/in/umangupta1",
     email: "umanggupta.ug2004@gmail.com",
   },
 } as const;

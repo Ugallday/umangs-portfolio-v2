@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import {
   resumeEducation,
   resumeProjects,
+  resumeResearch,
   resumeRoles,
   resumeSummary,
   resumeTitle,
@@ -223,6 +224,18 @@ export function ResumeDocument(): React.JSX.Element {
 
         <SectionHeading>Selected projects</SectionHeading>
         {resumeProjects.map((project) => (
+          <Entry
+            key={project.slug}
+            title={project.name}
+            meta={project.period}
+            subtitle={`${displayUrl(siteConfig.url)}/projects/${project.slug}`}
+          >
+            <Bullets items={project.bullets} />
+          </Entry>
+        ))}
+
+        <SectionHeading>Research</SectionHeading>
+        {resumeResearch.map((project) => (
           <Entry
             key={project.slug}
             title={project.name}

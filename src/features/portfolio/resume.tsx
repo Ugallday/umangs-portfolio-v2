@@ -6,6 +6,7 @@ import {
   resumeDownloadNote,
   resumeEducation,
   resumeProjects,
+  resumeResearch,
   resumeRoles,
   resumeSummary,
   resumeTitle,
@@ -157,6 +158,18 @@ export function Resume(): React.JSX.Element {
 
       <SectionHeading>Selected projects</SectionHeading>
       {resumeProjects.map((project) => (
+        <Entry
+          key={project.slug}
+          title={project.name}
+          meta={project.period}
+          subtitle={`${displayUrl(siteConfig.url)}/projects/${project.slug}`}
+        >
+          <Bullets items={project.bullets} />
+        </Entry>
+      ))}
+
+      <SectionHeading>Research</SectionHeading>
+      {resumeResearch.map((project) => (
         <Entry
           key={project.slug}
           title={project.name}

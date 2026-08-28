@@ -84,14 +84,14 @@ export const education = {
   bachelor: {
     degree: "B.S. Computer Science, Data Analytics minor",
     college: "Weber State University",
-    detail: "Expected December 2026, GPA 3.87",
+    detail: "Expected December 2026, GPA 3.88",
   },
 } as const;
 
 export const currentStatusSummary = `${education.bachelor.degree} - ${education.bachelor.college}. ${education.bachelor.detail}.`;
 
 export const academicPerformanceSummary =
-  "3.87 GPA, recipient of the Bob and Karen Woodbury Scholarship (2026-2027).";
+  "3.88 GPA. Recipient of the Bob and Karen Woodbury Scholarship (2026-2027), the Louis F. Moench Scholarship (2023-2027), the Barbara L. Tanner Community Engaged Learning Scholarship (2024-2025), and the EAST Dean's Scholarship (renewed every semester since Aug 2025).";
 
 export interface ResumeRole {
   readonly title: string;
@@ -202,23 +202,32 @@ export const resumeProjects: readonly ResumeProject[] = [
     ],
   },
   {
-    name: "ObfuScope (research)",
+    name: "Movie Recommendation Engine",
+    slug: "movie-recommendation-engine",
+    period: "2024",
+    bullets: [
+      "Recommendation engine over 9,000+ movie titles combining KNN with NLP-based content similarity.",
+    ],
+  },
+  {
+    name: "Airline Operations & Delay Analytics",
+    slug: "airline-delay-analytics",
+    period: "2024",
+    bullets: [
+      "Power BI analytics pipeline examining flight delay patterns across routes and carriers.",
+    ],
+  },
+];
+
+export const resumeResearch: readonly ResumeProject[] = [
+  {
+    name: "ObfuScope",
     slug: "obfuscope",
-    period: "2026",
+    period: "Jul 2026 - present",
     bullets: [
       "Research paper with a Weber State CS professor on fingerprinting the specific obfuscation toolchain used on a malware sample, rather than just detecting that obfuscation occurred.",
       "Built a 61-feature static feature space across seven families (lexical, entropy, control-flow, literal, operator, API, obfuscation indicators) over 4,121 obfuscated artifacts from 102 malware samples.",
       "Best model (Extra-Trees) reached 0.993 macro-F1 across grouped cross-validation, with 0.988 AUROC on an open-set novelty protocol (leave-one-obfuscation-out). Submitted to ACM Transactions on Privacy and Security.",
-    ],
-  },
-  {
-    name: "Personal data projects",
-    slug: "personal-data-projects",
-    period: "2024 - present",
-    bullets: [
-      "Movie recommendation engine over 9,000+ titles combining KNN and NLP-based content similarity.",
-      "Airline operations analytics pipeline in Power BI covering delay patterns across routes and carriers.",
-      "Ongoing SQL practice on LeetCode-style problems, focused on window functions, CTEs, and aggregation patterns.",
     ],
   },
 ];
@@ -228,7 +237,8 @@ export const resumeEducation: readonly ResumeEducationEntry[] = [
     qualification: education.bachelor.degree,
     institution: education.bachelor.college,
     period: "2023 - 2026",
-    result: "GPA 3.87 - Bob and Karen Woodbury Scholarship (2026-2027)",
+    result:
+      "GPA 3.88 - Bob and Karen Woodbury Scholarship (2026-2027), Louis F. Moench Scholarship (2023-2027), Barbara L. Tanner Community Engaged Learning Scholarship (2024-2025), EAST Dean's Scholarship (every semester since Aug 2025)",
   },
 ];
 
@@ -242,6 +252,11 @@ export const timeline: readonly TimelineItem[] = [
     body: "Started a B.S. in Computer Science with a Data Analytics minor.",
   },
   {
+    year: "2023-2027",
+    title: "Louis F. Moench Scholarship",
+    body: "Renewable scholarship held across all four years of the degree.",
+  },
+  {
     year: "Jan 2023",
     title: "Computer Lab Assistant, Weber State University",
     body: "Technical support for students and staff across Windows and macOS labs, hardware troubleshooting, and day-to-day lab operations.",
@@ -250,6 +265,11 @@ export const timeline: readonly TimelineItem[] = [
     year: "2024",
     title: "Personal data projects",
     body: "Built a movie recommendation engine (KNN + NLP over 9,000+ titles) and an airline operations analytics pipeline in Power BI, outside of coursework.",
+  },
+  {
+    year: "Apr 2025",
+    title: "Barbara L. Tanner Community Engaged Learning Scholarship",
+    body: "Awarded for the 2024-2025 academic year.",
   },
   {
     year: "Jun 2025",
@@ -262,6 +282,11 @@ export const timeline: readonly TimelineItem[] = [
     body: "Managing departmental website content, budget records, and event and faculty operations logistics for the College of Applied Science & Technology.",
   },
   {
+    year: "Aug 2025",
+    title: "EAST Dean's Scholarship",
+    body: "Awarded for dedication and hard work in the College of Applied Science & Technology. Renewed every semester since.",
+  },
+  {
     year: "May 2026",
     title: "Student Data Analyst, Weber State University",
     body: "Turning stakeholder reporting needs into SQL queries, Tableau dashboards, and Argos reports, and optimizing existing queries and dashboards for performance.",
@@ -272,19 +297,19 @@ export const timeline: readonly TimelineItem[] = [
     body: "Moved into production data warehousing: SQL Server, SSIS ETL, and Power BI/DAX reporting on live fleet data, plus a Python automation pipeline pulling EV charging data into the warehouse.",
   },
   {
-    year: "2026",
-    title: "ObfuScope research with a Weber State CS professor",
+    year: "Jul 2026",
+    title: "Started ObfuScope research with a Weber State CS professor",
     body: "Applied ML research fingerprinting the obfuscation toolchain behind a malware sample. Submitted to ACM Transactions on Privacy and Security.",
   },
   {
-    year: "2026",
+    year: "Jun 2026",
     title: "Bob and Karen Woodbury Scholarship",
     body: "Awarded for the 2026-2027 academic year.",
   },
   {
     year: "Dec 2026",
-    title: "Graduating, then a funded MS",
-    body: "Finishing the degree with a 3.87 GPA while reaching out to professors for research-assistantship fit ahead of a funded MS in Data Science or Computer Science starting Fall 2027, and exploring staying on at UTA via OPT in the meantime.",
+    title: "Graduating, Then a masters degree",
+    body: "Finishing the degree with a 3.88 GPA while reaching out to professors for research-assistantship fit ahead of a funded MS in Data Science or Computer Science starting Fall 2027, and exploring staying on at UTA via OPT in the meantime.",
   },
 ] as const;
 
@@ -380,7 +405,40 @@ export const workflowStages: readonly WorkflowStage[] = [
 export const workflowModelCloser =
   "Then it loops. Shipping a dashboard produces the next round of questions people ask about it, which is where stage one gets its material.";
 
-export const trainings: readonly TrainingCard[] = [];
+export const trainings: readonly TrainingCard[] = [
+  {
+    title: "Data Science Essentials with Python",
+    provider: "Cisco Networking Academy",
+    period: "May 2026",
+    connectsTo: "Python, data analysis fundamentals",
+    whyItMatters:
+      "Reinforced the Python and data analysis fundamentals behind the personal projects and the UTA/OSSA work.",
+  },
+  {
+    title: "GenAI Powered Data Analytics",
+    provider: "Tata Group (Forage job simulation)",
+    period: "Feb 2026",
+    connectsTo: "Applied AI in a data analytics workflow",
+    whyItMatters:
+      "Hands-on exposure to using generative AI tools inside a data analytics workflow, rather than as a separate tool.",
+  },
+  {
+    title: "Data Analytics",
+    provider: "Deloitte (Forage job simulation)",
+    period: "Feb 2026",
+    connectsTo: "Power BI, data analytics workflow",
+    whyItMatters:
+      "Practical data analytics workflow using Power BI, aligned with the BI reporting work now done at UTA and Weber State.",
+  },
+  {
+    title: "Quantitative Research",
+    provider: "J.P. Morgan (Forage job simulation)",
+    period: "Feb 2026",
+    connectsTo: "Statistics, research methodology",
+    whyItMatters:
+      "Exposure to quantitative research methodology and statistics applied to real-world data, alongside the ObfuScope research.",
+  },
+];
 
 export const skillGroups: readonly SkillGroup[] = [
   {

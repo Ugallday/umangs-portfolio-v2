@@ -38,13 +38,13 @@ export function FeaturedProjects({
             Three systems, and what each one had to get right
           </p>
           <h2 className="text-text-primary max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Money, compliance, and goods that have to cross a border.
+            Fleet data, vendor automation, and a question nobody had answered yet.
           </h2>
         </div>
         <p className="text-text-muted max-w-sm text-sm leading-7">
-          NiryatHub takes a Nepali producer from a spoken sentence to a filed invoice — there is a
-          walkthrough to play. Under it, the VAT ledger a travel agency keeps its books on, and
-          Travora, where the hard part was making a correct record cheap enough to bother entering.
+          The UTA fleet warehouse is the flagship - a star schema and dashboard staff actually use.
+          Under it, the EV automation that feeds it from two vendor platforms, and ObfuScope, the
+          research asking which obfuscator produced a malware sample, not just whether one did.
         </p>
       </div>
 

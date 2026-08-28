@@ -8,7 +8,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 **Live:** [www.umanggupta.com.np](https://www.umanggupta.com.np)
-**Author:** [Umang Gupta](https://www.linkedin.com/in/ug-umang-gupta) · [GitHub](https://github.com/Ugallday)
+**Author:** [Umang Gupta](https://www.linkedin.com/in/umangupta1) · [GitHub](https://github.com/Ugallday)
 
 ---
 

@@ -15,12 +15,10 @@ export const metadata: Metadata = buildSectionMetadata({
 });
 
 /**
- * The project the page closes on. Not the flagship — the flagship is NSA
- * Travels, and this page is already about the agency, so closing on it would
- * be circular. It closes on the engineering artifact the degree and the
- * agency jointly produced.
+ * The project the page closes on - the flagship, since the timeline above it
+ * leads directly into the internship where this project was built.
  */
-const CLOSING_PROJECT_SLUG = "vat-billing-system";
+const CLOSING_PROJECT_SLUG = "uta-fleet-availability-warehouse";
 
 export default async function BackgroundPage(): Promise<React.JSX.Element> {
   const project = await getProject(CLOSING_PROJECT_SLUG);
