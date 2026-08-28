@@ -6,8 +6,7 @@ import { motion } from "motion/react";
 import { cn } from "@/core/utils/cn";
 
 /**
- * Adapted from a shadcn-style community snippet. Three changes from the
- * original:
+ * Adapted from a shadcn-style community snippet. Changes from the original:
  *  - `cn` comes from this project's actual utils path (there is no
  *    `@/lib/utils` alias here).
  *  - Color is set via the `text-text-primary` design token instead of
@@ -16,13 +15,17 @@ import { cn } from "@/core/utils/cn";
  *    `dark:` class variant, so the original color classes would never
  *    actually respond to a theme change here.
  *  - The per-path animation duration (`20 + Math.random() * 10`) is
- *    memoized instead of computed inline during render. The original called
- *    `Math.random()` fresh on every render, so any re-render of this
- *    component - a parent re-render, a theme toggle, anything - handed
- *    Motion a brand-new `transition` object per path and caused it to
- *    retarget mid-animation, which is visible as a flicker/jump. Computing
- *    it once via `useMemo` keeps the same duration for the component's
- *    whole mounted lifetime.
+ *    memoized instead of computed inline during render, so a re-render
+ *    doesn't hand Motion a new random duration and cause it to retarget
+ *    mid-animation.
+ *  - Animating only `opacity`, not `pathLength`/`pathOffset`. Those two
+ *    require Motion to recompute each path's stroke-dasharray/dashoffset in
+ *    JS on every frame - not GPU-compositable the way opacity is - which
+ *    got visibly expensive across 36 simultaneous paths on a desktop-sized
+ *    viewport specifically (more pixels to rasterize per frame than on a
+ *    phone screen), causing real stutter/flicker on desktop Chrome/Edge
+ *    while the same code ran fine on mobile. Cut the path count too, since
+ *    36 concurrent animated elements was the other lever on the same cost.
  */
 export function FloatingPathsBackground({
   position,
@@ -35,7 +38,7 @@ export function FloatingPathsBackground({
 }) {
   const paths = useMemo(
     () =>
-      Array.from({ length: 36 }, (_, i) => ({
+      Array.from({ length: 16 }, (_, i) => ({
         id: i,
         d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${
           189 + i * 6
@@ -44,7 +47,7 @@ export function FloatingPathsBackground({
         } ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${
           875 - i * 6
         }`,
-        width: 0.5 + i * 0.03,
+        width: 0.5 + i * 0.05,
         duration: 20 + Math.random() * 10,
       })),
     [position],
@@ -60,17 +63,13 @@ export function FloatingPathsBackground({
               d={path.d}
               stroke="currentColor"
               strokeWidth={path.width}
-              strokeOpacity={0.1 + path.id * 0.03}
-              initial={{ pathLength: 0.3, opacity: 0.6 }}
-              animate={{
-                pathLength: [0.3, 1, 0.3],
-                opacity: [0.3, 0.6, 0.3],
-                pathOffset: [0, 1, 0],
-              }}
+              strokeOpacity={0.15 + path.id * 0.04}
+              initial={{ opacity: 0.3 }}
+              animate={{ opacity: [0.15, 0.4, 0.15] }}
               transition={{
                 duration: path.duration,
                 repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
+                ease: "easeInOut",
               }}
             />
           ))}
