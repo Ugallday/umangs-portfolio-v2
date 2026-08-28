@@ -4,7 +4,6 @@ import { Github, Linkedin } from "lucide-react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { FloatingPathsBackground } from "@/components/ui/floating-paths";
-import { MorphicBackground } from "@/components/ui/morphic-background";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { MarqueeColumn } from "@/components/motion/marquee-columns";
 import { siteConfig } from "@/config/site";
@@ -687,83 +686,76 @@ export function ToolkitSection({ headingLevel, standalone }: SectionProps = {}):
 
 export function ContactSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
   return (
-    <div className="relative">
-      <MorphicBackground />
-      <SectionShell
-        id="contact"
-        eyebrow="Contact"
-        title="Reach out about data analytics, BI reporting, or applied ML research."
-        description="The closing line below is the honest one: this is my first chapter, not the finished book."
-        {...(headingLevel ? { headingLevel } : {})}
-        {...(standalone ? { standalone } : {})}
-      >
-        {/* Above the channels on purpose. Someone who has scrolled to /contact
+    <SectionShell
+      id="contact"
+      eyebrow="Contact"
+      title="Reach out about data analytics, BI reporting, or applied ML research."
+      description="The closing line below is the honest one: this is my first chapter, not the finished book."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
+    >
+      {/* Above the channels on purpose. Someone who has scrolled to /contact
           is deciding whether to act; the CV is the thing they most often want
           in hand before they do. */}
-        <FoldReveal>
-          <div className="fold-panel mb-5 flex flex-wrap items-center justify-between gap-5 rounded-3xl p-5 sm:p-6">
-            <div>
-              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Résumé</p>
-              <p className="text-text-primary mt-2 text-lg leading-7 font-medium">
-                The one-page version, if that is what you need.
-              </p>
-              <p className="text-text-secondary mt-1 text-sm leading-6">
-                Experience, selected projects, education and training — downloadable as a PDF.
-              </p>
-            </div>
-            <Link href="/resume" className={actionClass({ size: "md" })}>
-              View the résumé
-            </Link>
+      <FoldReveal>
+        <div className="fold-panel mb-5 flex flex-wrap items-center justify-between gap-5 rounded-3xl p-5 sm:p-6">
+          <div>
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Résumé</p>
+            <p className="text-text-primary mt-2 text-lg leading-7 font-medium">
+              The one-page version, if that is what you need.
+            </p>
+            <p className="text-text-secondary mt-1 text-sm leading-6">
+              Experience, selected projects, education and training — downloadable as a PDF.
+            </p>
           </div>
-        </FoldReveal>
+          <Link href="/resume" className={actionClass({ size: "md" })}>
+            View the résumé
+          </Link>
+        </div>
+      </FoldReveal>
 
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
-          <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Contact links</p>
-            <div className="mt-5 grid gap-3">
-              {contactLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="border-border-subtle bg-surface-base hover:border-border-default rounded-2xl border p-4 transition"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-text-primary font-medium">{link.label}</p>
-                      <p className="text-text-muted mt-1 text-sm leading-6">{link.description}</p>
-                    </div>
-                    <span className="text-accent-default text-sm">Open</span>
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+        <div className="fold-panel rounded-3xl p-5 sm:p-6">
+          <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Contact links</p>
+          <div className="mt-5 grid gap-3">
+            {contactLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="border-border-subtle bg-surface-base hover:border-border-default rounded-2xl border p-4 transition"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-text-primary font-medium">{link.label}</p>
+                    <p className="text-text-muted mt-1 text-sm leading-6">{link.description}</p>
                   </div>
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div className="fold-panel rounded-3xl p-5 sm:p-6">
-              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
-                Closing statement
-              </p>
-              <p className="text-text-secondary mt-3 text-lg leading-8">{footerClosingStatement}</p>
-            </div>
-            <div className="fold-panel rounded-3xl p-5 sm:p-6">
-              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
-                What I'm building
-              </p>
-              <ul className="text-text-secondary mt-4 grid gap-2 text-sm leading-7">
-                {currentFocus.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span
-                      className="bg-accent-default mt-2 h-1.5 w-1.5 rounded-full"
-                      aria-hidden="true"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                  <span className="text-accent-default text-sm">Open</span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
-      </SectionShell>
-    </div>
+        <div className="grid gap-4">
+          <div className="fold-panel rounded-3xl p-5 sm:p-6">
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Closing statement</p>
+            <p className="text-text-secondary mt-3 text-lg leading-8">{footerClosingStatement}</p>
+          </div>
+          <div className="fold-panel rounded-3xl p-5 sm:p-6">
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">What I'm building</p>
+            <ul className="text-text-secondary mt-4 grid gap-2 text-sm leading-7">
+              {currentFocus.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span
+                    className="bg-accent-default mt-2 h-1.5 w-1.5 rounded-full"
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </SectionShell>
   );
 }
