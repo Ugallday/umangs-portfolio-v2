@@ -4,7 +4,6 @@ import { FoldReveal } from "@/components/motion/fold-reveal";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { actionClass } from "@/components/ui/action";
 import { FoldToggle } from "@/components/ui/fold-toggle";
-import { InstitutionLogo } from "@/components/ui/institution-logo";
 import { Pill } from "@/components/ui/pill";
 import { TechBadge } from "@/components/ui/tech-badge";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
@@ -14,10 +13,10 @@ import {
   backgroundSpineLead,
   currentStatusSummary,
   curriculum,
-  timeline,
+  futureGoals,
+  futureGoalsLead,
   trainings,
 } from "@/features/portfolio/content";
-import { institutionLogos } from "@/features/portfolio/institution-logos";
 
 /**
  * Experience and education, merged.
@@ -59,12 +58,12 @@ export function BackgroundSection({
             <article className="fold-panel fold-hover rounded-3xl p-5 sm:p-6">
               <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Before</p>
               <h2 className="text-text-primary mt-3 text-lg font-semibold tracking-tight">
-                The manual state
+                Manual and disconnected
               </h2>
               <p className="text-text-secondary mt-3 leading-7">
-                Bookkeeping lived in Excel sheets and paper ledgers. Customer records were
-                scattered, ticket tracking was manual, and there was no cloud backup — one fragile
-                path for every record the business had.
+                Legacy reporting split across JDE and EAM with no shared data dictionary, a
+                scheduled job that had silently never run, and Argos reports built ad hoc with no
+                warehouse behind them.
               </p>
             </article>
             <article className="fold-panel fold-hover rounded-3xl p-5 sm:p-6">
@@ -73,9 +72,9 @@ export function BackgroundSection({
                 What changed
               </h2>
               <p className="text-text-secondary mt-3 leading-7">
-                A custom accounting system, cloud storage and backup, customer and B2B records, a
-                public company site, and a workflow that lets a small team handle more without
-                proportionally more effort.
+                A star-schema warehouse with SSIS ETL, validated DAX measures, and a Power BI
+                dashboard operations staff actually check - plus automation pulling in data that
+                used to require a manual export.
               </p>
             </article>
           </div>
@@ -87,16 +86,17 @@ export function BackgroundSection({
       <section className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
           <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
-            The record
+            What's next
           </p>
           <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance">
-            Everything, in the order it happened.
+            Where this is headed.
           </h2>
+          <p className="text-text-muted text-sm leading-7">{futureGoalsLead}</p>
         </div>
         <div>
           <ScrollProgressTrack>
             <div className="grid gap-4">
-              {timeline.map((item, index) => (
+              {futureGoals.map((item, index) => (
                 <details
                   key={item.title}
                   className="group fold-panel fold-hover rounded-3xl p-5 sm:p-6"
@@ -113,10 +113,6 @@ export function BackgroundSection({
                           {item.title}
                         </h3>
                       </div>
-                      {(() => {
-                        const logo = item.logo ? institutionLogos[item.logo] : undefined;
-                        return logo ? <InstitutionLogo src={logo.src} alt={logo.alt} /> : null;
-                      })()}
                       <FoldToggle />
                     </div>
                   </summary>
@@ -196,12 +192,6 @@ export function BackgroundSection({
             </p>
             <p className="text-text-secondary mt-2 text-sm leading-7">
               {academicPerformanceSummary}
-            </p>
-          </div>
-          <div>
-            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Workshops</p>
-            <p className="text-text-secondary mt-2 text-sm leading-7">
-              UI/UX (2023) · WordPress (2024) · Quality Assurance (2026)
             </p>
           </div>
         </div>

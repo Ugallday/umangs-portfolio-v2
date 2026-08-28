@@ -217,6 +217,15 @@ export const resumeProjects: readonly ResumeProject[] = [
       "Power BI analytics pipeline examining flight delay patterns across routes and carriers.",
     ],
   },
+  {
+    name: "Dillard's Illinois Retail Performance Analysis",
+    slug: "dillards-illinois-analysis",
+    period: "2024 - 2025",
+    bullets: [
+      "Group BI project analyzing Dillard's profitability across three Illinois stores (2014-2016) in Power BI, ending in a strategic recommendation rather than just a dashboard.",
+      "Projected $1.65M-$1.7M in annual profitability improvement from a recommendation to close underperforming leased departments and evaluate one store for closure.",
+    ],
+  },
 ];
 
 export const resumeResearch: readonly ResumeProject[] = [
@@ -310,6 +319,32 @@ export const timeline: readonly TimelineItem[] = [
     year: "Dec 2026",
     title: "Graduating, Then a masters degree",
     body: "Finishing the degree with a 3.88 GPA while reaching out to professors for research-assistantship fit ahead of a funded MS in Data Science or Computer Science starting Fall 2027, and exploring staying on at UTA via OPT in the meantime.",
+  },
+] as const;
+
+export const futureGoalsLead =
+  "I already have industry experience - two analyst roles and a production data warehouse. What I want next is research experience to go with it.";
+
+export const futureGoals: readonly TimelineItem[] = [
+  {
+    year: "Fall 2027",
+    title: "Funded MS in Data Science",
+    body: "Making impactful research progress in big data, artificial intelligence, and robotics - not just completing coursework.",
+  },
+  {
+    year: "During the MS",
+    title: "Building toward a PhD",
+    body: "Using the master's to establish the research track record a PhD program - and a research-scientist career - actually requires.",
+  },
+  {
+    year: "Long-term",
+    title: "PhD",
+    body: "Continuing into a PhD to go deeper on the research direction the MS opens up, rather than stopping at a terminal master's.",
+  },
+  {
+    year: "Career",
+    title: "Data engineer, data scientist, analyst, governance, or research scientist",
+    body: "Not narrowing to one title yet - the throughline is combining the industry experience already in hand with the research experience still being built.",
   },
 ] as const;
 

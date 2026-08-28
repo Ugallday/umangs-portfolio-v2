@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
+import { FloatingPathsBackground } from "@/components/ui/floating-paths";
+import { MorphicBackground } from "@/components/ui/morphic-background";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { MarqueeColumn } from "@/components/motion/marquee-columns";
 import { siteConfig } from "@/config/site";
@@ -283,12 +285,13 @@ const heroSocials = [
 export function HeroSection(): React.JSX.Element {
   return (
     <section className="border-border-subtle relative overflow-hidden border-b">
-      {/* Flat ground, no ambient 3D layer — depth comes from typography and
-          whitespace, not a decorative background object. */}
       {/* items-center, not items-end: bottom-aligning two columns of different
           heights left the shorter one hanging off the baseline. Centring them
           balances the pair without touching either column's own spacing. */}
-      <div className="mx-auto grid min-h-[100svh] w-full max-w-7xl gap-12 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-center">
+      <FloatingPathsBackground
+        position={-1}
+        className="mx-auto grid min-h-[100svh] w-full max-w-7xl gap-12 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-center"
+      >
         <div className="flex flex-col justify-between gap-10 pt-6 pb-8 xl:pt-12 xl:pb-14">
           {/* A meta row, not a banner — a second <header> here muddies the
               landmark structure alongside the real site header. */}
@@ -327,15 +330,15 @@ export function HeroSection(): React.JSX.Element {
             <div className="border-border-subtle text-text-secondary grid gap-3 border-t pt-6 text-sm sm:grid-cols-3">
               <div>
                 <p className="text-text-muted">Now</p>
-                <p className="mt-1">Preparing US MS CS applications</p>
+                <p className="mt-1">Applying to funded MS programs in Data Science and CS</p>
               </div>
               <div>
                 <p className="text-text-muted">Focus</p>
-                <p className="mt-1">Correctness, PostgreSQL, systems that run offline</p>
+                <p className="mt-1">Data that's correct, dashboards people actually trust</p>
               </div>
               <div>
                 <p className="text-text-muted">Working on</p>
-                <p className="mt-1">Transport records and hospitality concepts</p>
+                <p className="mt-1">The UTA fleet warehouse, EV automation, and ObfuScope</p>
               </div>
             </div>
           </FoldReveal>
@@ -378,7 +381,7 @@ export function HeroSection(): React.JSX.Element {
             </div>
           </aside>
         </FoldReveal>
-      </div>
+      </FloatingPathsBackground>
     </section>
   );
 }
@@ -684,76 +687,83 @@ export function ToolkitSection({ headingLevel, standalone }: SectionProps = {}):
 
 export function ContactSection({ headingLevel, standalone }: SectionProps = {}): React.JSX.Element {
   return (
-    <SectionShell
-      id="contact"
-      eyebrow="Contact"
-      title="Reach out if you want to talk systems, travel, or applied product work in Nepal."
-      description="The closing line below is the honest one: this is my first chapter, not the finished book."
-      {...(headingLevel ? { headingLevel } : {})}
-      {...(standalone ? { standalone } : {})}
-    >
-      {/* Above the channels on purpose. Someone who has scrolled to /contact
+    <div className="relative">
+      <MorphicBackground />
+      <SectionShell
+        id="contact"
+        eyebrow="Contact"
+        title="Reach out about data analytics, BI reporting, or applied ML research."
+        description="The closing line below is the honest one: this is my first chapter, not the finished book."
+        {...(headingLevel ? { headingLevel } : {})}
+        {...(standalone ? { standalone } : {})}
+      >
+        {/* Above the channels on purpose. Someone who has scrolled to /contact
           is deciding whether to act; the CV is the thing they most often want
           in hand before they do. */}
-      <FoldReveal>
-        <div className="fold-panel mb-5 flex flex-wrap items-center justify-between gap-5 rounded-3xl p-5 sm:p-6">
-          <div>
-            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Résumé</p>
-            <p className="text-text-primary mt-2 text-lg leading-7 font-medium">
-              The one-page version, if that is what you need.
-            </p>
-            <p className="text-text-secondary mt-1 text-sm leading-6">
-              Experience, selected projects, education and training — downloadable as a PDF.
-            </p>
+        <FoldReveal>
+          <div className="fold-panel mb-5 flex flex-wrap items-center justify-between gap-5 rounded-3xl p-5 sm:p-6">
+            <div>
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Résumé</p>
+              <p className="text-text-primary mt-2 text-lg leading-7 font-medium">
+                The one-page version, if that is what you need.
+              </p>
+              <p className="text-text-secondary mt-1 text-sm leading-6">
+                Experience, selected projects, education and training — downloadable as a PDF.
+              </p>
+            </div>
+            <Link href="/resume" className={actionClass({ size: "md" })}>
+              View the résumé
+            </Link>
           </div>
-          <Link href="/resume" className={actionClass({ size: "md" })}>
-            View the résumé
-          </Link>
-        </div>
-      </FoldReveal>
+        </FoldReveal>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
-        <div className="fold-panel rounded-3xl p-5 sm:p-6">
-          <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Contact links</p>
-          <div className="mt-5 grid gap-3">
-            {contactLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="border-border-subtle bg-surface-base hover:border-border-default rounded-2xl border p-4 transition"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-text-primary font-medium">{link.label}</p>
-                    <p className="text-text-muted mt-1 text-sm leading-6">{link.description}</p>
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+          <div className="fold-panel rounded-3xl p-5 sm:p-6">
+            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Contact links</p>
+            <div className="mt-5 grid gap-3">
+              {contactLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="border-border-subtle bg-surface-base hover:border-border-default rounded-2xl border p-4 transition"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-text-primary font-medium">{link.label}</p>
+                      <p className="text-text-muted mt-1 text-sm leading-6">{link.description}</p>
+                    </div>
+                    <span className="text-accent-default text-sm">Open</span>
                   </div>
-                  <span className="text-accent-default text-sm">Open</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Closing statement</p>
-            <p className="text-text-secondary mt-3 text-lg leading-8">{footerClosingStatement}</p>
-          </div>
-          <div className="fold-panel rounded-3xl p-5 sm:p-6">
-            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">What I'm building</p>
-            <ul className="text-text-secondary mt-4 grid gap-2 text-sm leading-7">
-              {currentFocus.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span
-                    className="bg-accent-default mt-2 h-1.5 w-1.5 rounded-full"
-                    aria-hidden="true"
-                  />
-                  <span>{item}</span>
-                </li>
+                </a>
               ))}
-            </ul>
+            </div>
+          </div>
+          <div className="grid gap-4">
+            <div className="fold-panel rounded-3xl p-5 sm:p-6">
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
+                Closing statement
+              </p>
+              <p className="text-text-secondary mt-3 text-lg leading-8">{footerClosingStatement}</p>
+            </div>
+            <div className="fold-panel rounded-3xl p-5 sm:p-6">
+              <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
+                What I'm building
+              </p>
+              <ul className="text-text-secondary mt-4 grid gap-2 text-sm leading-7">
+                {currentFocus.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      className="bg-accent-default mt-2 h-1.5 w-1.5 rounded-full"
+                      aria-hidden="true"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </SectionShell>
+      </SectionShell>
+    </div>
   );
 }
