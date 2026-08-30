@@ -21,7 +21,7 @@ files as what's currently live, not always perfectly in sync with this doc.
 | Email      | umanggupta.ug2004@gmail.com                                                        |
 
 **Central message:** the full arc - hands-on production data work now,
-research alongside it, and a funded grad-school track next.
+research alongside it, and a grad-school track next.
 
 ---
 
@@ -94,7 +94,7 @@ Advanced SQL, CS 4890 (Senior Project/capstone).
 
 ## 6. Grad school / research angle
 
-Funded MS in Data Science or Computer Science, Fall 2027 target. Research
+MS in Data Science or Computer Science, Fall 2027 target. Research
 interests grounded in the ObfuScope work (applied ML, security-adjacent data
 analysis). Actively reaching out to professors for research-assistantship
 fit; also exploring staying at UTA via OPT after December 2026 graduation.

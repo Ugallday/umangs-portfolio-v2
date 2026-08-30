@@ -330,7 +330,7 @@ export function HeroSection(): React.JSX.Element {
             <div className="border-border-subtle text-text-secondary grid gap-3 border-t pt-6 text-sm sm:grid-cols-3">
               <div>
                 <p className="text-text-muted">Now</p>
-                <p className="mt-1">Applying to funded MS programs in Data Science and CS</p>
+                <p className="mt-1">Applying to MS programs in Data Science and CS</p>
               </div>
               <div>
                 <p className="text-text-muted">Focus</p>
@@ -535,7 +535,7 @@ export function ProjectsSection({
   const sub = cardLevel(headingLevel);
   return (
     <div className="relative">
-      <AsciiArt className="pointer-events-none absolute inset-0 opacity-15" />
+      <AsciiArt className="pointer-events-none absolute inset-0 opacity-40" />
       <SectionShell
         id="projects"
         eyebrow="Projects"

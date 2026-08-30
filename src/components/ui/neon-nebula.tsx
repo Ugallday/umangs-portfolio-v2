@@ -1,14 +1,14 @@
 "use client";
 
 /**
- * AsciiArt - "Neon Nebula", made with the 21st.dev ASCII editor and baked
- * to its exact rendered output (looping video + poster). Zero dependencies:
- * one <video> that fills its parent. Drop it behind or inside content:
- * <div className="relative h-96"><AsciiArt className="absolute inset-0" /></div>
+ * AsciiArt - "Neon Nebula", made with the 21st.dev ASCII editor.
  *
- * Unmodified from the pasted snippet - no project-specific token/import
- * fixes were needed here, since it's just a self-contained <video> with no
- * external color, utility, or alias dependencies.
+ * Originally referenced 21st.dev's own CDN (assets.21st.dev) directly.
+ * This site's CSP (default-src 'self') correctly blocked that as an
+ * untrusted third-party origin - so the video and poster were downloaded
+ * once and are now self-hosted under /public/videos/, served same-origin.
+ * No CSP change needed, and it no longer depends on a third-party asset
+ * host that could rename or remove the file without notice.
  *
  * Remix the source recipe (styles, animation, palette) in the editor:
  * https://21st.dev/community/ascii/editor?from=0d9813a1-8a52-4899-912d-4975bc123c7c
@@ -17,8 +17,8 @@ export function AsciiArt({ className }: { className?: string }) {
   return (
     <video
       className={className}
-      src="https://assets.21st.dev/ascii-recipes/videos/user_3GfKZHMVrEGaZQLVz5Qufduwjfk/b1e07644-b9c3-4bf3-a409-44a1e95759db.mp4"
-      poster="https://assets.21st.dev/ascii-recipes/thumbnails/user_3GfKZHMVrEGaZQLVz5Qufduwjfk/5a2bb8d2-7315-4c9d-a2ff-0b1bc615c76c.webp"
+      src="/videos/neon-nebula.mp4"
+      poster="/videos/neon-nebula-poster.webp"
       autoPlay
       loop
       muted

@@ -118,7 +118,7 @@ export interface ResumeEducationEntry {
 export const resumeTitle = "Data Analyst - data warehousing, BI reporting, applied ML";
 
 export const resumeSummary =
-  "Final-year Computer Science student (Data Analytics minor) at Weber State University, splitting time between a Data Analysis and Research internship at the Utah Transit Authority and a student analyst role at Weber State's Office of Student Success Analytics. Work spans SQL Server data warehousing, SSIS ETL, Power BI/DAX reporting, Python automation, and applied ML research - heading into a funded MS in Data Science or Computer Science in Fall 2027.";
+  "Final-year Computer Science student (Data Analytics minor) at Weber State University, splitting time between a Data Analysis and Research internship at the Utah Transit Authority and a student analyst role at Weber State's Office of Student Success Analytics. Work spans SQL Server data warehousing, SSIS ETL, Power BI/DAX reporting, Python automation, and applied ML research - heading into an MS in Data Science or Computer Science in Fall 2027.";
 
 export const resumeRoles: readonly ResumeRole[] = [
   {
@@ -327,17 +327,17 @@ export const timeline: readonly TimelineItem[] = [
   {
     year: "Dec 2026",
     title: "Graduating, Then a masters degree",
-    body: "Finishing the degree with a 3.88 GPA while reaching out to professors for research-assistantship fit ahead of a funded MS in Data Science or Computer Science starting Fall 2027, and exploring staying on at UTA via OPT in the meantime.",
+    body: "Finishing the degree with a 3.88 GPA while reaching out to professors for research-assistantship fit ahead of an MS in Data Science or Computer Science starting Fall 2027, and exploring staying on at UTA via OPT in the meantime.",
   },
 ] as const;
 
 export const futureGoalsLead =
-  "I already have industry experience - two analyst roles and a production data warehouse. What I want next is research experience to go with it.";
+  "I became a data analyst before I set out to - OSSA needed someone who could write SQL, and that turned into UTA needing someone who could build a warehouse. Both roles taught me things research alone doesn't: what a query actually costs to run, how a pipeline breaks once it's in production, and what a stakeholder does with a number once it's correct. I don't think of that as a detour from data science and data engineering - it's the stepping stone into them. I already have the industry experience. What I want next is the research experience to go with it, on the way to data science, data engineering, and eventually the kind of research a PhD makes room for.";
 
 export const futureGoals: readonly TimelineItem[] = [
   {
     year: "Fall 2027",
-    title: "Funded MS in Data Science",
+    title: "MS in Data Science",
     body: "Making impactful research progress in big data, artificial intelligence, and robotics - not just completing coursework.",
   },
   {
@@ -654,5 +654,5 @@ export const currentFocus = [
   "DAX and Power BI reporting for live operational dashboards",
   "Applied ML - feature engineering and evaluation protocol design",
   "SQL practice - window functions, CTEs, aggregation patterns",
-  "Grad school outreach for a funded MS in Data Science or Computer Science",
+  "Grad school outreach for an MS in Data Science or Computer Science",
 ] as const;

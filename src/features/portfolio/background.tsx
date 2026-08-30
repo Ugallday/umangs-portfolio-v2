@@ -91,9 +91,11 @@ export function BackgroundSection({
           <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance">
             Where this is headed.
           </h2>
-          <p className="text-text-muted text-sm leading-7">{futureGoalsLead}</p>
         </div>
-        <div>
+        <div className="space-y-8">
+          <p className="text-text-secondary max-w-2xl text-base leading-8 sm:text-lg">
+            {futureGoalsLead}
+          </p>
           <ScrollProgressTrack>
             <div className="grid gap-4">
               {futureGoals.map((item, index) => (
