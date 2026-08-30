@@ -5,7 +5,7 @@ export const siteConfig = {
   // enough to be worth indexing, but the domain argument belongs to the
   // case studies.
   description:
-    "Umang Gupta is a data analyst and final-year Computer Science student at Weber State University. Data warehousing, ETL, and BI reporting for real production systems - SQL Server, SSIS, Power BI, and Python - plus applied ML research, heading into a funded MS in Data Science or Computer Science.",
+    "Umang Gupta is a data analyst and final-year Computer Science student at Weber State University. Data warehousing, ETL, and BI reporting for real production systems - SQL Server, SSIS, Power BI, and Python - plus applied ML research, heading into a MS in Data Science or Computer Science.",
   url: "https://www.umanggupta.com.np",
   location: "Utah, US",
   author: {

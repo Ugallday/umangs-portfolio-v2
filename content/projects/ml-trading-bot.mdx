@@ -1,0 +1,72 @@
+---
+slug: ml-trading-bot
+title: "ML-Powered Trading Bot with Sentiment Analysis"
+summary: An algorithmic trading bot that uses FinBERT sentiment analysis on financial news to drive buy/sell decisions, backtested through the Alpaca API with automated risk management.
+phase: academic
+period: "2026"
+role: Co-developer
+organization: Personal project (with a collaborator)
+techStack:
+  - Python
+  - PyTorch
+  - FinBERT
+  - LumiBot
+  - Alpaca API
+metrics:
+  - value: "15%"
+    label: total return in the 2025-2026 backtest period
+  - value: "62%"
+    label: win rate across backtested trades
+  - value: "1.45"
+    label: Sharpe ratio for the backtested strategy
+links:
+  - label: GitHub
+    href: https://github.com/Ugallday/Machine-Learning-Trading-Bot
+visual:
+  eyebrow: Personal project - applied ML / NLP
+  label: Trading on what the news actually says
+  description: A bot that reads financial news sentiment with FinBERT and turns it into buy, sell, or hold decisions with automatic risk management.
+sections:
+  - id: hook
+    heading: Reading the news instead of just the chart
+    body: >-
+      Most simple trading bots work purely off price data - moving averages, technical indicators. This one adds a different signal entirely - it reads financial news headlines, scores their sentiment with a finance-tuned language model, and trades on that.
+    bullets:
+      - Uses FinBERT, a BERT-based model fine-tuned specifically for financial sentiment, to score news as positive, negative, or neutral with a confidence value.
+      - Built on LumiBot for the backtesting and trading engine, with the Alpaca API handling both the news feed and trade execution.
+      - Supports paper trading for safe testing before anything touches real capital.
+  - id: pipeline
+    heading: From headline to trade
+    body: >-
+      The pipeline pulls news, scores it, and only acts on genuinely high-confidence signals - a design choice meant to avoid trading on noise.
+    bullets:
+      - Fetches the past three days of news for a given symbol via the Alpaca News API.
+      - Runs headlines through FinBERT (PyTorch/Transformers) to get a sentiment label and a confidence score.
+      - Only triggers a buy on positive sentiment above 99.9% confidence, and only exits on negative sentiment at the same threshold - neutral or lower-confidence signals just hold.
+  - id: risk
+    heading: Risk management, not just a signal
+    body: >-
+      A sentiment signal alone isn't a trading strategy - the bot wraps every trade in automatic risk controls rather than relying on the signal being right every time.
+    bullets:
+      - Every buy is a bracket order with an automatic take-profit (+20%) and stop-loss (-5%) attached.
+      - Position sizing is dynamic, based on account equity and a configurable cash-at-risk percentage rather than a fixed share count.
+  - id: results
+    heading: Backtest results
+    body: >-
+      Backtested against Yahoo Finance historical data over the 2025-2026 period, starting from $100,000 in simulated capital.
+    bullets:
+      - 15% total return over the backtest period, versus $100,000 initial to $115,000 final portfolio value.
+      - 62% win rate across trades, with a maximum drawdown of -8% and a Sharpe ratio of 1.45.
+      - Results are from backtesting, not live trading - sentiment-driven signals can behave very differently in live, volatile markets.
+  - id: contribution
+    heading: My contribution
+    body: >-
+      Built together with a friend as a genuine collaboration, with contributions split roughly evenly across the ML/sentiment pipeline and the trading strategy/risk-management logic.
+    bullets:
+      - Worked across both the FinBERT sentiment pipeline and the LumiBot strategy engine, rather than owning one half exclusively.
+      - Republished here under my own account to accurately reflect that contribution, after the original repository's commit history didn't attribute it correctly.
+order: 7
+status: published
+---
+
+An algorithmic trading bot combining FinBERT financial-news sentiment analysis with automated, risk-managed trade execution - backtested at a 15% return and a 1.45 Sharpe ratio over 2025-2026.

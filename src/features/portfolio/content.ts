@@ -55,7 +55,7 @@ export interface ToolkitGroup {
 export const heroHeadline = "I build the data infrastructure behind real decisions.";
 
 export const heroSubheadline =
-  "Data warehousing, ETL, and BI reporting for production systems - plus applied ML research, heading into a funded MS in Data Science or Computer Science.";
+  "Data warehousing, ETL, and BI reporting for production systems, plus applied ML research, heading into a MS in Data Science or Computer Science.";
 
 export const heroProofPoints = ["SQL Server", "Power BI", "Python", "SSIS"] as const;
 
@@ -224,6 +224,15 @@ export const resumeProjects: readonly ResumeProject[] = [
     bullets: [
       "Group BI project analyzing Dillard's profitability across three Illinois stores (2014-2016) in Power BI, ending in a strategic recommendation rather than just a dashboard.",
       "Projected $1.65M-$1.7M in annual profitability improvement from a recommendation to close underperforming leased departments and evaluate one store for closure.",
+    ],
+  },
+  {
+    name: "ML-Powered Trading Bot with Sentiment Analysis",
+    slug: "ml-trading-bot",
+    period: "2026",
+    bullets: [
+      "Co-built an algorithmic trading bot using FinBERT to score financial news sentiment, trading only on high-confidence (>99.9%) signals with automated bracket-order risk management.",
+      "Backtested at a 15% return, 62% win rate, and 1.45 Sharpe ratio over a 2025-2026 period on historical data.",
     ],
   },
 ];
