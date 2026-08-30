@@ -202,6 +202,24 @@ export const resumeProjects: readonly ResumeProject[] = [
     ],
   },
   {
+    name: "ML-Powered Trading Bot with Sentiment Analysis",
+    slug: "ml-trading-bot",
+    period: "2026",
+    bullets: [
+      "Co-built an algorithmic trading bot using FinBERT to score financial news sentiment, trading only on high-confidence (>99.9%) signals with automated bracket-order risk management.",
+      "Backtested at a 15% return, 62% win rate, and 1.45 Sharpe ratio over a 2025-2026 period on historical data.",
+    ],
+  },
+  {
+    name: "Dillard's Illinois Retail Performance Analysis",
+    slug: "dillards-illinois-analysis",
+    period: "2024 - 2025",
+    bullets: [
+      "Group BI project analyzing Dillard's profitability across three Illinois stores (2014-2016) in Power BI, ending in a strategic recommendation rather than just a dashboard.",
+      "Projected $1.65M-$1.7M in annual profitability improvement from a recommendation to close underperforming leased departments and evaluate one store for closure.",
+    ],
+  },
+  {
     name: "Movie Recommendation Engine",
     slug: "movie-recommendation-engine",
     period: "2024",
@@ -215,24 +233,6 @@ export const resumeProjects: readonly ResumeProject[] = [
     period: "2024",
     bullets: [
       "Power BI analytics pipeline examining flight delay patterns across routes and carriers.",
-    ],
-  },
-  {
-    name: "Dillard's Illinois Retail Performance Analysis",
-    slug: "dillards-illinois-analysis",
-    period: "2024 - 2025",
-    bullets: [
-      "Group BI project analyzing Dillard's profitability across three Illinois stores (2014-2016) in Power BI, ending in a strategic recommendation rather than just a dashboard.",
-      "Projected $1.65M-$1.7M in annual profitability improvement from a recommendation to close underperforming leased departments and evaluate one store for closure.",
-    ],
-  },
-  {
-    name: "ML-Powered Trading Bot with Sentiment Analysis",
-    slug: "ml-trading-bot",
-    period: "2026",
-    bullets: [
-      "Co-built an algorithmic trading bot using FinBERT to score financial news sentiment, trading only on high-confidence (>99.9%) signals with automated bracket-order risk management.",
-      "Backtested at a 15% return, 62% win rate, and 1.45 Sharpe ratio over a 2025-2026 period on historical data.",
     ],
   },
 ];

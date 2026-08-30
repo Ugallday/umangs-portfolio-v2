@@ -42,9 +42,10 @@ export function FeaturedProjects({
           </h2>
         </div>
         <p className="text-text-muted max-w-sm text-sm leading-7">
-          The UTA fleet warehouse is the flagship - a star schema and dashboard staff actually use.
-          Under it, the EV automation that feeds it from two vendor platforms, and ObfuScope, the
-          research asking which obfuscator produced a malware sample, not just whether one did.
+          ObfuScope is the newest - research asking which obfuscator produced a malware sample, not
+          just whether one did. Alongside it, the UTA fleet warehouse, the flagship - a star schema
+          and dashboard staff actually use - and the EV automation that feeds it from two vendor
+          platforms.
         </p>
       </div>
 

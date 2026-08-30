@@ -8,15 +8,14 @@ export const revalidate = 3600;
 /**
  * The three projects the homepage leads with, below the hero, in this order.
  *
- * The UTA fleet availability warehouse leads because it's the most complete,
- * production-grade piece of work with the clearest before/after. EV fleet
- * automation and ObfuScope follow as the two projects that round out the
- * range - infrastructure automation and applied ML research.
+ * Ordered by date, most recent first - matching /projects and the résumé.
+ * ObfuScope leads (started Jul 2026), then the UTA fleet warehouse and EV
+ * automation, both ongoing since roughly mid-2026.
  */
 const FEATURED_SLUGS = [
+  "obfuscope",
   "uta-fleet-availability-warehouse",
   "ev-fleet-automation",
-  "obfuscope",
 ] as const;
 
 export default async function HomePage(): Promise<React.JSX.Element> {

@@ -4,6 +4,7 @@ import { Github, Linkedin } from "lucide-react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { FloatingPathsBackground } from "@/components/ui/floating-paths";
+import { AsciiArt } from "@/components/ui/neon-nebula";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { MarqueeColumn } from "@/components/motion/marquee-columns";
 import { siteConfig } from "@/config/site";
@@ -533,33 +534,36 @@ export function ProjectsSection({
 }): React.JSX.Element {
   const sub = cardLevel(headingLevel);
   return (
-    <SectionShell
-      id="projects"
-      eyebrow="Projects"
-      title="One flagship, the projects under it, and the research alongside both."
-      description="The UTA fleet availability data warehouse is the flagship - a star schema and Power BI dashboard staff at the Utah Transit Authority actually use day to day. Under it sit the EV fleet automation that feeds it, ObfuScope, the applied ML research on malware obfuscation, and personal projects built outside of coursework or an internship. I'm not presenting anything as more finished than it is."
-      {...(headingLevel ? { headingLevel } : {})}
-      {...(standalone ? { standalone } : {})}
-    >
-      <div className="grid gap-5 lg:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} as={sub} />
-        ))}
-      </div>
-      <div className="border-border-subtle bg-surface-overlay mt-8 rounded-3xl border p-5 sm:p-6">
-        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Academic practicals</p>
-        <p className="text-text-secondary mt-3 max-w-2xl text-sm leading-7">
-          I keep course practicals and lab work in the same portfolio because they show the same
-          pattern I use everywhere: find the problem, structure the system, and make the workflow
-          easier to use.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {currentFocus.slice(0, 3).map((item) => (
-            <Pill key={item}>{item}</Pill>
+    <div className="relative">
+      <AsciiArt className="pointer-events-none absolute inset-0 opacity-15" />
+      <SectionShell
+        id="projects"
+        eyebrow="Projects"
+        title="One flagship, the projects under it, and the research alongside both."
+        description="The UTA fleet availability data warehouse is the flagship - a star schema and Power BI dashboard staff at the Utah Transit Authority actually use day to day. Under it sit the EV fleet automation that feeds it, ObfuScope, the applied ML research on malware obfuscation, and personal projects built outside of coursework or an internship. I'm not presenting anything as more finished than it is."
+        {...(headingLevel ? { headingLevel } : {})}
+        {...(standalone ? { standalone } : {})}
+      >
+        <div className="grid gap-5 lg:grid-cols-2">
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} as={sub} />
           ))}
         </div>
-      </div>
-    </SectionShell>
+        <div className="border-border-subtle bg-surface-overlay mt-8 rounded-3xl border p-5 sm:p-6">
+          <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Academic practicals</p>
+          <p className="text-text-secondary mt-3 max-w-2xl text-sm leading-7">
+            I keep course practicals and lab work in the same portfolio because they show the same
+            pattern I use everywhere: find the problem, structure the system, and make the workflow
+            easier to use.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {currentFocus.slice(0, 3).map((item) => (
+              <Pill key={item}>{item}</Pill>
+            ))}
+          </div>
+        </div>
+      </SectionShell>
+    </div>
   );
 }
 
