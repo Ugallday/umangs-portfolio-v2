@@ -243,9 +243,10 @@ export const resumeResearch: readonly ResumeProject[] = [
     slug: "obfuscope",
     period: "Jul 2026 - present",
     bullets: [
-      "Research paper with a Weber State CS professor on fingerprinting the specific obfuscation toolchain used on a malware sample, rather than just detecting that obfuscation occurred.",
-      "Built a 61-feature static feature space across seven families (lexical, entropy, control-flow, literal, operator, API, obfuscation indicators) over 4,121 obfuscated artifacts from 102 malware samples.",
-      "Best model (Extra-Trees) reached 0.993 macro-F1 across grouped cross-validation, with 0.988 AUROC on an open-set novelty protocol (leave-one-obfuscation-out). Submitted to ACM Transactions on Privacy and Security.",
+      "Research Assistant on a Weber State CS project fingerprinting the specific obfuscation toolchain used on a malware sample, rather than just detecting that obfuscation occurred.",
+      "Reviewed and tested the project's code for completeness and reproducibility, then ran the experimental workflow on the Open Science Pool's HTCondor/DAGMan infrastructure.",
+      "Revised the paper for writing quality, technical accuracy, and logical flow, and conducted a literature review to strengthen the related-work and comparison sections.",
+      "Project results: best model (Extra-Trees) reached 0.993 macro-F1 across grouped cross-validation, with 0.988 AUROC on an open-set novelty protocol. Submitted to ACM Transactions on Privacy and Security.",
     ],
   },
 ];
@@ -338,7 +339,7 @@ export const futureGoals: readonly TimelineItem[] = [
   {
     year: "Fall 2027",
     title: "MS in Data Science",
-    body: "Making impactful research progress in big data, artificial intelligence, and robotics - not just completing coursework.",
+    body: "Making impactful research progress in big data, artificial intelligence, and robotics, beyond what the coursework alone covers.",
   },
   {
     year: "During the MS",
@@ -401,53 +402,6 @@ export const curriculum: readonly SemesterNode[] = [
     outcome: "Progress reports on the Yard Management data warehouse and EV bus automation work.",
   },
 ] as const;
-
-export interface WorkflowStage {
-  readonly name: string;
-  /** The half a model can take a first pass at. */
-  readonly drafted: string;
-  /** The half that does not transfer to a tool. */
-  readonly decided: string;
-}
-
-export const workflowModelLead =
-  "Six stages run on every report or pipeline, and each splits the same way. Everything left of the line is a first pass I might ask a tool for. Everything right of it is a decision I'm answerable for.";
-
-export const workflowStages: readonly WorkflowStage[] = [
-  {
-    name: "Understand",
-    drafted: "A first read of the source tables and what the stakeholder says they want.",
-    decided: "What the number actually needs to mean, and what grain it has to be correct at.",
-  },
-  {
-    name: "Query",
-    drafted: "A first-pass SQL query or DAX measure against the schema.",
-    decided: "Which joins are safe, and where a fan-out or a NULL will quietly corrupt the result.",
-  },
-  {
-    name: "Validate",
-    drafted: "A quick script or query to cross-check the result a second way.",
-    decided: "Whether the two numbers actually agree, and which one to trust if they don't.",
-  },
-  {
-    name: "Model",
-    drafted: "Boilerplate for a staging table, a dimension, or a Power Query transform.",
-    decided: "The schema itself - what's a fact, what's a dimension, and where the grain lives.",
-  },
-  {
-    name: "Document",
-    drafted: "A first-pass comment or README explaining what a procedure does.",
-    decided: "What's actually true about the pipeline, including the parts that still don't work.",
-  },
-  {
-    name: "Ship",
-    drafted: "Release notes and the mechanical half of deploying a change.",
-    decided: "Whether the report is ready to hand to someone who will act on it.",
-  },
-] as const;
-
-export const workflowModelCloser =
-  "Then it loops. Shipping a dashboard produces the next round of questions people ask about it, which is where stage one gets its material.";
 
 export const trainings: readonly TrainingCard[] = [
   {
@@ -544,7 +498,7 @@ export const workflowPractices: readonly WorkflowPractice[] = [
   },
   {
     title: "Model and report",
-    body: "Building the star schema or DAX measures the dashboard actually needs, not just what's easiest to derive from the source tables.",
+    body: "Building the star schema or DAX measures the dashboard actually needs, even when that takes more work than the easiest option the source tables would allow.",
   },
   {
     title: "Debug at the source",

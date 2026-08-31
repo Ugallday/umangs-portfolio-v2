@@ -29,7 +29,7 @@ sections:
   - id: hook
     heading: A dashboard people check every day
     body: >-
-      UTA runs an active bus fleet, and knowing which vehicles are actually available - not scheduled, not nominally in service, but available right now - is a question operations staff ask constantly. This is the data warehouse and dashboard built to answer it.
+      UTA runs an active bus fleet, and knowing which vehicles can actually go out right now is a question operations staff ask constantly. This is the data warehouse and dashboard built to answer it.
     bullets:
       - Star-schema warehouse in SQL Server, purpose-built for fleet availability reporting.
       - SSIS handles extract-transform-load from the source systems.
@@ -72,7 +72,7 @@ sections:
   - id: outcome
     heading: What it's used for
     body: >-
-      The dashboard is live and in use for day-to-day fleet availability decisions at UTA - not a proof of concept, a system operations staff actually open.
+      The dashboard is live, in production, and used for day-to-day fleet availability decisions at UTA.
     bullets:
       - Multi-page dashboard covering fleet-wide and per-vehicle availability.
       - Built to extend - the EV fleet automation project feeds the same warehouse.

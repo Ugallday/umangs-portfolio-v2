@@ -4,21 +4,18 @@ import { Github, Linkedin } from "lucide-react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
 import { FloatingPathsBackground } from "@/components/ui/floating-paths";
-import { AsciiArt } from "@/components/ui/neon-nebula";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { MarqueeColumn } from "@/components/motion/marquee-columns";
 import { siteConfig } from "@/config/site";
 import type { ProjectEntity } from "@/core/domain/entities/project.entity";
 import {
   aboutOpeningParagraph,
-  academicPerformanceSummary,
   aiAcceleratesSummary,
   aiWorkflowLead,
   aiWorkflowStory,
   contactLinks,
   coreStory,
   currentFocus,
-  currentStatusSummary,
   engineeringJudgmentSummary,
   footerClosingStatement,
   heroHeadline,
@@ -41,7 +38,6 @@ import { FoldToggle } from "@/components/ui/fold-toggle";
 import { Pill } from "@/components/ui/pill";
 import { SocialLink } from "@/components/ui/social-link";
 import { TechBadge } from "@/components/ui/tech-badge";
-import { WorkflowModel } from "@/features/portfolio/workflow-model";
 
 /**
  * Sections render both as part of a page and as the sole content of their own
@@ -395,11 +391,9 @@ export function HeroSection(): React.JSX.Element {
  * technology instead of read out three times over in a random order.
  */
 export function StackSection(): React.JSX.Element {
-  // One list, offset per column. The band used to draw from three separate
-  // groups; now that the stack is eight defended items rather than forty,
-  // there is only one honest list to draw from — so each column starts at a
-  // different point in it instead of the band padding itself out with
-  // technologies I no longer claim.
+  // One list, offset per column. The band draws from the "What I build with"
+  // group specifically, not the full skills list — the marquee is meant to be
+  // the tools actually used daily, not the whole /skills page cycling past.
   const shipped = skillGroups.find((group) => group.title === shippedStackTitle)?.items ?? [];
   const rotate = (offset: number): readonly string[] => [
     ...shipped.slice(offset),
@@ -485,7 +479,7 @@ export function AboutSection({ headingLevel, standalone }: SectionProps = {}): R
     <SectionShell
       id="about"
       eyebrow="About"
-      title="A small business became my first real project."
+      title="Two analyst roles and a degree, run at the same time."
       description={aboutOpeningParagraph}
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
@@ -505,22 +499,6 @@ export function AboutSection({ headingLevel, standalone }: SectionProps = {}): R
           <TimelineList as={sub} />
         </div>
       </FoldReveal>
-      <FoldReveal delayMs={100}>
-        <div className="border-border-subtle bg-surface-overlay mt-6 grid gap-4 rounded-3xl border p-5 sm:grid-cols-2 sm:p-6">
-          <div>
-            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Current status</p>
-            <p className="text-text-secondary mt-2 text-sm leading-7">{currentStatusSummary}</p>
-          </div>
-          <div>
-            <p className="text-text-muted text-xs tracking-[0.08em] uppercase">
-              Academic performance
-            </p>
-            <p className="text-text-secondary mt-2 text-sm leading-7">
-              {academicPerformanceSummary}
-            </p>
-          </div>
-        </div>
-      </FoldReveal>
     </SectionShell>
   );
 }
@@ -534,36 +512,33 @@ export function ProjectsSection({
 }): React.JSX.Element {
   const sub = cardLevel(headingLevel);
   return (
-    <div className="relative">
-      <AsciiArt className="pointer-events-none absolute inset-0 opacity-40" />
-      <SectionShell
-        id="projects"
-        eyebrow="Projects"
-        title="One flagship, the projects under it, and the research alongside both."
-        description="The UTA fleet availability data warehouse is the flagship - a star schema and Power BI dashboard staff at the Utah Transit Authority actually use day to day. Under it sit the EV fleet automation that feeds it, ObfuScope, the applied ML research on malware obfuscation, and personal projects built outside of coursework or an internship. I'm not presenting anything as more finished than it is."
-        {...(headingLevel ? { headingLevel } : {})}
-        {...(standalone ? { standalone } : {})}
-      >
-        <div className="grid gap-5 lg:grid-cols-2">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} as={sub} />
+    <SectionShell
+      id="projects"
+      eyebrow="Projects"
+      title="One flagship, the projects under it, and the research alongside both."
+      description="The UTA fleet availability data warehouse is the flagship - a star schema and Power BI dashboard staff at the Utah Transit Authority actually use day to day. Under it sit the EV fleet automation that feeds it, ObfuScope, the applied ML research on malware obfuscation, and personal projects built outside of coursework or an internship. I'm not presenting anything as more finished than it is."
+      {...(headingLevel ? { headingLevel } : {})}
+      {...(standalone ? { standalone } : {})}
+    >
+      <div className="grid gap-5 lg:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard key={project.slug} project={project} as={sub} />
+        ))}
+      </div>
+      <div className="border-border-subtle bg-surface-overlay mt-8 rounded-3xl border p-5 sm:p-6">
+        <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Academic practicals</p>
+        <p className="text-text-secondary mt-3 max-w-2xl text-sm leading-7">
+          I keep course practicals and lab work in the same portfolio because they show the same
+          pattern I use everywhere: find the problem, structure the system, and make the workflow
+          easier to use.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {currentFocus.slice(0, 3).map((item) => (
+            <Pill key={item}>{item}</Pill>
           ))}
         </div>
-        <div className="border-border-subtle bg-surface-overlay mt-8 rounded-3xl border p-5 sm:p-6">
-          <p className="text-text-muted text-xs tracking-[0.08em] uppercase">Academic practicals</p>
-          <p className="text-text-secondary mt-3 max-w-2xl text-sm leading-7">
-            I keep course practicals and lab work in the same portfolio because they show the same
-            pattern I use everywhere: find the problem, structure the system, and make the workflow
-            easier to use.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {currentFocus.slice(0, 3).map((item) => (
-              <Pill key={item}>{item}</Pill>
-            ))}
-          </div>
-        </div>
-      </SectionShell>
-    </div>
+      </div>
+    </SectionShell>
   );
 }
 
@@ -573,8 +548,8 @@ export function SkillsSection({ headingLevel, standalone }: SectionProps = {}): 
     <SectionShell
       id="skills"
       eyebrow="Skills"
-      title="Eight things, not forty."
-      description="No skill bars, no fake percentages, and no long tail of things I touched once. The first group is what I would be happy to be questioned on for an hour. The second is what I am learning properly and am not claiming yet."
+      title="Twenty things, split by how much I use them."
+      description="No skill bars, no fake percentages, and no long tail of things I touched once. What I build with daily, what I also reach for, and the concepts behind both."
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
     >
@@ -619,7 +594,7 @@ export function AiWorkflowSection({
     <SectionShell
       id="workflow"
       eyebrow="Workflow"
-      title="AI-Augmented Engineering Workflow"
+      title="How AI fits into a data workflow, and where it doesn't"
       description={aiWorkflowLead}
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}
@@ -633,9 +608,6 @@ export function AiWorkflowSection({
           </FoldReveal>
         ))}
       </div>
-      <FoldReveal delayMs={80}>
-        <WorkflowModel as={sub} />
-      </FoldReveal>
       <FoldReveal delayMs={90}>
         <div className="mt-8">
           <p className="text-text-muted mb-4 text-xs tracking-[0.08em] uppercase">
@@ -674,7 +646,7 @@ export function ToolkitSection({ headingLevel, standalone }: SectionProps = {}):
     <SectionShell
       id="toolkit"
       eyebrow="Toolkit"
-      title="Modern Engineering Toolkit"
+      title="The data toolkit"
       description={toolkitLead}
       {...(headingLevel ? { headingLevel } : {})}
       {...(standalone ? { standalone } : {})}

@@ -1,10 +1,10 @@
 ---
 slug: obfuscope
 title: ObfuScope
-summary: A research paper on fingerprinting which obfuscation toolchain produced a malware sample, not just detecting that obfuscation happened - submitted to ACM Transactions on Privacy and Security.
+summary: A research paper fingerprinting which obfuscation toolchain produced a malware sample, submitted to ACM Transactions on Privacy and Security.
 phase: case-study
 period: "Jul 2026 - present"
-role: Research collaborator
+role: Research Assistant
 organization: Weber State University
 techStack:
   - Python
@@ -23,7 +23,7 @@ metrics:
 links: []
 visual:
   eyebrow: Research collaboration - Weber State University
-  label: Which obfuscator, not just that it's obfuscated
+  label: Fingerprinting which obfuscator produced a sample
   description: Applied ML research asking a more specific question than most malware-obfuscation work does - and testing it against obfuscation types the model never saw during training.
 sections:
   - id: hook
@@ -31,7 +31,7 @@ sections:
     body: >-
       Most work on obfuscated malware asks whether a sample has been obfuscated at all. ObfuScope asks a narrower, more useful question - given an obfuscated sample, can you fingerprint which specific obfuscation toolchain produced it? Different tools leave different structural fingerprints, and that fingerprint is itself a signal worth extracting.
     bullets:
-      - Built with a Weber State CS professor as a research collaboration.
+      - Serving as a research assistant on the project, led by a Weber State CS professor.
       - Focus is toolchain attribution, not malware detection itself.
       - Submitted to ACM Transactions on Privacy and Security (TOPS) in 2026.
   - id: data
@@ -67,14 +67,16 @@ sections:
       - 0.988 AUROC on the open-set novelty protocol - meaningfully strong performance at recognizing an obfuscation type the model never trained on.
       - Experiments run on HTCondor/DAGMan across the Open Science Pool's high-throughput computing infrastructure.
   - id: reflection
-    heading: What this adds to the data work
+    heading: My role
     body: >-
-      This is the applied-ML and evaluation-design side of the work the SQL and BI projects don't touch - feature engineering, protocol design, and testing whether a result actually generalizes rather than just fits the data in front of it.
+      Joined as a research assistant once the core modeling work was done, with four specific responsibilities: verify the project actually holds up, then help make the paper better.
     bullets:
-      - Direct experience designing evaluation protocols meant to catch overfitting, not just report an accuracy number.
-      - Feature engineering across structural and statistical domains, applied to a real security problem.
+      - Reviewing and testing the project's code for completeness and reproducibility - checking that scripts run end to end, dependencies are documented, and results actually reproduce, then running the workflow directly on the Open Science Pool's HTCondor/DAGMan infrastructure.
+      - Reading the full paper end to end and revising it for writing quality, technical accuracy, and logical flow, including sharpening how clearly it states the paper's actual contribution.
+      - Conducting a literature review to identify related work using similar datasets, models, or evaluation methods, for the paper's related-work section and comparisons.
+      - Reporting findings back with specific notes on code issues, unclear parts of the paper, and gaps in the related-work coverage.
 order: 1
 status: published
 ---
 
-Research collaboration with a Weber State CS professor - fingerprinting obfuscation toolchains, submitted to ACM Transactions on Privacy and Security.
+Research assistant on a Weber State CS project fingerprinting obfuscation toolchains - code review, reproducibility testing, paper revision, and literature review. Submitted to ACM Transactions on Privacy and Security.

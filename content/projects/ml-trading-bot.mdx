@@ -44,7 +44,7 @@ sections:
       - Runs headlines through FinBERT (PyTorch/Transformers) to get a sentiment label and a confidence score.
       - Only triggers a buy on positive sentiment above 99.9% confidence, and only exits on negative sentiment at the same threshold - neutral or lower-confidence signals just hold.
   - id: risk
-    heading: Risk management, not just a signal
+    heading: Risk controls around every trade
     body: >-
       A sentiment signal alone isn't a trading strategy - the bot wraps every trade in automatic risk controls rather than relying on the signal being right every time.
     bullets:

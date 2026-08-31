@@ -25,7 +25,7 @@ import {
  * semesters and noted, in passing, which courses fed real work; /experience
  * described that work without saying where any of it was learned. A reader had
  * to hold both pages in their head to see the only interesting thing about
- * either — that the degree and the company ran at the same time and kept
+ * either — that the degree and the two jobs ran at the same time and kept
  * handing things to each other.
  *
  * So the middle of this page is a spine with a lane on each side: the semester
