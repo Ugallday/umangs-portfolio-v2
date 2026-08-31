@@ -8,6 +8,7 @@ import { Providers } from "@/app/providers";
 import { siteConfig } from "@/config/site";
 import { themeInitScript } from "@/config/theme-init-script";
 import { buildPageMetadata } from "@/core/domain/seo/build-page-metadata";
+import { ChatWidget } from "@/features/chatbot/chat-widget";
 import { heroHeadline } from "@/features/portfolio/content";
 import { OG_IMAGE_DIMENSIONS } from "@/features/portfolio/page-metadata";
 import "@/styles/globals.css";
@@ -54,9 +55,9 @@ export const metadata: Metadata = {
     description: pageMetadata.description,
   },
   robots: { index: true, follow: true },
-  // AB monogram, generated from the site tokens (warm near-black wash, cream
-  // letterforms, amber accent). Listed smallest-first: browsers take the last
-  // format they support, so the SVG wins wherever it is understood.
+  // "UG" monogram, generated from Umang's own logo. Listed smallest-first:
+  // browsers take the last format they support, so the SVG wins wherever it
+  // is understood.
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -118,6 +119,17 @@ export default async function RootLayout({
         {/* The skip link targets the <main> element rendered by SiteShell, so
             this wrapper deliberately carries no id of its own. */}
         <Providers>{children}</Providers>
+        {/* Deliberately outside Providers/{children}: everything in {children}
+            passes through app/template.tsx's page-enter animation, which sets
+            a CSS transform for the duration of the enter transition. Any
+            `position: fixed` descendant of a transformed ancestor is pinned
+            to that ancestor's box instead of the true viewport - which is
+            exactly why the chat widget used to scroll with the page instead
+            of floating over it. Mounting it here, as a sibling of the
+            animated tree rather than a descendant of it, is what actually
+            fixes that; a transform on a page's content can never reach a
+            sibling. */}
+        <ChatWidget />
         <Analytics />
         <SpeedInsights />
       </body>
