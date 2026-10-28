@@ -115,6 +115,32 @@
     text-transform: uppercase;
   }
 
+  .experience-name {
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(4.5rem, 12vw, 11.5rem);
+    font-weight: 300;
+    letter-spacing: -0.075em;
+  }
+
+  .experience-name span {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: -0.08em;
+  }
+
+  .experience-name em {
+    margin-top: 0.03em;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: -0.09em;
+  }
+
+  .experience-enter {
+    border-radius: 999px;
+  }
+
   .terminal-grid {
     background-image:
       linear-gradient(

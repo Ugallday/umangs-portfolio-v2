@@ -2,6 +2,7 @@ import { SiteShell } from "@/features/portfolio/shell";
 import { HeroSection, HubSection, SignalTicker, StackSection } from "@/features/portfolio/sections";
 import { FeaturedProjects } from "@/features/projects/featured-project";
 import { getProject } from "@/features/projects";
+import { ExperienceGate } from "@/components/layout/experience-gate";
 
 export const revalidate = 3600;
 
@@ -29,14 +30,16 @@ export default async function HomePage(): Promise<React.JSX.Element> {
   const projects = featured.filter((project) => project !== null);
 
   return (
-    <SiteShell>
-      <HeroSection />
-      <SignalTicker />
-      <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-        <FeaturedProjects projects={projects} />
-        <StackSection />
-        <HubSection />
-      </div>
-    </SiteShell>
+    <ExperienceGate>
+      <SiteShell>
+        <HeroSection />
+        <SignalTicker />
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <FeaturedProjects projects={projects} />
+          <StackSection />
+          <HubSection />
+        </div>
+      </SiteShell>
+    </ExperienceGate>
   );
 }
