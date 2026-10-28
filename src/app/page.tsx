@@ -1,6 +1,5 @@
 import { SiteShell } from "@/features/portfolio/shell";
-import { HeroSection, HubSection, SignalTicker, StackSection } from "@/features/portfolio/sections";
-import { FeaturedProjects } from "@/features/projects/featured-project";
+import { AtlasHome } from "@/features/portfolio/atlas-home";
 import { getProject } from "@/features/projects";
 
 export const revalidate = 3600;
@@ -30,13 +29,7 @@ export default async function HomePage(): Promise<React.JSX.Element> {
 
   return (
     <SiteShell>
-      <HeroSection />
-      <SignalTicker />
-      <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-        <FeaturedProjects projects={projects} />
-        <StackSection />
-        <HubSection />
-      </div>
+      <AtlasHome projects={projects} />
     </SiteShell>
   );
 }
