@@ -9,9 +9,9 @@
  *      dark/light theme swap a token-file change instead of a component
  *      rewrite.
  *
- * Palette direction: clean, neutral, restrained - true grayscale rather than
- * a warm or tinted ramp, a single accent color, and generous soft corners.
- * Depth comes from typography and whitespace, not texture or shadow.
+ * Palette direction: high-contrast terminal editorial. Near-black surfaces,
+ * cool white type, and a vivid signal green make the portfolio feel like a
+ * live data system without sacrificing the reading comfort of the case work.
  */
 
 :root {
@@ -28,30 +28,28 @@
   --gray-900: #131316;
   --gray-950: #09090b;
 
-  /* ---------- Primitives: accent ----------
-     A clean, single system-blue accent - used sparingly, for links and
-     primary actions only. */
-  --accent-400: #4f9dff;
-  --accent-500: #0071e3;
-  --accent-600: #0058b0;
+  /* ---------- Primitives: signal accent ---------- */
+  --accent-400: #c8ff4d;
+  --accent-500: #a7e32e;
+  --accent-600: #83b81a;
 
   /* ---------- Semantic: surface / border / text ----------
      Dark-first: these are the values a first-time visitor gets, and they are
      what renders before the theme script runs and for anyone without JS.
      [data-theme="light"] below is the toggled alternative. */
-  --surface-base: var(--gray-950);
-  --surface-raised: var(--gray-900);
-  --surface-overlay: var(--gray-800);
-  --border-subtle: #202024;
-  --border-default: #2c2c32;
-  --border-strong: #46464e;
-  --text-primary: #f5f5f7;
-  --text-secondary: var(--gray-400);
-  --text-muted: var(--gray-500);
-  --text-on-accent: #ffffff;
+  --surface-base: #060706;
+  --surface-raised: #0c0e0c;
+  --surface-overlay: #141714;
+  --border-subtle: #252a25;
+  --border-default: #3c443c;
+  --border-strong: #687268;
+  --text-primary: #f2f5ef;
+  --text-secondary: #aab4a9;
+  --text-muted: #6d766c;
+  --text-on-accent: #101408;
   --accent-default: var(--accent-400);
-  --accent-hover: #7ab6ff;
-  --accent-muted: rgba(79, 157, 255, 0.14);
+  --accent-hover: #dcff91;
+  --accent-muted: rgba(200, 255, 77, 0.13);
   --focus-ring-color: var(--accent-400);
 
   /* ---------- Flat, textureless ground ---------- */
@@ -80,12 +78,10 @@
   --blur-overlay: 20px;
   --glass-tint: rgba(9, 9, 11, 0.72);
 
-  /* ---------- Radius ----------
-     Soft and generous - the clearest visual signal of the minimal direction.
-     Cards, panels and buttons all round the same way. */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  /* ---------- Radius ---------- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
   --radius-full: 9999px;
 
   /* ---------- Grid ---------- */
@@ -100,19 +96,19 @@
 
 /* ---------- Dark theme ---------- */
 [data-theme="dark"] {
-  --surface-base: var(--gray-950);
-  --surface-raised: var(--gray-900);
-  --surface-overlay: var(--gray-800);
-  --border-subtle: #202024;
-  --border-default: #2c2c32;
-  --border-strong: #46464e;
-  --text-primary: #f5f5f7;
-  --text-secondary: var(--gray-400);
-  --text-muted: var(--gray-500);
-  --text-on-accent: #ffffff;
+  --surface-base: #060706;
+  --surface-raised: #0c0e0c;
+  --surface-overlay: #141714;
+  --border-subtle: #252a25;
+  --border-default: #3c443c;
+  --border-strong: #687268;
+  --text-primary: #f2f5ef;
+  --text-secondary: #aab4a9;
+  --text-muted: #6d766c;
+  --text-on-accent: #101408;
   --accent-default: var(--accent-400);
-  --accent-hover: #7ab6ff;
-  --accent-muted: rgba(79, 157, 255, 0.14);
+  --accent-hover: #dcff91;
+  --accent-muted: rgba(200, 255, 77, 0.13);
   --focus-ring-color: var(--accent-400);
   --paper-texture-opacity: 0;
   --glass-tint: rgba(9, 9, 11, 0.72);
@@ -124,19 +120,19 @@
 /* Light is what :root already carries; this block exists so an explicit
    "light" choice still wins over a dark-themed ancestor. */
 [data-theme="light"] {
-  --surface-base: #ffffff;
-  --surface-raised: var(--gray-50);
-  --surface-overlay: var(--gray-100);
-  --border-subtle: #e4e4e8;
-  --border-default: #d3d3d9;
-  --border-strong: #aeaeb8;
-  --text-primary: #1d1d1f;
-  --text-secondary: var(--gray-600);
-  --text-muted: var(--gray-500);
-  --text-on-accent: #ffffff;
+  --surface-base: #f5f7ef;
+  --surface-raised: #ffffff;
+  --surface-overlay: #e9eee2;
+  --border-subtle: #d2d9ca;
+  --border-default: #b8c2ae;
+  --border-strong: #8c9b81;
+  --text-primary: #121611;
+  --text-secondary: #495346;
+  --text-muted: #6b7567;
+  --text-on-accent: #101408;
   --accent-default: var(--accent-500);
   --accent-hover: var(--accent-600);
-  --accent-muted: rgba(0, 113, 227, 0.1);
+  --accent-muted: rgba(167, 227, 46, 0.18);
   --focus-ring-color: var(--accent-500);
   --paper-texture-opacity: 0;
   --glass-tint: rgba(255, 255, 255, 0.78);
@@ -180,11 +176,9 @@
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
-  /* Soft, generous corners across the board - the clearest visual signal of
-     the minimal direction. */
-  --radius-xl: 18px;
-  --radius-2xl: 22px;
-  --radius-3xl: 28px;
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+  --radius-3xl: 10px;
 
   --ease-fold: var(--motion-ease-fold);
   --ease-crease: var(--motion-ease-crease);

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 
 import { FoldReveal } from "@/components/motion/fold-reveal";
-import { FloatingPathsBackground } from "@/components/ui/floating-paths";
 import { ScrollProgressTrack } from "@/components/motion/scroll-progress-track";
 import { MarqueeColumn } from "@/components/motion/marquee-columns";
 import { siteConfig } from "@/config/site";
@@ -18,7 +17,6 @@ import {
   currentFocus,
   engineeringJudgmentSummary,
   footerClosingStatement,
-  heroHeadline,
   heroProofPoints,
   heroSubheadline,
   hubEntries,
@@ -281,24 +279,27 @@ const heroSocials = [
 export function HeroSection(): React.JSX.Element {
   return (
     <section className="border-border-subtle relative overflow-hidden border-b">
-      {/* items-center, not items-end: bottom-aligning two columns of different
-          heights left the shorter one hanging off the baseline. Centring them
-          balances the pair without touching either column's own spacing. */}
-      <FloatingPathsBackground
-        position={-1}
-        className="mx-auto grid min-h-[100svh] w-full max-w-7xl gap-12 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.25fr_0.75fr] xl:items-center"
-      >
-        <div className="flex flex-col justify-between gap-10 pt-6 pb-8 xl:pt-12 xl:pb-14">
-          {/* A meta row, not a banner — a second <header> here muddies the
-              landmark structure alongside the real site header. */}
-          <div className="text-text-muted flex items-center justify-between gap-4 text-xs tracking-[0.1em] uppercase">
-            <span>{siteConfig.shortName}</span>
-            <span>{siteConfig.location}</span>
+      <div className="terminal-grid absolute inset-0 opacity-60" aria-hidden="true" />
+      <div className="pointer-events-none absolute top-0 right-[11%] h-80 w-80 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent-default)_18%,transparent),transparent_66%)] blur-3xl" />
+      <div className="relative mx-auto grid min-h-[calc(100svh-57px)] w-full max-w-7xl gap-10 px-6 py-8 lg:px-8 lg:py-10 xl:grid-cols-[1.32fr_0.68fr] xl:items-end">
+        <div className="flex flex-col justify-between gap-12 pt-5 xl:pt-12">
+          <div className="system-kicker text-text-muted flex items-center justify-between gap-4">
+            <span>{siteConfig.shortName} // portfolio 2026</span>
+            <span className="hidden sm:inline">{siteConfig.location}</span>
           </div>
-          <div className="max-w-4xl space-y-8">
+          <div className="max-w-4xl space-y-7">
+            <div className="system-kicker text-accent-default flex items-center gap-3">
+              <span
+                className="signal-dot bg-accent-default h-2 w-2 rounded-full"
+                aria-hidden="true"
+              />
+              <span>Data systems // Applied research // Real decisions</span>
+            </div>
             <FoldReveal delayMs={40}>
-              <h1 className="text-text-primary max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.75rem] xl:leading-[0.95]">
-                {heroHeadline}
+              <h1 className="hero-name text-text-primary max-w-5xl">
+                Umang
+                <br />
+                Gupta
               </h1>
             </FoldReveal>
             <FoldReveal delayMs={80}>
@@ -307,50 +308,46 @@ export function HeroSection(): React.JSX.Element {
               </p>
             </FoldReveal>
             <FoldReveal delayMs={100}>
-              <p className="text-text-muted max-w-2xl text-xs tracking-[0.08em] uppercase">
+              <p className="text-text-muted max-w-2xl font-serif text-xs tracking-[0.1em] uppercase">
                 {heroProofPoints.join(" · ")}
               </p>
             </FoldReveal>
             <FoldReveal delayMs={120}>
               <div className="flex flex-wrap gap-3">
                 <Link href="/projects" className={actionClass({ size: "md" })}>
-                  Explore the work
+                  Open project archive ↗
                 </Link>
-                <Link href="/about" className={actionClass({ variant: "secondary", size: "md" })}>
-                  Read the story
+                <Link href="/resume" className={actionClass({ variant: "secondary", size: "md" })}>
+                  Download résumé
                 </Link>
               </div>
             </FoldReveal>
           </div>
           <FoldReveal delayMs={160}>
-            <div className="border-border-subtle text-text-secondary grid gap-3 border-t pt-6 text-sm sm:grid-cols-3">
+            <div className="border-border-subtle text-text-secondary grid gap-3 border-t pt-5 text-sm sm:grid-cols-3">
               <div>
-                <p className="text-text-muted">Now</p>
+                <p className="system-kicker text-text-muted">Now</p>
                 <p className="mt-1">Applying to MS programs in Data Science and CS</p>
               </div>
               <div>
-                <p className="text-text-muted">Focus</p>
+                <p className="system-kicker text-text-muted">Focus</p>
                 <p className="mt-1">Data that's correct, dashboards people actually trust</p>
               </div>
               <div>
-                <p className="text-text-muted">Working on</p>
+                <p className="system-kicker text-text-muted">Working on</p>
                 <p className="mt-1">The UTA fleet warehouse, EV automation, and ObfuScope</p>
               </div>
             </div>
           </FoldReveal>
         </div>
 
-        <FoldReveal delayMs={80} className="xl:pt-12 xl:pb-14">
-          <aside className="fold-panel relative overflow-hidden rounded-lg p-6 sm:p-8">
-            {/* The name and location used to head this card too, which put the
-                name on screen three times above the fold — the wordmark, the
-                hero byline, and here — and the location twice. The byline in
-                the left column carries both; a card sitting directly under a
-                photograph of the person does not need to caption him again. */}
+        <FoldReveal delayMs={80} className="xl:pb-2">
+          <aside className="fold-panel relative overflow-hidden rounded-sm p-4 sm:p-5">
             <div className="relative space-y-6">
-              {/* Flat mount. The portrait had a tinted glow behind it and a deep
-                  drop shadow under it — furniture around a photograph that is
-                  perfectly capable of holding the corner by itself. */}
+              <div className="system-kicker text-text-muted flex items-center justify-between">
+                <span>Profile.dat</span>
+                <span className="text-accent-default">Active</span>
+              </div>
               <div className="border-border-subtle bg-surface-overlay relative aspect-[4/5] overflow-hidden rounded-sm border">
                 <Image
                   src={portraitImage}
@@ -360,14 +357,33 @@ export function HeroSection(): React.JSX.Element {
                   sizes="(min-width: 1280px) 34vw, 90vw"
                   className="object-cover object-center"
                 />
+                <div className="absolute right-3 bottom-3 left-3 border border-white/15 bg-black/55 px-3 py-2 backdrop-blur-sm">
+                  <p className="font-serif text-[0.64rem] tracking-[0.1em] text-white/75 uppercase">
+                    Data analyst // builder
+                  </p>
+                </div>
+              </div>
+              <div className="border-border-subtle grid grid-cols-3 divide-x divide-[color:var(--border-subtle)] border">
+                <div className="p-3">
+                  <p className="text-text-primary font-serif text-xl">3.88</p>
+                  <p className="system-kicker text-text-muted mt-1">GPA</p>
+                </div>
+                <div className="p-3">
+                  <p className="text-text-primary font-serif text-xl">02</p>
+                  <p className="system-kicker text-text-muted mt-1">Analyst roles</p>
+                </div>
+                <div className="p-3">
+                  <p className="text-text-primary font-serif text-xl">DEC</p>
+                  <p className="system-kicker text-text-muted mt-1">Grad 2026</p>
+                </div>
               </div>
               <div className="text-text-secondary grid gap-3 text-sm sm:grid-cols-2">
                 {heroSocials.map(({ label, href, icon }) => (
                   <div
                     key={label}
-                    className="border-border-subtle bg-surface-overlay flex items-center justify-between gap-3 rounded-2xl border p-4"
+                    className="border-border-subtle bg-surface-overlay flex items-center justify-between gap-3 rounded-sm border p-3"
                   >
-                    <p className="text-text-muted text-xs tracking-[0.08em] uppercase">{label}</p>
+                    <p className="system-kicker text-text-muted">{label}</p>
                     <SocialLink href={href} label={label} className={socialGlowClass}>
                       {icon}
                     </SocialLink>
@@ -377,8 +393,24 @@ export function HeroSection(): React.JSX.Element {
             </div>
           </aside>
         </FoldReveal>
-      </FloatingPathsBackground>
+      </div>
     </section>
+  );
+}
+
+export function SignalTicker(): React.JSX.Element {
+  const signal =
+    "SQL SERVER · SSIS ETL · POWER BI · PYTHON AUTOMATION · APPLIED ML · DATA WAREHOUSING · ";
+  return (
+    <div
+      className="border-border-subtle bg-surface-raised overflow-hidden border-b py-3"
+      aria-hidden="true"
+    >
+      <div className="terminal-ticker text-accent-default flex font-serif text-[0.68rem] tracking-[0.15em] whitespace-nowrap uppercase">
+        <span>{signal.repeat(4)}</span>
+        <span>{signal.repeat(4)}</span>
+      </div>
+    </div>
   );
 }
 
@@ -405,11 +437,9 @@ export function StackSection(): React.JSX.Element {
     <section className="border-border-subtle border-t py-20 sm:py-24">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
-            The stack
-          </p>
-          <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Everything here is something I have shipped with.
+          <p className="system-kicker text-accent-default">/01 Tech signal array</p>
+          <h2 className="text-text-primary text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
+            Tools I have used to move real data.
           </h2>
           <p className="text-text-muted text-sm leading-7">{stackLead}</p>
           <Link href="/skills" className={actionClass({ variant: "secondary" })}>
@@ -440,11 +470,9 @@ export function HubSection(): React.JSX.Element {
     <section className="border-border-subtle border-t py-20 sm:py-24">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
         <div className="space-y-4">
-          <p className="text-text-muted text-xs font-medium tracking-[0.1em] uppercase">
-            Where to go
-          </p>
-          <h2 className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-4xl">
-            The whole story, one page at a time.
+          <p className="system-kicker text-accent-default">/02 Navigate</p>
+          <h2 className="text-text-primary max-w-xs text-3xl font-semibold tracking-tight sm:text-5xl">
+            Read the record behind the interface.
           </h2>
         </div>
         <nav aria-label="Portfolio sections" className="grid gap-4 sm:grid-cols-2">
@@ -452,7 +480,7 @@ export function HubSection(): React.JSX.Element {
             <FoldReveal key={entry.href} delayMs={index * 40}>
               <Link
                 href={entry.href}
-                className="fold-panel fold-hover group flex h-full flex-col rounded-3xl p-5 sm:p-6"
+                className="fold-panel fold-hover group flex h-full flex-col rounded-sm p-5 sm:p-6"
               >
                 <span className="text-text-primary text-lg font-semibold tracking-tight">
                   {entry.label}
@@ -462,7 +490,7 @@ export function HubSection(): React.JSX.Element {
                   className="text-accent-default mt-5 text-sm transition group-hover:translate-x-1"
                   aria-hidden="true"
                 >
-                  Open →
+                  Open file ↗
                 </span>
               </Link>
             </FoldReveal>

@@ -27,6 +27,18 @@
     color: var(--text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--border-subtle) 28%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--border-subtle) 28%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 36px 36px;
   }
 
   /* Headings take the display face. Set here rather than on every component so
@@ -40,6 +52,11 @@
 
   h1 {
     letter-spacing: -0.025em;
+  }
+
+  ::selection {
+    color: var(--text-on-accent);
+    background: var(--accent-default);
   }
 
   /* Focus is never suppressed. Only the visual affordance is scoped to
@@ -80,6 +97,56 @@
     border: 1px solid var(--border-subtle);
     background: var(--surface-raised);
     box-shadow: var(--elevation-1-shadow);
+  }
+
+  .system-kicker {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    font-family: var(--font-serif);
+    font-size: clamp(3.25rem, 10vw, 9.8rem);
+    font-weight: 500;
+    line-height: 0.82;
+    letter-spacing: -0.085em;
+    text-transform: uppercase;
+  }
+
+  .terminal-grid {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--border-subtle) 75%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--border-subtle) 75%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 48px 48px;
+  }
+
+  .signal-dot {
+    box-shadow: 0 0 18px color-mix(in srgb, var(--accent-default) 72%, transparent);
+  }
+
+  .signal-rule {
+    background: linear-gradient(90deg, transparent, var(--accent-default), transparent);
+  }
+
+  .terminal-ticker {
+    animation: terminal-ticker 34s linear infinite;
+    width: max-content;
+  }
+
+  @keyframes terminal-ticker {
+    to {
+      transform: translateX(-50%);
+    }
   }
 
   /**
@@ -182,6 +249,10 @@
     :root:not([data-motion="full"]) .type-caret::after {
       animation: none;
       opacity: 0;
+    }
+
+    :root:not([data-motion="full"]) .terminal-ticker {
+      animation: none;
     }
   }
 

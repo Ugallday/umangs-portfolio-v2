@@ -45,19 +45,19 @@ export function SiteHeader(): React.JSX.Element {
   return (
     <header
       data-print-hide
-      className="border-border-subtle sticky top-0 z-40 border-b bg-[color:var(--surface-base)]/82 backdrop-blur-xl"
+      className="border-border-subtle sticky top-0 z-40 border-b bg-[color:var(--surface-base)]/88 backdrop-blur-xl"
     >
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-3.5 lg:px-8">
         <Link
           href="/"
-          className="text-text-primary text-sm font-medium tracking-[0.09em] uppercase"
+          className="text-text-primary font-serif text-xs font-medium tracking-[0.14em] uppercase"
         >
           {siteConfig.shortName}
         </Link>
 
         <div className="flex items-center gap-3">
           <nav aria-label="Primary" className="hidden md:block">
-            <ul className="flex flex-wrap items-center justify-end gap-x-5 gap-y-3 text-sm">
+            <ul className="flex flex-wrap items-center justify-end gap-x-5 gap-y-3 font-serif text-[0.68rem] tracking-[0.1em] uppercase">
               {siteConfig.nav.map((item) => (
                 <li key={item.label}>
                   <Link
@@ -81,7 +81,7 @@ export function SiteHeader(): React.JSX.Element {
             aria-expanded={isOpen}
             aria-controls={menuId}
             aria-label={isOpen ? "Close menu" : "Open menu"}
-            className="border-border-subtle bg-surface-overlay text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex h-10 w-10 items-center justify-center rounded-full border transition md:hidden"
+            className="border-border-subtle bg-surface-overlay text-text-secondary hover:border-border-strong hover:text-text-primary inline-flex h-10 w-10 items-center justify-center rounded-sm border transition md:hidden"
           >
             {isOpen ? (
               <X className="h-[18px] w-[18px]" aria-hidden="true" />
